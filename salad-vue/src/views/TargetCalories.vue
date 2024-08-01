@@ -4,32 +4,26 @@
       <v-icon>mdi-arrow-left</v-icon>
     </RouterLink>
   </div>
-  <!-- <div>
-    <h1>나에게 맞는</h1>
-    <h1>칼로리 계산하기</h1>
-    <h4>칼로리를 계산하기 위한</h4>
-    <h4>나의 목표를 설정해주세요</h4>
-  </div> -->
   <div class="inner">
     <div class="title">
       <div>
         <h1>박선정님의</h1>
-        <h1>목표 칼로리는?</h1>
+        <h1>한 끼 목표 칼로리는?</h1>
       </div>
-      <h1 style="font-size: 32px;">682kcal</h1>
+      <h1 style="font-size: 32px;">{{ store.perMealCalories }}kcal</h1>
     </div>
     <div class="date">
       <div class="inputBox">
         <h5>탄수화물</h5>
-        <h3>233g</h3>
+        <h3>{{ store.carbs }}g</h3>
       </div>
       <div class="inputBox">
         <h5>단백질</h5>
-        <h3>233g</h3>
+        <h3>{{ store.protein }}g</h3>
       </div>
       <div class="inputBox">
         <h5>지방</h5>
-        <h3>233g</h3>
+        <h3>{{ store.fat }}g</h3>
       </div>
     </div>
     <h5>정확한 체질, 체지방량, 근육량 등에 따라 다르니</h5>
@@ -41,6 +35,17 @@
     </div>
   </div>
 </template>
+
+<script setup>
+import { onMounted } from 'vue';
+import { useCaloriesStore } from '@/stores/caloriesStore';
+
+const store = useCaloriesStore();
+
+onMounted(() => {
+  store.loadFromLocalStorage();
+});
+</script>
 
 <style scoped>
 .GNB {
