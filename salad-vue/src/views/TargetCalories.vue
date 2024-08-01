@@ -49,7 +49,9 @@ onMounted(() => {
 
 <style scoped>
 .GNB {
-  height: 100px;
+  height: 56px;
+  display: flex;
+  align-items: center;
 }
 h3 {
   color: #111;

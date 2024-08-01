@@ -10,7 +10,7 @@
       <div>
         <h1>박선정님의 </h1>
         <h1>하루 한 끼 목표 칼로리는 </h1>
-        <h1 style="font-size: 32px;">682kcal</h1>
+        <h1 style="font-size: 32px;">{{ store.perMealCalories }}kcal</h1>
       </div>
       <RouterLink to="/targetCalories" style="display: flex; align-items: center;">
         <h5>자세히보기</h5>
@@ -32,6 +32,14 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
+import { useCaloriesStore } from '@/stores/caloriesStore';
+
+const store = useCaloriesStore();
+
+onMounted(() => {
+  store.loadFromLocalStorage();
+});
 </script>
 
 <style scoped>
@@ -41,8 +49,14 @@ h2 {
 h5 {
   color: #999;
 }
+.v-icon, a {
+  color: #333;
+}
 .GNB {
-  height: 100px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .inner {
   display: flex;

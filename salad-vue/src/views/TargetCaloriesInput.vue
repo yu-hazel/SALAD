@@ -16,11 +16,15 @@
       <div class="selectBox">
         <div class="inputBox select">
           <input type="radio" name="gender" id="women" value="female" v-model="store.gender">
-          <label for="women" class="label">여성</label>
+          <label for="women" class="label">
+            <h3>여성</h3>
+          </label>
         </div>
         <div class="inputBox select">
           <input type="radio" name="gender" id="men" value="male" v-model="store.gender">
-          <label for="men" class="label">남성</label>
+          <label for="men" class="label">
+            <h3>남성</h3>
+          </label>
         </div>
       </div>
       <input type="number" v-model="store.age" placeholder="나이를 입력해주세요" class="inputBox" required>
@@ -35,21 +39,24 @@
             </div>
           </template>
           <div class="modal">
+            <h4>
+              목표를 선택하세요
+            </h4>
             <div class="selectBox">
-              <div class="inputBox select">
+              <div class="inputBox select modalselect">
                 <input type="radio" name="target" id="decrement" value="감량" @change="selectTarget('감량')"
                   :checked="tempGoal === '감량'">
-                <label for="decrement" class="label modalLabel">감량</label>
+                <label for="decrement" class="label">감량</label>
               </div>
-              <div class="inputBox select">
+              <div class="inputBox select modalselect">
                 <input type="radio" name="target" id="keep" value="유지" @change="selectTarget('유지')"
                   :checked="tempGoal === '유지'">
-                <label for="keep" class="label modalLabel">유지</label>
+                <label for="keep" class="label">유지</label>
               </div>
-              <div class="inputBox select">
+              <div class="inputBox select modalselect">
                 <input type="radio" name="target" id="increase" value="증량" @change="selectTarget('증량')"
                   :checked="tempGoal === '증량'">
-                <label for="increase" class="label modalLabel">증량</label>
+                <label for="increase" class="label">증량</label>
               </div>
             </div>
             <div class="btn" @click="confirmTarget">
@@ -62,22 +69,26 @@
           <template v-slot:activator="{ props }">
             <div class="text-center" style="flex: 1 1 0;">
               <v-btn v-bind="props" class="inputBox">{{ store.mealCount ? `${store.mealCount}끼` : '식사량을 선택하세요'
-                }}</v-btn>
+              }}</v-btn>
             </div>
           </template>
           <div class="modal">
+            <h4>
+              목표를 선택하세요
+            </h4>
             <div class="selectBox">
-              <div style="display: flex; flex: 1 1 0;" class="inputBox select">
+
+              <div style="display: flex; flex: 1 1 0;" class="inputBox select modalselect">
                 <input type="radio" name="amount" id="one" value="1" @change="selectAmount('1')"
                   :checked="tempAmount === '1'">
                 <label for="one" class="label">1끼</label>
               </div>
-              <div style="display: flex; flex: 1 1 0;" class="inputBox select">
+              <div style="display: flex; flex: 1 1 0;" class="inputBox select modalselect">
                 <input type="radio" name="amount" id="two" value="2" @change="selectAmount('2')"
                   :checked="tempAmount === '2'">
                 <label for="two" class="label">2끼</label>
               </div>
-              <div style="display: flex; flex: 1 1 0;" class="inputBox select">
+              <div style="display: flex; flex: 1 1 0;" class="inputBox select modalselect">
                 <input type="radio" name="amount" id="three" value="3" @change="selectAmount('3')"
                   :checked="tempAmount === '3'">
                 <label for="three" class="label">3끼</label>
@@ -157,7 +168,9 @@ onMounted(() => {
 
 <style scoped>
 .GNB {
-  height: 100px;
+  height: 56px;
+  display: flex;
+  align-items: center;
 }
 .inner {
   display: flex;
@@ -254,7 +267,7 @@ onMounted(() => {
   justify-content: space-between;
 }
 
-.modalLabel {
-  /* height: 78px !important; */
+.modalselect {
+  height: 78px !important;
 }
 </style>

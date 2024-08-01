@@ -2,51 +2,77 @@
   <div>
     <orderHeader />
     <div>
-      <swiper :slidesPerView="'auto'" :centeredSlides="true" :spaceBetween="30" :pagination="{
-        clickable: true,
-      }" :modules="modules" class="mySwiper">
-        <swiper-slide><img src="../assets/saladbowl.png" alt="saladbowl">
-          <h2>Lage</h2>
-          <h5>600g</h5>
-          <h5>7,900원</h5>
+      <swiper :slides-per-view="'auto'" :centered-slides="true" :space-between="30" :pagination="{ clickable: true }"
+        :modules="modules" class="mySwiper" @slideChange="onSlideChange">
+        <swiper-slide>
+          <img src="../assets/saladbowl.png" alt="saladbowl" />
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <h3>라지 사이즈 (600g)</h3>
+              <div style="display: flex; flex-direction: column; gap: 4px;">
+                <h5>기본재료 8가지</h5>
+                <h5>드레싱 2가지</h5>
+              </div>
+            </div>
+            <h4>7,900원</h4>
+          </div>
+
         </swiper-slide>
-        <swiper-slide><img src="../assets/saladbowl.png" alt="saladbowl">
-          <h2>Medium</h2>
-          <h5>400g</h5>
-          <h5>5,900원</h5>
+        <swiper-slide>
+          <img src="../assets/saladbowl.png" alt="saladbowl" />
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <h3>클래식 사이즈 (600g)</h3>
+              <div style="display: flex; flex-direction: column; gap: 4px;">
+                <h5>기본재료 6가지</h5>
+                <h5>드레싱 1가지</h5>
+              </div>
+            </div>
+            <h4>6,900원</h4>
+          </div>
         </swiper-slide>
-        <swiper-slide><img src="../assets/saladbowl.png" alt="saladbowl">
-          <h2>Small</h2>
-          <h5>300g</h5>
-          <h5>4,900원</h5>
+        <swiper-slide>
+          <img src="../assets/saladbowl.png" alt="saladbowl" />
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <h3>미니 사이즈 (600g)</h3>
+              <div style="display: flex; flex-direction: column; gap: 4px;">
+                <h5>기본재료 4가지</h5>
+                <h5>드레싱 1가지</h5>
+              </div>
+            </div>
+            <h4>5,900원</h4>
+          </div>
         </swiper-slide>
       </swiper>
     </div>
-    <orderFooter />
-    <RouterLink to="/orderSelect">
-      다음으로
-    </RouterLink>
+    <orderFooter :onNext="saveSizeAndNext" />
   </div>
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue';
+import { useSizeStore } from '@/stores/sizeStore';
 import orderHeader from '@/components/OrderHeader.vue';
 import orderFooter from '@/components/OrderFooter.vue';
-
-// Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue';
-
-// Import Swiper styles
 import 'swiper/css';
-// import 'swiper/css/pagination';
-
-// import './style.css';
-
-// Import required modules
 import { Pagination } from 'swiper/modules';
-
-// Define Swiper modules
 const modules = [Pagination];
+const sizeStore = useSizeStore();
+const currentSlide = ref(sizeStore.selectedSize);
+const onSlideChange = (swiper) => {
+  const slides = ['Large', 'Medium', 'Small'];
+  currentSlide.value = slides[swiper.activeIndex];
+  sizeStore.setSize(currentSlide.value);
+};
+const saveSizeAndNext = () => {
+  sizeStore.setSize(currentSlide.value);
+  navigationStore.goToNextPage();
+};
+onMounted(() => {
+  sizeStore.loadSizeFromLocalStorage();
+});
 </script>
 
 <style scoped>
@@ -76,7 +102,7 @@ const modules = [Pagination];
 
 .swiper-slide {
   width: 250px;
-  height: 350px;
+  gap: 24px;
 }
 
 .swiper-slide:nth-child(2n) {
@@ -91,5 +117,12 @@ const modules = [Pagination];
 
 :deep(.swiper-wrapper) {
   align-items: center;
+}
+.bowl {
+  padding: 10px;
+  border-radius: 500px;
+}
+.active {
+  background-color: #52CA19;
 }
 </style>

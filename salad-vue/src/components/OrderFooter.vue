@@ -1,16 +1,29 @@
 <template>
   <v-progress-linear></v-progress-linear>
   <div class="btnBox">
-    <div class="btn">
+    <div class="btn" @click="handlePrevious">
       <h4>이전으로</h4>
     </div>
-    <div class="btn" style="background-color: #52CA19;">
+    <div class="btn" style="background-color: #52CA19;" @click="handleNext">
       <h4>다음으로</h4>
     </div>
   </div>
 </template>
 
-<!-- 배열에 주문 로직 페이지 순서대로 넣어서 '이전'은 -1 / '다음'은 +1 -->
+<script setup>
+import { useNavigationStore } from '@/stores/navigationStore';
+import { useRouter } from 'vue-router';
+const navigationStore = useNavigationStore();
+const router = useRouter();
+const handlePrevious = () => {
+  navigationStore.goToPreviousPage();
+  router.push(navigationStore.getCurrentPage());
+};
+const handleNext = () => {
+  navigationStore.goToNextPage();
+  router.push(navigationStore.getCurrentPage());
+};
+</script>
 
 <style scoped>
 h4 {
