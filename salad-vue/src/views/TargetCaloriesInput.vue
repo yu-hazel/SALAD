@@ -27,10 +27,21 @@
           </label>
         </div>
       </div>
-      <input type="number" v-model="store.age" placeholder="나이를 입력해주세요" class="inputBox" required>
-      <input type="number" v-model="store.height" placeholder="키를 입력해주세요" class="inputBox" required>
-      <input type="number" v-model="store.currentWeight" placeholder="현재 체중을 입력해주세요" class="inputBox" required>
-
+      <div>
+        <input type="number" v-model="store.age" @input="validateAge" placeholder="나이를 입력해주세요"
+          :class="{ 'inputBox': true, 'input-error': ageError }" required>
+        <span v-if="ageError" class="error-message">{{ ageError }}</span>
+      </div>
+      <div>
+        <input type="number" v-model="store.height" @input="validateHeight" placeholder="키를 입력해주세요"
+          :class="{ 'inputBox': true, 'input-error': heightError }" required>
+        <span v-if="heightError" class="error-message">{{ heightError }}</span>
+      </div>
+      <div>
+        <input type="number" v-model="store.currentWeight" @input="validateWeight" placeholder="현재 체중을 입력해주세요"
+          :class="{ 'inputBox': true, 'input-error': weightError }" required>
+        <span v-if="weightError" class="error-message">{{ weightError }}</span>
+      </div>
       <div style="display: flex; gap: 6px;">
         <v-bottom-sheet v-model="target">
           <template v-slot:activator="{ props }">
@@ -77,7 +88,8 @@
             <h4>
               식사량을 선택하세요
             </h4>
-            <p>회원님의 1일 권장 칼로리는 {{ store.recommendedCalories }} kcal 입니다. 하루에 몇 끼를 드시는지에 따라 샐러드로 드실 한 끼 칼로리를 나누어 드릴게요.</p>
+            <p>회원님의 1일 권장 칼로리는 {{ store.recommendedCalories }} kcal 입니다. 하루에 몇 끼를 드시는지에 따라 샐러드로 드실 한 끼 칼로리를 나누어 드릴게요.
+            </p>
             <div class="selectBox">
               <div style="display: flex; flex: 1 1 0;" class="inputBox select modalselect">
                 <input type="radio" name="amount" id="one" value="1" @change="selectAmount('1')"
@@ -102,7 +114,7 @@
         </v-bottom-sheet>
       </div>
     </form>
-    <div>목표에 따라 계산된 한 끼 권장 칼로리는 {{ store.perMealCalories }}kcal 입니다.</div>
+    <div v-if="isFormValid">목표에 따라 계산된 한 끼 권장 칼로리는 {{ store.perMealCalories }}kcal 입니다.</div>
     <div>
       <RouterLink to="/targetCalories" class="btn" @click.native="calculateAndSaveCalories">
         <h3 style="color: #eee;">저장하기</h3>
@@ -112,7 +124,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted, watch, computed } from 'vue';
 import { useCaloriesStore } from '@/stores/caloriesStore';
 
 const store = useCaloriesStore();
@@ -150,6 +162,47 @@ const confirmAmount = () => {
 const closeAmountModal = () => {
   tempAmount.value = store.mealCount.toString();  // 모달을 닫을 때 임시 값을 초기화
   amount.value = false;
+};
+
+// 유효성 검사 (나이, 키, 체중)
+const validateNumberInput = (value) => {
+  return !isNaN(value) && value > 0;
+};
+
+// 모든 input이 다 입력되었는지 체크
+const isFormValid = computed(() => {
+  return validateNumberInput(store.age) && validateNumberInput(store.height) && validateNumberInput(store.currentWeight);
+});
+
+const ageError = ref('');
+const heightError = ref('');
+const weightError = ref('');
+
+const validateAge = () => {
+  if (!validateNumberInput(store.age)) {
+    ageError.value = '숫자만 입력 가능합니다';
+  } else {
+    ageError.value = '';
+    store.calculateCalories();
+  }
+};
+
+const validateHeight = () => {
+  if (!validateNumberInput(store.height)) {
+    heightError.value = '숫자만 입력 가능합니다';
+  } else {
+    heightError.value = '';
+    store.calculateCalories();
+  }
+};
+
+const validateWeight = () => {
+  if (!validateNumberInput(store.currentWeight)) {
+    weightError.value = '숫자만 입력 가능합니다';
+  } else {
+    weightError.value = '';
+    store.calculateCalories();
+  }
 };
 
 // 사용자 입력 데이터 반영
@@ -268,5 +321,16 @@ onMounted(() => {
 
 .modalselect {
   height: 78px !important;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+}
+
+.input-error {
+  border: 1px solid red;
 }
 </style>
