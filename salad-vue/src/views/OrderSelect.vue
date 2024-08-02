@@ -1,37 +1,38 @@
 <template>
   <div>
-    <div></div>
     <orderHeader />
     <h5 style="text-align: center;">최대 5개 선택가능</h5>
-    <div style="display: grid;
-  grid-template-columns: repeat(auto-fill,minmax(160px, 1fr)); gap: 6px;">
-
-      <button class="menuBox" :class="{ active: isActive }" @click="toggleClass">
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 6px;">
+      <div v-for="(ingredient, index) in store.ingredients" :key="index" class="menuBox"
+        :class="{ active: store.selectedIngredients.includes(ingredient) }" @click="store.toggleIngredient(ingredient)">
         <v-bottom-sheet v-model="more">
           <template v-slot:activator="{ props }">
             <div class="text-center" style="flex: 1 1 0;">
-              <div style="display: flex;justify-content: flex-end;">
+              <div style="display: flex; justify-content: flex-end;">
                 <div v-bind="props" style="display: flex;">
-                  <h5>더보기</h5> <v-icon>mdi-arrow-right</v-icon>
+                  <h5>더보기</h5>
+                  <v-icon>mdi-arrow-right</v-icon>
                 </div>
               </div>
-              <img src="../assets/menu1.png" alt="menu" style="width: 60px; height: 60px;">
-              <h4>파프리카</h4>
-              <h5>42kcal</h5>
+              <img :src="ingredient.image" alt="menu" style="width: 60px; height: 60px;" />
+              <h4>{{ ingredient.name }}</h4>
+              <h5>{{ ingredient.calories }}kcal</h5>
             </div>
           </template>
           <div class="modal">
             <div class="btn" @click="more = !more">
-              <img src="../assets/menu1.png" alt="menu">
-              <h1>파프리카</h1>
-              <h4>60g / 124kcal</h4>
-              <VNumberInput :reverse="false" controlVariant="split" label="" :hideInput="false" inset />
+              <img :src="ingredient.image" alt="menu" />
+              <h1>{{ ingredient.name }}</h1>
+              <h4>{{ ingredient.weight }} / {{ ingredient.calories }}kcal</h4>
+              <VNumberInput v-model="ingredient.quantity" :min="0" controlVariant="split" label="" :hideInput="false"
+                inset @change="(value) => store.updateQuantity(ingredient, value)" />
               <h3 style="color: #eee;">선택완료</h3>
             </div>
           </div>
         </v-bottom-sheet>
-        <VNumberInput :reverse="false" controlVariant="split" label="" :hideInput="false" inset />
-      </button>
+        <VNumberInput v-model="ingredient.quantity" :min="0" controlVariant="split" label="" :hideInput="false" inset
+          @change="(value) => store.updateQuantity(ingredient, value)" />
+      </div>
     </div>
     <orderFooter />
   </div>
@@ -42,10 +43,12 @@ import orderHeader from '@/components/OrderHeader.vue';
 import orderFooter from '@/components/OrderFooter.vue';
 import { VNumberInput } from 'vuetify/labs/VNumberInput';
 import { ref } from 'vue';
+import { useIngredientsStore } from '@/stores/ingredientsStore';
 
+const store = useIngredientsStore();
 const more = ref(false);
-
 const isActive = ref(false);
+
 function toggleClass() {
   isActive.value = !isActive.value;
 }
