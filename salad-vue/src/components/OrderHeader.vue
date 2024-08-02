@@ -1,6 +1,6 @@
 <template>
   <div class="GNB">
-    <v-icon>mdi-arrow-left</v-icon>
+    <v-icon @click="goHome">mdi-arrow-left</v-icon>
     <h2 class="title">STEP.01</h2>
   </div>
   <div class="txtBox">
@@ -11,11 +11,17 @@
 
 <script setup>
 import { onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import { useCaloriesStore } from '@/stores/caloriesStore';
 import { useIngredientsStore } from '@/stores/ingredientsStore';
 
 const caloriesStore = useCaloriesStore();
 const ingredientsStore = useIngredientsStore();
+const router = useRouter();
+
+const goHome = () => {
+  router.push('/');
+};
 
 onMounted(() => {
   caloriesStore.loadFromLocalStorage();
