@@ -42,6 +42,7 @@
             <h4>
               목표를 선택하세요
             </h4>
+            <p>회원님의 1일 권장 칼로리는 {{ store.recommendedCalories }} kcal 입니다. 목표 선택에 따라 칼로리를 조절해 드려요.</p>
             <div class="selectBox">
               <div class="inputBox select modalselect">
                 <input type="radio" name="target" id="decrement" value="감량" @change="selectTarget('감량')"
@@ -69,15 +70,15 @@
           <template v-slot:activator="{ props }">
             <div class="text-center" style="flex: 1 1 0;">
               <v-btn v-bind="props" class="inputBox">{{ store.mealCount ? `${store.mealCount}끼` : '식사량을 선택하세요'
-              }}</v-btn>
+                }}</v-btn>
             </div>
           </template>
           <div class="modal">
             <h4>
-              목표를 선택하세요
+              식사량을 선택하세요
             </h4>
+            <p>회원님의 1일 권장 칼로리는 {{ store.recommendedCalories }} kcal 입니다. 하루에 몇 끼를 드시는지에 따라 샐러드로 드실 한 끼 칼로리를 나누어 드릴게요.</p>
             <div class="selectBox">
-
               <div style="display: flex; flex: 1 1 0;" class="inputBox select modalselect">
                 <input type="radio" name="amount" id="one" value="1" @change="selectAmount('1')"
                   :checked="tempAmount === '1'">
@@ -101,7 +102,7 @@
         </v-bottom-sheet>
       </div>
     </form>
-
+    <div>목표에 따라 계산된 한 끼 권장 칼로리는 {{ store.perMealCalories }}kcal 입니다.</div>
     <div>
       <RouterLink to="/targetCalories" class="btn" @click.native="calculateAndSaveCalories">
         <h3 style="color: #eee;">저장하기</h3>
@@ -127,8 +128,8 @@ const selectTarget = (value) => {
 
 const confirmTarget = () => {
   store.goal = tempGoal.value;  // 임시 값을 최종 값으로 반영
+  store.calculateCalories(store.goal);  // 목표에 따른 칼로리 계산
   target.value = false;  // 모달 닫기
-  store.saveUserData();  // 목표값 저장
 };
 
 const closeTargetModal = () => {
@@ -142,8 +143,8 @@ const selectAmount = (value) => {
 
 const confirmAmount = () => {
   store.mealCount = parseInt(tempAmount.value);  // 임시 값을 최종 값으로 반영
+  store.calculateCalories(store.goal);  // 끼니 수에 따른 칼로리 계산
   amount.value = false;  // 모달 닫기
-  store.saveUserData();  // 식사량 저장
 };
 
 const closeAmountModal = () => {
@@ -151,15 +152,13 @@ const closeAmountModal = () => {
   amount.value = false;
 };
 
-const calculateAndSaveCalories = () => {
-  store.calculateCalories();
-  store.saveUserData();  // 데이터 저장
-};
-
 // 사용자 입력 데이터 반영
-watch(() => store.age, (newValue) => localStorage.setItem('age', newValue));
-watch(() => store.height, (newValue) => localStorage.setItem('height', newValue));
-watch(() => store.currentWeight, (newValue) => localStorage.setItem('currentWeight', newValue));
+watch(
+  () => [store.gender, store.age, store.height, store.currentWeight],
+  () => {
+    store.calculateCalories(); // 성별, 나이, 키, 체중 입력 시 유지 기준으로 권장 칼로리 계산
+  }
+);
 
 onMounted(() => {
   store.loadFromLocalStorage();
