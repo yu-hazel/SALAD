@@ -5,13 +5,14 @@ export const useIngredientsStore = defineStore('ingredients', () => {
     const ingredients = ref([
         {
             name: '파프리카',
-            image: '@/assets/menu1.png',
+            image: 'menu1.png',
             weight: 60,
             calories: 42,
             carbs: 10,
             protein: 1,
             fat: 0.2,
             quantity: ref(0),
+            more: ref(false),
         },
         {
             name: '토마토',
@@ -22,6 +23,7 @@ export const useIngredientsStore = defineStore('ingredients', () => {
             protein: 0.9,
             fat: 0.2,
             quantity: ref(0),
+            more: ref(false),
         },
         {
             name: '양상추',
@@ -32,6 +34,7 @@ export const useIngredientsStore = defineStore('ingredients', () => {
             protein: 1.4,
             fat: 0.2,
             quantity: ref(0),
+            more: ref(false),
         },
         {
             name: '오이',
@@ -42,6 +45,7 @@ export const useIngredientsStore = defineStore('ingredients', () => {
             protein: 0.3,
             fat: 0.1,
             quantity: ref(0),
+            more: ref(false),
         },
         {
             name: '당근',
@@ -52,6 +56,7 @@ export const useIngredientsStore = defineStore('ingredients', () => {
             protein: 0.6,
             fat: 0.1,
             quantity: ref(0),
+            more: ref(false),
         },
         {
             name: '적양배추',
@@ -62,6 +67,7 @@ export const useIngredientsStore = defineStore('ingredients', () => {
             protein: 1,
             fat: 0.2,
             quantity: ref(0),
+            more: ref(false),
         },
         {
             name: '시금치',
@@ -72,6 +78,7 @@ export const useIngredientsStore = defineStore('ingredients', () => {
             protein: 0.9,
             fat: 0.1,
             quantity: ref(0),
+            more: ref(false),
         },
         {
             name: '아보카도',
@@ -82,6 +89,7 @@ export const useIngredientsStore = defineStore('ingredients', () => {
             protein: 1,
             fat: 7,
             quantity: ref(0),
+            more: ref(false),
         },
         {
             name: '올리브',
@@ -92,6 +100,7 @@ export const useIngredientsStore = defineStore('ingredients', () => {
             protein: 0.8,
             fat: 10,
             quantity: ref(0),
+            more: ref(false),
         },
         {
             name: '브로콜리',
@@ -102,6 +111,7 @@ export const useIngredientsStore = defineStore('ingredients', () => {
             protein: 1.2,
             fat: 0.2,
             quantity: ref(0),
+            more: ref(false),
         },
     ]);
 

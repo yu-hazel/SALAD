@@ -8,21 +8,17 @@
     <h4 style="margin-top: 12px;">/ {{ caloriesStore.perMealCalories }}kcal</h4>
   </div>
 </template>
-
 <script setup>
 import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useCaloriesStore } from '@/stores/caloriesStore';
 import { useIngredientsStore } from '@/stores/ingredientsStore';
-
 const caloriesStore = useCaloriesStore();
 const ingredientsStore = useIngredientsStore();
 const router = useRouter();
-
 const goHome = () => {
   router.push('/');
 };
-
 onMounted(() => {
   caloriesStore.loadFromLocalStorage();
 });

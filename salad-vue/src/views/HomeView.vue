@@ -23,7 +23,7 @@
         <h2>추천조합</h2>
         <h5>나에게 맞는 조합</h5>
       </RouterLink>
-      <RouterLink to="/orderSize" class="btn">
+      <RouterLink to="/orderSelect" class="btn">
         <h2>주문하기</h2>
         <h5>나의 맞춤 샐러드</h5>
       </RouterLink>

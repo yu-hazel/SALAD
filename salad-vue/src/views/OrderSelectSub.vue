@@ -14,14 +14,14 @@
                   <v-icon>mdi-arrow-right</v-icon>
                 </div>
               </div>
-              <img :src="getImagePath(ingredient.image)" alt="menu" style="width: 60px; height: 60px;" />
+              <img :src="ingredient.image" alt="menu" style="width: 60px; height: 60px;" />
               <h4>{{ ingredient.name }}</h4>
               <h5>{{ ingredient.calories }}kcal</h5>
             </div>
           </template>
           <div class="modal">
             <div class="btn" @click="ingredient.more = !ingredient.more">
-              <img :src="getImagePath(ingredient.image)" alt="menu" />
+              <img :src="ingredient.image" alt="menu" />
               <h1>{{ ingredient.name }}</h1>
               <h4>{{ ingredient.weight }} / {{ ingredient.calories }}kcal</h4>
               <!-- <VNumberInput v-model="ingredient.quantity" :min="0" controlVariant="split" label="" :hideInput="false"
@@ -43,20 +43,17 @@ import orderHeader from '@/components/OrderHeader.vue';
 import orderFooter from '@/components/OrderFooter.vue';
 import { VNumberInput } from 'vuetify/labs/VNumberInput';
 import { ref } from 'vue';
-import { useIngredientsStore } from '@/stores/ingredientsStore';
+import { useIngredientsStore } from '@/stores/ingredientsStoreSub';
 
 const store = useIngredientsStore();
 
 const more = ref(false);
 
 const isActive = ref(false);
+
 function toggleClass() {
   isActive.value = !isActive.value;
 }
-
-const getImagePath = (imageName) => {
-  return new URL(`../assets/${imageName}`, import.meta.url).href;
-};
 </script>
 
 <style scoped>
