@@ -4,19 +4,21 @@
     <h2 class="title">STEP.01</h2>
   </div>
   <div class="txtBox">
-    <h1>0kcal</h1>
-    <h4 style="margin-top: 12px;">/ {{ store.perMealCalories }}kcal</h4>
+    <h1>{{ ingredientsStore.totalCalories }}kcal</h1>
+    <h4 style="margin-top: 12px;">/ {{ caloriesStore.perMealCalories }}kcal</h4>
   </div>
 </template>
 
 <script setup>
 import { onMounted } from 'vue';
 import { useCaloriesStore } from '@/stores/caloriesStore';
+import { useIngredientsStore } from '@/stores/ingredientsStore';
 
-const store = useCaloriesStore();
+const caloriesStore = useCaloriesStore();
+const ingredientsStore = useIngredientsStore();
 
 onMounted(() => {
-  store.loadFromLocalStorage();
+  caloriesStore.loadFromLocalStorage();
 });
 </script>
 

@@ -15,7 +15,7 @@ export const useCaloriesStore = defineStore('calories', {
         fat: null,
     }),
     actions: {
-        calculateCalories() {
+        calculateCalories(basedOnGoal = '유지') {
             let BMR = 0;
 
             if (this.gender === 'male') {
@@ -24,11 +24,11 @@ export const useCaloriesStore = defineStore('calories', {
                 BMR = 655 + (9.6 * this.currentWeight) + (1.7 * this.height) - (4.7 * this.age);
             }
 
-            if (this.goal === '유지') {
+            if (basedOnGoal === '유지') {
                 this.recommendedCalories = Math.round(BMR * 1.375); // 유지
-            } else if (this.goal === '감량') {
+            } else if (basedOnGoal === '감량') {
                 this.recommendedCalories = Math.round((BMR * 1.375) - ((BMR * 1.375) * 0.2)); // 감량
-            } else if (this.goal === '증량') {
+            } else if (basedOnGoal === '증량') {
                 this.recommendedCalories = Math.round((BMR * 1.375) + ((BMR * 1.375) * 0.2)); // 증량
             }
 
