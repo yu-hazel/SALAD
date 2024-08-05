@@ -1,11 +1,12 @@
 <template>
-  <v-progress-linear></v-progress-linear>
-  <div class="btnBox">
-    <div class="btn" @click="handlePrevious">
-      <h4>이전으로</h4>
-    </div>
-    <div class="btn" style="background-color: #52CA19;" @click="handleNext">
-      <h4>다음으로</h4>
+  <div style="height: 110px; padding: 12px 20px 0 20px; width: 100%; background-color: #fff; z-index: 100;">
+    <div class="btnBox">
+      <div class="btn" @click="handlePrevious">
+        <h4>이전으로</h4>
+      </div>
+      <div class="btn" style="background-color: #52CA19;" @click="handleNext">
+        <h4>다음으로</h4>
+      </div>
     </div>
   </div>
 </template>

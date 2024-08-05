@@ -64,6 +64,30 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/OrderSelectSub.vue')
+    },
+    {
+      path: '/orderDressing',
+      name: 'OrderDressing',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/OrderDressing.vue')
+    },
+    {
+      path: '/orderFinal',
+      name: 'OrderFinal',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/OrderFinal.vue')
+    },
+    {
+      path: '/orderSheet',
+      name: 'OrderSheet',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/OrderSheet.vue')
     }
   ]
 });

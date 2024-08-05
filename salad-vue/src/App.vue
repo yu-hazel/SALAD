@@ -5,6 +5,8 @@ const route = useRoute();
 </script>
 <template>
   <RouterView />
-  <NavBar v-if="!['/orderSize', '/orderSelect', '/orderSelectSub'].includes(route.path)" class="NavBar" />
+  <NavBar
+    v-if="!['/orderSize', '/orderSelect', '/orderSelectSub', '/orderDressing', '/orderFinal', '/orderSheet'].includes(route.path)"
+    class="NavBar" />
 </template>
 <style scoped></style>

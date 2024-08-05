@@ -68,7 +68,7 @@ import orderHeader from '@/components/OrderHeader.vue';
 import orderFooter from '@/components/OrderFooter.vue';
 import { VNumberInput } from 'vuetify/labs/VNumberInput';
 import { ref } from 'vue';
-import { useIngredientsStore } from '@/stores/ingredientsStore';
+import { useIngredientsStore } from '@/stores/ingredientsStoreDressing';
 
 const store = useIngredientsStore();
 

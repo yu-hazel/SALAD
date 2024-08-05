@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div style="padding-bottom: 110px;">
     <orderHeader />
     <!-- <h5 style="text-align: center;">최대 5개 선택가능</h5> -->
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 6px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 6px; width: 100%;">
       <div v-for="(ingredient, index) in store.ingredients" :key="index" class="menuBox"
         :class="{ active: store.selectedIngredients.includes(ingredient) }" @click="store.toggleIngredient(ingredient)">
         <v-bottom-sheet v-model="ingredient.more">
@@ -14,19 +14,44 @@
                   <v-icon>mdi-arrow-right</v-icon>
                 </div>
               </div>
-              <img :src="ingredient.image" alt="menu" style="width: 60px; height: 60px;" />
+              <img :src="getImagePath(ingredient.image)" alt="menu" style="width: 60px; height: 60px;" />
               <h4>{{ ingredient.name }}</h4>
               <h5>{{ ingredient.calories }}kcal</h5>
             </div>
           </template>
           <div class="modal">
             <div class="btn" @click="ingredient.more = !ingredient.more">
-              <img :src="ingredient.image" alt="menu" />
-              <h1>{{ ingredient.name }}</h1>
-              <h4>{{ ingredient.weight }} / {{ ingredient.calories }}kcal</h4>
+              <div style="display: flex; width: 100%;">
+                <div style="flex: 1 1 0; display: flex; justify-content: center;">
+                  <img :src="getImagePath(ingredient.image)" alt="menu" style="width: 116px; height: 116px;" />
+                </div>
+                <div class="dateTxt">
+                  <h1>{{ ingredient.name }}</h1>
+                  <h2>{{ ingredient.weight }}g / {{ ingredient.calories }}kcal</h2>
+                </div>
+              </div>
               <!-- <VNumberInput v-model="ingredient.quantity" :min="0" controlVariant="split" label="" :hideInput="false"
                 inset @change="(value) => store.updateQuantity(ingredient, value)" /> -->
-              <h3 style="color: #eee;">선택완료</h3>
+              <div style="display: flex; gap: 6px; width: 100%;">
+                <div class="dateBox">
+                  <h5 class="dateBoxTitle">탄수화물</h5>
+                  <div class="date">
+                    <h3>{{ ingredient.carbs }}g</h3>
+                  </div>
+                </div>
+                <div class="dateBox">
+                  <h5 class="dateBoxTitle">단백질</h5>
+                  <div class="date">
+                    <h3>{{ ingredient.protein }}g</h3>
+                  </div>
+                </div>
+                <div class="dateBox">
+                  <h5 class="dateBoxTitle">지방</h5>
+                  <div class="date">
+                    <h3>{{ ingredient.fat }}g</h3>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </v-bottom-sheet>
@@ -34,7 +59,7 @@
           @change="(value) => store.updateQuantity(ingredient, value)" /> -->
       </div>
     </div>
-    <orderFooter />
+    <orderFooter style="position: fixed; bottom: 0; left: 0;" />
   </div>
 </template>
 
@@ -43,17 +68,20 @@ import orderHeader from '@/components/OrderHeader.vue';
 import orderFooter from '@/components/OrderFooter.vue';
 import { VNumberInput } from 'vuetify/labs/VNumberInput';
 import { ref } from 'vue';
-import { useIngredientsStore } from '@/stores/ingredientsStoreSub';
+import { useIngredientsStore } from '@/stores/ingredientsStoreCheese';
 
 const store = useIngredientsStore();
 
 const more = ref(false);
 
 const isActive = ref(false);
-
 function toggleClass() {
   isActive.value = !isActive.value;
 }
+
+const getImagePath = (imageName) => {
+  return new URL(`../assets/${imageName}`, import.meta.url).href;
+};
 </script>
 
 <style scoped>
@@ -109,14 +137,48 @@ function toggleClass() {
   background-color: #fff;
   display: flex;
   flex-direction: column;
-  height: 324px;
   border-radius: 16px 16px 0 0;
-  padding: 20px 20px 50px 20px;
+  padding: 32px 20px 40px 20px;
   align-items: center;
   justify-content: space-between;
 }
 
 .text-center, .v-input {
   width: 100%;
+}
+.btn {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 38px;
+}
+
+.dateTxt {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1 1 0;
+  justify-content: center;
+  padding-top: 18px;
+}
+.dateBox {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: flex-start;
+  flex: 1 1 0;
+}
+.date {
+  background-color: #F6F6F6;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  border-radius: 16px;
+}
+.dateBoxTitle {
+  padding-left: 8px;
 }
 </style>

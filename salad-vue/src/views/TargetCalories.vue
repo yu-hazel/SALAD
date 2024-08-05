@@ -71,7 +71,7 @@ h3 {
 .date {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
   width: 100%;
   margin: 40px 0;
 }

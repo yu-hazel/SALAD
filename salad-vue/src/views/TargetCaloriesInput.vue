@@ -53,7 +53,6 @@
             <h4>
               목표를 선택하세요
             </h4>
-            <p>회원님의 1일 권장 칼로리는 {{ store.recommendedCalories }} kcal 입니다. 목표 선택에 따라 칼로리를 조절해 드려요.</p>
             <div class="selectBox">
               <div class="inputBox select modalselect">
                 <input type="radio" name="target" id="decrement" value="감량" @change="selectTarget('감량')"
@@ -71,6 +70,10 @@
                 <label for="increase" class="label">증량</label>
               </div>
             </div>
+            <div style="display: flex; flex-direction: column; align-items: center;">
+              <!-- <h5>회원님의 1일 권장 칼로리는 {{ store.recommendedCalories }} kcal 입니다</h5> -->
+              <h5>목표에 맞는 칼로리를 알아보세요</h5>
+            </div>
             <div class="btn" @click="confirmTarget">
               <h3 style="color: #eee;">선택완료</h3>
             </div>
@@ -81,15 +84,13 @@
           <template v-slot:activator="{ props }">
             <div class="text-center" style="flex: 1 1 0;">
               <v-btn v-bind="props" class="inputBox">{{ store.mealCount ? `${store.mealCount}끼` : '식사량을 선택하세요'
-                }}</v-btn>
+              }}</v-btn>
             </div>
           </template>
           <div class="modal">
             <h4>
               식사량을 선택하세요
             </h4>
-            <p>회원님의 1일 권장 칼로리는 {{ store.recommendedCalories }} kcal 입니다. 하루에 몇 끼를 드시는지에 따라 샐러드로 드실 한 끼 칼로리를 나누어 드릴게요.
-            </p>
             <div class="selectBox">
               <div style="display: flex; flex: 1 1 0;" class="inputBox select modalselect">
                 <input type="radio" name="amount" id="one" value="1" @change="selectAmount('1')"
@@ -107,14 +108,22 @@
                 <label for="three" class="label">3끼</label>
               </div>
             </div>
+            <div style="display: flex; flex-direction: column; align-items: center;">
+              <!-- <h5>회원님의 1일 권장 칼로리는 {{ store.recommendedCalories }} kcal 입니다.</h5> -->
+              <h5>한 끼 칼로리를 알아보세요</h5>
+            </div>
             <div class="btn" @click="confirmAmount">
               <h3 style="color: #eee;">선택완료</h3>
             </div>
           </div>
+
         </v-bottom-sheet>
       </div>
     </form>
-    <div v-if="isFormValid">목표에 따라 계산된 한 끼 권장 칼로리는 {{ store.perMealCalories }}kcal 입니다.</div>
+    <div v-if="isFormValid">
+      <h5>회원님의 1일 권장 칼로리는 {{ store.recommendedCalories }} kcal</h5>
+      <h5>한 끼 목표 칼로리는 {{ store.perMealCalories }}kcal</h5>
+    </div>
     <div>
       <RouterLink to="/targetCalories" class="btn" @click.native="calculateAndSaveCalories">
         <h3 style="color: #eee;">저장하기</h3>
@@ -239,7 +248,7 @@ onMounted(() => {
 .date {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
   width: 100%;
   margin: 40px 0;
 }
@@ -271,7 +280,7 @@ onMounted(() => {
 .selectBox {
   display: flex;
   width: 100%;
-  gap: 6px;
+  gap: 8px;
 }
 .selectBox input[type=radio] {
   display: none;
@@ -312,7 +321,7 @@ onMounted(() => {
   background-color: #fff;
   display: flex;
   flex-direction: column;
-  height: 324px;
+  height: 356px;
   border-radius: 16px 16px 0 0;
   padding: 20px 20px 50px 20px;
   align-items: center;
