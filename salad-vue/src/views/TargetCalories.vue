@@ -28,11 +28,9 @@
     </div>
     <h5>정확한 체질, 체지방량, 근육량 등에 따라 다르니</h5>
     <h5>참고용으로만 활용해 주세요</h5>
-    <div>
-      <RouterLink to="/targetCaloriesInput" class="btn">
-        <h3 style="color: #eee;">수정하기</h3>
-      </RouterLink>
-    </div>
+    <RouterLink to="/targetCaloriesInput" class="btn">
+      <h3 style="color: #eee;">수정하기</h3>
+    </RouterLink>
   </div>
 </template>
 
@@ -88,7 +86,8 @@ h3 {
 
 .btn {
   display: flex;
-  width: 200px;
+  width: 260px;
+  /* width: 100%; */
   height: 60px;
   align-items: center;
   justify-content: center;

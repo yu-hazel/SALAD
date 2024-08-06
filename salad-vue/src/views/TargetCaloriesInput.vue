@@ -124,11 +124,9 @@
       <h5>회원님의 1일 권장 칼로리는 {{ store.recommendedCalories }} kcal</h5>
       <h5>한 끼 목표 칼로리는 {{ store.perMealCalories }}kcal</h5>
     </div>
-    <div>
-      <RouterLink to="/targetCalories" class="btn" @click.native="calculateAndSaveCalories">
-        <h3 style="color: #eee;">저장하기</h3>
-      </RouterLink>
-    </div>
+    <RouterLink to="/targetCalories" class="btn" @click.native="calculateAndSaveCalories">
+      <h3 style="color: #eee;">저장하기</h3>
+    </RouterLink>
   </div>
 </template>
 
@@ -269,7 +267,8 @@ onMounted(() => {
 }
 .btn {
   display: flex;
-  width: 200px;
+  width: 260px;
+  /* width: 100%; */
   height: 60px;
   align-items: center;
   justify-content: center;
