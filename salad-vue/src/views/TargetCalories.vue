@@ -1,16 +1,19 @@
 <template>
-  <div class="GNB">
-    <RouterLink to="/">
-      <v-icon>mdi-arrow-left</v-icon>
-    </RouterLink>
+  <div
+    style="position: fixed; width: 100%; top: 0; left: 0; padding: 0 20px; background-color: #fff; z-index: 200; max-width: 480px;">
+    <div class="GNB">
+      <RouterLink to="/">
+        <v-icon>mdi-arrow-left</v-icon>
+      </RouterLink>
+    </div>
   </div>
-  <div class="inner">
+  <div class="inner" style="padding: 56px 0 110px 0;">
     <div class="title">
       <div>
         <h1>박선정님의</h1>
         <h1>한 끼 목표 칼로리는?</h1>
       </div>
-      <h1 style="font-size: 32px;">{{ store.perMealCalories }}kcal</h1>
+      <h1 class="subtitle" style="font-size: 32px;">{{ store.perMealCalories }}kcal</h1>
     </div>
     <div class="date">
       <div class="inputBox">
@@ -65,6 +68,7 @@ h3 {
   flex-direction: column;
   align-items: center;
   gap: 12px;
+  margin-top: 32px;
 }
 .date {
   display: flex;
@@ -94,5 +98,21 @@ h3 {
   background-color: #333;
   border-radius: 16px;
   margin-top: 40px;
+}
+
+@media (max-width: 380px) {
+  .subtitle {
+    font-size: 28px !important;
+  }
+  .title {
+    margin-top: 18px !important;
+    gap: 6px !important;
+  }
+  .date {
+    margin: 28px 0 !important;
+  }
+  .btn {
+    margin-top: 28px !important;
+  }
 }
 </style>

@@ -16,6 +16,7 @@
 .nav {
   display: flex;
   position: fixed;
+  /* max-width: 480px; */
   width: 100%;
   height: 98px;
   left: 0;

@@ -1,10 +1,16 @@
 <template>
-  <div class="GNB">
-    <RouterLink to="">
-      <v-icon>mdi-arrow-left</v-icon>
-    </RouterLink>
+  <div
+    style="position: fixed; width: 100%; top: 0; left: 0; padding: 0 20px; background-color: #fff; z-index: 200; max-width: 480px;">
+    <div class="GNB">
+      <RouterLink to="/targetCalories">
+        <v-icon>mdi-arrow-left</v-icon>
+      </RouterLink>
+      <RouterLink to="/">
+        <v-icon>mdi-close</v-icon>
+      </RouterLink>
+    </div>
   </div>
-  <div class="inner">
+  <div class="inner" style="padding: 56px 0 50px 0;">
     <div class="title">
       <div>
         <h1>박선정님에게 맞는 </h1>
@@ -17,13 +23,13 @@
         <div class="inputBox select">
           <input type="radio" name="gender" id="women" value="female" v-model="store.gender">
           <label for="women" class="label">
-            <h3>여성</h3>
+            <h4>여성</h4>
           </label>
         </div>
         <div class="inputBox select">
           <input type="radio" name="gender" id="men" value="male" v-model="store.gender">
           <label for="men" class="label">
-            <h3>남성</h3>
+            <h4>남성</h4>
           </label>
         </div>
       </div>
@@ -230,6 +236,7 @@ onMounted(() => {
   height: 56px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 .inner {
   display: flex;
@@ -242,6 +249,7 @@ onMounted(() => {
   flex-direction: column;
   align-items: center;
   gap: 12px;
+  margin-top: 24px;
 }
 .date {
   display: flex;
@@ -340,5 +348,14 @@ onMounted(() => {
 
 .input-error {
   border: 1px solid red;
+}
+
+@media (max-width: 380px) {
+  .date {
+    margin: 28px 0 !important;
+  }
+  .btn {
+    margin-top: 28px !important;
+  }
 }
 </style>

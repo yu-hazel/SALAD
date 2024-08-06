@@ -14,7 +14,7 @@ watch(route, (newRoute) => {
 <template>
   <RouterView :key="key.value" />
   <NavBar
-    v-if="!['/orderSize', '/orderSelect', '/orderSelectSub', '/orderDressing', '/orderFinal', '/orderSheet'].includes(route.path)"
+    v-if="!['/orderSize', '/orderSelect', '/orderSelectSub', '/orderDressing', '/orderFinal', '/orderSheet', '/targetCaloriesInput'].includes(route.path)"
     class="NavBar" />
 </template>
 <style scoped></style>

@@ -1,7 +1,11 @@
 <template>
-  <div class="GNB">
-    <v-icon @click="goHome">mdi-arrow-left</v-icon>
-    <h2 class="title">STEP.{{ step }}</h2>
+  <div
+    style="position: fixed; width: 100%; top: 0; left: 0; padding: 0 20px; background-color: #fff; z-index: 200; max-width: 480px;">
+    <div class="GNB">
+      <v-icon @click="handlePrevious">mdi-arrow-left</v-icon>
+      <h2 class="title">STEP.{{ step }}</h2>
+      <v-icon @click="goHome">mdi-close</v-icon>
+    </div>
   </div>
   <!-- <div style="display: flex; align-items: center; justify-content: center;">
     <img src="../assets/salad.png" alt="salad" style="width: 110px; height: 110px;">
@@ -48,6 +52,7 @@ import { useRouter, useRoute } from 'vue-router';
 import { useCaloriesStore } from '@/stores/caloriesStore';
 import { useIngredientsStore } from '@/stores/ingredientsStore';
 import { useCartStore } from '@/stores/cartStore';
+import { useNavigationStore } from '@/stores/navigationStore';
 
 const caloriesStore = useCaloriesStore();
 const ingredientsStore = useIngredientsStore();
@@ -55,6 +60,7 @@ const cartStore = useCartStore();
 const router = useRouter();
 const route = useRoute();
 const showDetails = ref(false);
+const navigationStore = useNavigationStore();
 
 const steps = {
   '/orderSelect': 1,
@@ -86,6 +92,11 @@ const progressValue = computed(() => {
 onMounted(() => {
   caloriesStore.loadFromLocalStorage();
 });
+
+const handlePrevious = () => {
+  navigationStore.goToPreviousPage();
+  router.push(navigationStore.getCurrentPage());
+};
 </script>
 
 
@@ -95,6 +106,7 @@ onMounted(() => {
   position: relative;
   height: 56px;
   align-items: center;
+  justify-content: space-between;
 }
 .title {
   position: absolute;

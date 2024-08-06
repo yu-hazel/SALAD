@@ -17,7 +17,8 @@
         <v-icon>mdi-chevron-right</v-icon>
       </RouterLink>
     </div>
-    <img src="../assets/salad.png" alt="salad">
+    <img src="../assets/salad.png" alt="salad"
+      style="width: 60%; max-width: 300px; min-width: 250px; margin-bottom: 16px;">
     <div class="btnBox">
       <RouterLink to="" class="btn">
         <h2>추천조합</h2>
@@ -63,12 +64,15 @@ h5 {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  height: calc(100% - 186px);
+  justify-content: space-between;
 }
 .title {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;
+  margin-top: 32px;
 }
 .btnBox {
   width: 100%;
