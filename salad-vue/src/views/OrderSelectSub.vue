@@ -1,10 +1,9 @@
 <template>
   <div style="padding-bottom: 110px;">
     <orderHeader />
-    <!-- <h5 style="text-align: center;">최대 5개 선택가능</h5> -->
     <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 6px; width: 100%;">
-      <div v-for="(ingredient, index) in store.ingredients" :key="index" class="menuBox"
-        :class="{ active: store.selectedIngredients.includes(ingredient) }" @click="store.toggleIngredient(ingredient)">
+      <div v-for="(ingredient, index) in combinedIngredients" :key="index" class="menuBox"
+        :class="{ active: isSelected(ingredient) }" @click="toggleIngredient(ingredient)">
         <v-bottom-sheet v-model="ingredient.more">
           <template v-slot:activator="{ props }">
             <div class="text-center" style="flex: 1 1 0;">
@@ -30,8 +29,6 @@
                   <h2>{{ ingredient.weight }}g / {{ ingredient.calories }}kcal</h2>
                 </div>
               </div>
-              <!-- <VNumberInput v-model="ingredient.quantity" :min="0" controlVariant="split" label="" :hideInput="false"
-                inset @change="(value) => store.updateQuantity(ingredient, value)" /> -->
               <div style="display: flex; gap: 6px; width: 100%;">
                 <div class="dateBox">
                   <h5 class="dateBoxTitle">탄수화물</h5>
@@ -55,8 +52,6 @@
             </div>
           </div>
         </v-bottom-sheet>
-        <!-- <VNumberInput v-model="ingredient.quantity" :min="0" controlVariant="split" label="" :hideInput="false" inset
-          @change="(value) => store.updateQuantity(ingredient, value)" /> -->
       </div>
     </div>
     <orderFooter style="position: fixed; bottom: 0; left: 0;" />
@@ -66,18 +61,28 @@
 <script setup>
 import orderHeader from '@/components/OrderHeader.vue';
 import orderFooter from '@/components/OrderFooter.vue';
-import { VNumberInput } from 'vuetify/labs/VNumberInput';
-import { ref } from 'vue';
-import { useIngredientsStore } from '@/stores/ingredientsStoreCheese';
+import { ref, computed } from 'vue';
+import { useCheeseStore } from '@/stores/ingredientsStoreCheese';
+import { useGrainStore } from '@/stores/ingredientsStoreGrain';
+import { useCartStore } from '@/stores/cartStore';
 
-const store = useIngredientsStore();
+const cheeseStore = useCheeseStore();
+const grainStore = useGrainStore();
+const cartStore = useCartStore();
+
+const combinedIngredients = computed(() => {
+  return [...cheeseStore.ingredients, ...grainStore.ingredients];
+});
 
 const more = ref(false);
 
-const isActive = ref(false);
-function toggleClass() {
-  isActive.value = !isActive.value;
-}
+const isSelected = (ingredient) => {
+  return cartStore.selectedIngredients.some(i => i.name === ingredient.name);
+};
+
+const toggleIngredient = (ingredient) => {
+  cartStore.toggleIngredient(ingredient);
+};
 
 const getImagePath = (imageName) => {
   return new URL(`../assets/${imageName}`, import.meta.url).href;

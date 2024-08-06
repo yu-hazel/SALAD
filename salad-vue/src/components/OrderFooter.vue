@@ -1,7 +1,7 @@
 <template>
   <div
     style=" padding: 12px 20px  38px 20px; width: 100%; background-color: #fff; z-index: 100; display: flex; flex-direction: column; gap: 18px;">
-    <div class="inputBox">
+    <div v-if="route.path === '/orderFinal'" class="inputBox">
       <h5>총 결제금액</h5>
     </div>
     <div class="btnBox">
@@ -17,13 +17,17 @@
 
 <script setup>
 import { useNavigationStore } from '@/stores/navigationStore';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
+
 const navigationStore = useNavigationStore();
 const router = useRouter();
+const route = useRoute();
+
 const handlePrevious = () => {
   navigationStore.goToPreviousPage();
   router.push(navigationStore.getCurrentPage());
 };
+
 const handleNext = () => {
   navigationStore.goToNextPage();
   router.push(navigationStore.getCurrentPage());

@@ -1,59 +1,71 @@
 <template>
   <div class="GNB">
     <v-icon @click="goHome">mdi-arrow-left</v-icon>
-    <h2 class="title">STEP.01</h2>
+    <h2 class="title">STEP.{{ step }}</h2>
   </div>
   <!-- <div style="display: flex; align-items: center; justify-content: center;">
     <img src="../assets/salad.png" alt="salad" style="width: 110px; height: 110px;">
   </div> -->
-  <div class="txtBox">
-    <h1>{{ ingredientsStore.totalCalories }}kcal</h1>
+  <div v-if="showTxtBox" class="txtBox">
+    <h1>{{ cartStore.totalCalories }} kcal</h1>
     <span style="margin-top: 12px; display: flex; align-items: center;">
       <h4>/ {{ caloriesStore.perMealCalories }}kcal</h4>
       <v-icon @click="toggleDetails">{{ showDetails ? 'mdi-menu-up' : 'mdi-menu-down' }}</v-icon>
     </span>
   </div>
-  <div style="display: flex; width: 100%; justify-content: center; margin-bottom: 32px;">
-    <v-progress-linear class="progress"></v-progress-linear>
+  <div v-if="showTxtBox" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 32px;">
+    <v-progress-linear :model-value="progressValue" color="green" class="progress"></v-progress-linear>
+    <div v-if="cartStore.totalCalories >= caloriesStore.perMealCalories" style="color: green; margin-top: 8px;">
+      목표 한 끼 칼로리를 충족했어요!🙌
+    </div>
+    <!-- {{ progressValue }} -->
   </div>
   <div v-if="showDetails" class="caloriesDate">
     <div class="dateBox">
       <h5 class="dateBoxTitle">탄수화물</h5>
       <div class="date">
-        <h4>{{ caloriesStore.carbs }}g / {{ caloriesStore.perMealCarbs }}g</h4>
+        <h4>{{ cartStore.totalCarbs }}g / {{ caloriesStore.carbs }}g</h4>
       </div>
     </div>
     <div class="dateBox">
       <h5 class="dateBoxTitle">단백질</h5>
       <div class="date">
-        <h4>{{ caloriesStore.protein }}g / {{ caloriesStore.perMealProtein }}g</h4>
+        <h4>{{ cartStore.totalProtein }}g / {{ caloriesStore.protein }}g</h4>
       </div>
     </div>
     <div class="dateBox">
       <h5 class="dateBoxTitle">지방</h5>
       <div class="date">
-        <h4>{{ caloriesStore.fats }}g / {{ caloriesStore.perMealFats }}g</h4>
+        <h4>{{ cartStore.totalFat }}g / {{ caloriesStore.fat }}g</h4>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
+import { ref, onMounted, computed } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 import { useCaloriesStore } from '@/stores/caloriesStore';
 import { useIngredientsStore } from '@/stores/ingredientsStore';
+import { useCartStore } from '@/stores/cartStore';
 
 const caloriesStore = useCaloriesStore();
-
 const ingredientsStore = useIngredientsStore();
-
+const cartStore = useCartStore();
 const router = useRouter();
-
-// 상태 관리
+const route = useRoute();
 const showDetails = ref(false);
 
-// 상세정보 토글 함수
+const steps = {
+  '/orderSelect': 1,
+  '/orderSelectSub': 2,
+  '/orderDressing': 3,
+  '/orderFinal': 4,
+  '/orderSheet': 5,
+};
+
+const step = computed(() => steps[route.path] || 1);
+
 const toggleDetails = () => {
   showDetails.value = !showDetails.value;
 };
@@ -61,6 +73,15 @@ const toggleDetails = () => {
 const goHome = () => {
   router.push('/');
 };
+
+const showTxtBox = computed(() => {
+  return !['/orderSheet'].includes(route.path);
+});
+
+const progressValue = computed(() => {
+  if (caloriesStore.perMealCalories === 0) return 0;
+  return (cartStore.totalCalories / caloriesStore.perMealCalories) * 100;
+});
 
 onMounted(() => {
   caloriesStore.loadFromLocalStorage();
@@ -90,7 +111,7 @@ onMounted(() => {
   margin-bottom: 16px;
 }
 .progress {
-  width: 80%;
+  width: 100%;
   height: 6px !important;
   border-radius: 16px;
 }
