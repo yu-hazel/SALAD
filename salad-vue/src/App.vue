@@ -1,10 +1,18 @@
 <script setup>
-import { RouterLink, RouterView, useRoute } from 'vue-router';
+import { ref, watch } from 'vue';
+import { RouterLink, RouterView, useRoute, useRouter } from 'vue-router';
 import NavBar from './components/NavBar.vue';
+
 const route = useRoute();
+const router = useRouter();
+const key = ref(route.path);
+
+watch(route, (newRoute) => {
+  key.value = newRoute.path;
+});
 </script>
 <template>
-  <RouterView />
+  <RouterView :key="key.value" />
   <NavBar
     v-if="!['/orderSize', '/orderSelect', '/orderSelectSub', '/orderDressing', '/orderFinal', '/orderSheet'].includes(route.path)"
     class="NavBar" />

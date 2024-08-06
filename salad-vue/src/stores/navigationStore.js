@@ -8,7 +8,6 @@ export const useNavigationStore = defineStore('navigation', {
       '/orderDressing',
       '/orderFinal',
       '/orderSheet',
-
     ],  // 페이지 순서
     currentPageIndex: 0,  // 현재 페이지 인덱스
   }),

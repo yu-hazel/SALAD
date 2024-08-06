@@ -1,15 +1,17 @@
 <template>
   <div style="padding-bottom: 110px;">
-
     <orderHeader />
-    <div style="display: flex; gap: 6px;" class="MenuBox">
+    <div v-for="(ingredient, index) in cartStore.selectedIngredients" :key="index" style="display: flex; gap: 6px;"
+      class="MenuBox">
       <div class="inputBox selectMenu">
-        <h5>양상추</h5>
-        <v-number-input :reverse="false" controlVariant="split" label="" :hideInput="false" :inset="false"
-          variant="outlined"></v-number-input>
+        <h5>{{ ingredient.name }}</h5>
+        <v-number-input v-model="ingredient.quantity" :min="0" controlVariant="split" label="" :hideInput="false"
+          :inset="false" variant="outlined" @input="updateQuantity(ingredient, $event)" />
       </div>
-      <div class="inputBox delete" style="width: 60px; font-size: 18px;
-    justify-content: center;"><v-icon>mdi-delete</v-icon></div>
+      <div class="inputBox delete" @click="removeIngredient(ingredient)"
+        style="width: 60px; font-size: 18px; justify-content: center;">
+        <v-icon>mdi-delete</v-icon>
+      </div>
     </div>
     <orderFooter style="position: fixed; bottom: 0; left: 0;" />
   </div>
@@ -19,6 +21,24 @@
 import orderHeader from '@/components/OrderHeader.vue';
 import orderFooter from '@/components/OrderFooter.vue';
 import { VNumberInput } from 'vuetify/labs/VNumberInput';
+import { useCartStore } from '@/stores/cartStore';
+import { useCaloriesStore } from '@/stores/caloriesStore';
+
+const cartStore = useCartStore();
+const caloriesStore = useCaloriesStore();
+
+const updateQuantity = (ingredient, newQuantity) => {
+  console.log('updateQuantity 함수 호출');
+  const index = cartStore.selectedIngredients.findIndex(i => i.name === ingredient.name);
+  if (index !== -1) {
+    cartStore.selectedIngredients[index].quantity = newQuantity;
+    cartStore.saveToLocalStorage(); // 변경 사항 로컬 스토리지에 저장
+  }
+};
+
+const removeIngredient = (ingredient) => {
+  cartStore.removeIngredient(ingredient);
+};
 </script>
 
 <style scoped>
