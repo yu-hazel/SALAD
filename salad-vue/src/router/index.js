@@ -59,6 +59,12 @@ const router = createRouter({
       name: 'OrderSheet',
       component: () => import('../views/OrderSheet.vue')
     }
+    ,
+    {
+      path: '/payment',
+      name: 'Payment',
+      component: () => import('../views/Payment.vue')
+    }
   ]
 });
 

@@ -1,16 +1,18 @@
 <template>
-  <div style="padding-bottom: 110px;">
+  <div style="padding: 56px 0 200px 0;">
     <orderHeader />
-    <div v-for="(ingredient, index) in cartStore.selectedIngredients" :key="index" style="display: flex; gap: 6px;"
-      class="MenuBox">
-      <div class="inputBox selectMenu">
-        <h5>{{ ingredient.name }}</h5>
-        <v-number-input v-model="ingredient.quantity" :min="0" controlVariant="split" label="" :hideInput="false"
-          :inset="false" variant="outlined" @input="updateQuantity(ingredient, $event)" />
-      </div>
-      <div class="inputBox delete" @click="removeIngredient(ingredient)"
-        style="width: 60px; font-size: 18px; justify-content: center;">
-        <v-icon>mdi-delete</v-icon>
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <div v-for="(ingredient, index) in cartStore.selectedIngredients" :key="index" style="display: flex; gap: 6px;"
+        class="MenuBox">
+        <div class="inputBox selectMenu">
+          <h5>{{ ingredient.name }}</h5>
+          <v-number-input v-model="ingredient.quantity" :min="0" controlVariant="split" label="" :hideInput="false"
+            :inset="false" variant="outlined" @input="updateQuantity(ingredient, $event)" />
+        </div>
+        <div class="inputBox delete" @click="removeIngredient(ingredient)"
+          style="width: 60px; font-size: 18px; justify-content: center; color: #333;">
+          <v-icon>mdi-delete</v-icon>
+        </div>
       </div>
     </div>
     <orderFooter style="position: fixed; bottom: 0; left: 0;" />

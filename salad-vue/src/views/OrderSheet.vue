@@ -1,7 +1,7 @@
 <template>
-  <div style="padding-bottom: 110px; display: flex; flex-direction: column; gap: 24px;">
+  <div style="padding: 56px 0 90px 0; display: flex; flex-direction: column; gap: 24px;">
     <orderHeader />
-    <div>
+    <div class="inner" style="margin-top: 24px;">
       <h5 style="padding-left: 8px; margin-bottom: 12px;">배송정보</h5>
       <div style="display: flex; flex-direction: column; gap: 8px;">
         <div style="display: flex; gap: 8px;">
@@ -23,14 +23,18 @@
                   <div class="inputBox select modalselect" style="height: 78px;">
                     <input type="radio" name="address" id="address01">
                     <label for="address01" class="label">
-                      <h5>충북 청주시 상당구 125번길 355-0 66아파트 101동 309호 [12345]</h5>
+                      <h5 style="text-align: left;">충북 청주시 상당구 125번길 355-0 66아파트 101동 309호 [12345]</h5>
                     </label>
                   </div>
-                  <div class="inputBox select modalselect">
+                  <div class="inputBox select modalselect" style="height: 78px;">
                     <input type="radio" name="address" id="address02">
                     <label for="address02" class="label">
-                      <h5>새로운 배송지 추가</h5>
+                      <h5 style="text-align: left;">충북 청주시 청원구 88번길 123 66아파트 205동 1120호 (율량동) [12345]</h5>
                     </label>
+                  </div>
+                  <div class="inputBox select modalselect"
+                    style="background-color: transparent; border: 1px solid #ddd; justify-content: center;">
+                    <h5>새로운 배송지 추가</h5>
                   </div>
                 </div>
                 <div class="btn" @click="address = !address">
@@ -43,6 +47,7 @@
         <div class="text-center">
           <v-btn size="x-large" text="Click Me" @click="memo = !memo" class="inputBox">
             <h5>배송메모를 선택하세요</h5>
+            <v-icon style="color: #999;">mdi-menu-down</v-icon>
           </v-btn>
           <v-bottom-sheet v-model="memo">
             <div class="text-center">
@@ -94,14 +99,27 @@
       <h5 style="padding-left: 8px; margin-bottom: 12px;">주문상품</h5>
       <div class="text-center">
         <v-btn size="x-large" text="Click Me" @click="sheet = !sheet" class="inputBox">
-          <h5>커스텀 외 1종</h5>
+          <h5>커스텀 샐러드 (1)</h5>
         </v-btn>
 
         <v-bottom-sheet v-model="sheet">
           <div class="text-center">
             <div class="modal">
-              <div>
-                This is a bottom sheet using the controlled by v-model instead of activator
+              <div class="selectBox">
+                <div class="inputBox select modalselect" style="height: auto; padding: 20px 20px;">
+                  <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <h5 style="text-align: left;">커스텀 샐러드 (2주)</h5>
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                      <h5 style="text-align: left;">야채 : 양상추(2), 토마토(3), 적양파</h5>
+                      <h5 style="text-align: left;">치즈/ 육류/ 곡물 : 체다치즈, 훈제오리, 로스트치킨, 병아리콩(2)</h5>
+                      <h5 style="text-align: left;">드레싱 : 오리엔탈드레싱(2)</h5>
+                    </div>
+                    <div
+                      style="display: flex; justify-content: end; box-shadow: 0 -2px 0 0 #eee; padding-top: 12px; margin-top: 6px;">
+                      <h5 style="color: #111; font-weight: 600;">₩ 20,900</h5>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div class="btn" @click="sheet = !sheet">
                 <h3 style="color: #eee;">선택완료</h3>
@@ -309,6 +327,8 @@ const address = ref(false);
 :deep(.v-btn__content) {
   text-align: justify;
   white-space: break-spaces;
+  justify-content: space-between;
+  width: 100%;
 }
 
 :deep(.v-input__details) {

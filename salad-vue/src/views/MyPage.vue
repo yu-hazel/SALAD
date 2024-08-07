@@ -6,7 +6,7 @@
     <v-icon>mdi-cog</v-icon>
   </div>
   <div class="inner">
-    <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 40px;">
+    <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; margin-top: 28px;">
       <img src="../assets/mypage.png" alt="" style="margin-bottom: 12px; width: 179px; height: 161px;">
       <h1>안녕하세요 박선정님</h1>
       <RouterLink to="/profile" class="btn">

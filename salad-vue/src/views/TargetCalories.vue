@@ -100,7 +100,7 @@ h3 {
   margin-top: 40px;
 }
 
-@media (max-width: 380px) {
+@media (max-height: 780px) {
   .subtitle {
     font-size: 28px !important;
   }

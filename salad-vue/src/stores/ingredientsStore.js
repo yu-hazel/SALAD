@@ -17,7 +17,7 @@ export const useIngredientsStore = defineStore('ingredients', () => {
         },
         {
             name: '토마토',
-            image: '../assets/menu2.png',
+            image: 'menu2.png',
             weight: 50,
             calories: 9,
             carbs: 2.7,
@@ -73,7 +73,7 @@ export const useIngredientsStore = defineStore('ingredients', () => {
 
         {
             name: '아보카도',
-            image: '../assets/menu8.png',
+            image: 'menu8.png',
             weight: 50,
             calories: 80,
             carbs: 4,
@@ -84,7 +84,7 @@ export const useIngredientsStore = defineStore('ingredients', () => {
         },
         {
             name: '단호박',
-            image: '../assets/menu9.png',
+            image: 'menu9.png',
             weight: 50,
             calories: 22.5,
             carbs: 6,
@@ -95,7 +95,7 @@ export const useIngredientsStore = defineStore('ingredients', () => {
         },
         {
             name: '브로콜리',
-            image: '../assets/menu10.png',
+            image: 'menu10.png',
             weight: 50,
             calories: 17,
             carbs: 3.3,
@@ -116,7 +116,7 @@ export const useIngredientsStore = defineStore('ingredients', () => {
             more: ref(false),
         }, {
             name: '적양파',
-            image: '../assets/menu7.png',
+            image: 'menu7.png',
             weight: 50,
             calories: 20,
             carbs: 4.65,
@@ -126,7 +126,7 @@ export const useIngredientsStore = defineStore('ingredients', () => {
             more: ref(false),
         }, {
             name: '바나나',
-            image: '../assets/menu10.png',
+            image: 'menu13.png',
             weight: 50,
             calories: 45,
             carbs: 11.5,
@@ -135,8 +135,8 @@ export const useIngredientsStore = defineStore('ingredients', () => {
             quantity: ref(0),
             more: ref(false),
         }, {
-            name: '믹스베리',
-            image: '../assets/menu10.png',
+            name: '사과',
+            image: 'menu14.png',
             weight: 50,
             calories: 25,
             carbs: 6,

@@ -3,13 +3,13 @@
     style="position: fixed; width: 100%; top: 0; left: 0; padding: 0 20px; background-color: #fff; z-index: 200; max-width: 480px;">
     <div class="GNB">
       <v-icon @click="handlePrevious">mdi-arrow-left</v-icon>
-      <h2 class="title">STEP.{{ step }}</h2>
+      <h2 class="title">{{ step }}</h2>
       <v-icon @click="goHome">mdi-close</v-icon>
     </div>
   </div>
-  <!-- <div style="display: flex; align-items: center; justify-content: center;">
-    <img src="../assets/salad.png" alt="salad" style="width: 110px; height: 110px;">
-  </div> -->
+  <div v-if="bowlimg" style="display: flex; align-items: center; justify-content: center; margin-top: 18px;">
+    <img src="../assets/salad.png" alt="salad" style="width: 150px; height: 150px;">
+  </div>
   <div v-if="showTxtBox" class="txtBox">
     <h1>{{ cartStore.totalCalories }} kcal</h1>
     <span style="margin-top: 12px; display: flex; align-items: center;">
@@ -17,10 +17,13 @@
       <v-icon @click="toggleDetails">{{ showDetails ? 'mdi-menu-up' : 'mdi-menu-down' }}</v-icon>
     </span>
   </div>
-  <div v-if="showTxtBox" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 32px;">
+  <div v-if="showTxtBox"
+    style="display: flex; flex-direction: column; align-items: center; margin-bottom: 24px; padding: 0 32px;">
     <v-progress-linear :model-value="progressValue" color="green" class="progress"></v-progress-linear>
-    <div v-if="cartStore.totalCalories >= caloriesStore.perMealCalories" style="color: green; margin-top: 8px;">
-      목표 한 끼 칼로리를 충족했어요!🙌
+    <div v-if="cartStore.totalCalories >= caloriesStore.perMealCalories"
+      style="color: green; display: flex; align-items: center; gap: 4px; margin-left: -4px;">
+      <v-icon style="font-size: 20px; margin-bottom: 4px;">mdi-check</v-icon>
+      <h5 style="color: green;">목표 한 끼 칼로리를 충족했어요!</h5>
     </div>
     <!-- {{ progressValue }} -->
   </div>
@@ -28,19 +31,22 @@
     <div class="dateBox">
       <h5 class="dateBoxTitle">탄수화물</h5>
       <div class="date">
-        <h4>{{ cartStore.totalCarbs }}g / {{ caloriesStore.carbs }}g</h4>
+        <h5 style="color: #111;">{{ cartStore.totalCarbs }}g </h5>
+        <h5>/ {{ caloriesStore.carbs }}g</h5>
       </div>
     </div>
     <div class="dateBox">
       <h5 class="dateBoxTitle">단백질</h5>
       <div class="date">
-        <h4>{{ cartStore.totalProtein }}g / {{ caloriesStore.protein }}g</h4>
+        <h5 style="color: #111;">{{ cartStore.totalProtein }}g </h5>
+        <h5>/ {{ caloriesStore.protein }}g</h5>
       </div>
     </div>
     <div class="dateBox">
       <h5 class="dateBoxTitle">지방</h5>
       <div class="date">
-        <h4>{{ cartStore.totalFat }}g / {{ caloriesStore.fat }}g</h4>
+        <h5 style="color: #111;">{{ cartStore.totalFat }}g </h5>
+        <h5> / {{ caloriesStore.fat }}g</h5>
       </div>
     </div>
   </div>
@@ -63,11 +69,12 @@ const showDetails = ref(false);
 const navigationStore = useNavigationStore();
 
 const steps = {
-  '/orderSelect': 1,
-  '/orderSelectSub': 2,
-  '/orderDressing': 3,
-  '/orderFinal': 4,
-  '/orderSheet': 5,
+  '/orderSelect': 'STEP.1',
+  '/orderSelectSub': 'STEP.2',
+  '/orderDressing': 'STEP.3',
+  '/orderFinal': 'STEP.4',
+  '/orderSheet': '주문서',
+  '/payment': '결제완료',
 };
 
 const step = computed(() => steps[route.path] || 1);
@@ -81,7 +88,11 @@ const goHome = () => {
 };
 
 const showTxtBox = computed(() => {
-  return !['/orderSheet'].includes(route.path);
+  return !['/orderSheet', '/payment'].includes(route.path);
+});
+
+const bowlimg = computed(() => {
+  return !['/orderSelect', '/orderSelectSub', '/orderDressing', '/orderSheet', '/payment'].includes(route.path);
 });
 
 const progressValue = computed(() => {
@@ -126,6 +137,7 @@ const handlePrevious = () => {
   width: 100%;
   height: 6px !important;
   border-radius: 16px;
+  margin-bottom: 12px;
 }
 :deep(.v-progress-linear__background) {
   background-color: #F6F6F6 !important;
@@ -151,7 +163,8 @@ const handlePrevious = () => {
   justify-content: center;
   align-items: center;
   height: 48px;
-  border-radius: 16px;
+  border-radius: 12px;
+  gap: 4px;
 }
 .dateBoxTitle {
   padding-left: 8px;

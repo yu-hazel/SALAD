@@ -17,16 +17,15 @@
         <v-icon>mdi-chevron-right</v-icon>
       </RouterLink>
     </div>
-    <img src="../assets/salad.png" alt="salad"
-      style="width: 60%; max-width: 300px; min-width: 250px; margin-bottom: 16px;">
+    <img src="../assets/salad.png" alt="salad" class="mainImg">
     <div class="btnBox">
       <RouterLink to="" class="btn">
-        <h2>추천조합</h2>
-        <h5>나에게 맞는 조합</h5>
+        <h2 class="btnTitle">추천조합</h2>
+        <h5 class="btnSubTitle">나에게 맞는 조합</h5>
       </RouterLink>
       <RouterLink to="/orderSelect" class="btn">
-        <h2>주문하기</h2>
-        <h5>나의 맞춤 샐러드</h5>
+        <h2 class="btnTitle">주문하기</h2>
+        <h5 class="btnSubTitle">나의 맞춤 샐러드</h5>
       </RouterLink>
     </div>
   </div>
@@ -64,7 +63,7 @@ h5 {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  height: calc(100% - 186px);
+  height: calc(100% - 160px);
   justify-content: space-between;
 }
 .title {
@@ -90,5 +89,27 @@ h5 {
   background-color: #333;
   padding: 0 20px;
   gap: 10px;
+}
+
+.mainImg {
+  width: 74%;
+  max-width: 300px;
+  margin-bottom: 16px;
+}
+
+@media (max-height: 780px) {
+  .mainImg {
+    width: 60%;
+  }
+  .btn {
+    height: 60px;
+    align-items: center;
+  }
+  .btnSubTitle {
+    display: none;
+  }
+  .btnTitle {
+    font-size: 18px;
+  }
 }
 </style>

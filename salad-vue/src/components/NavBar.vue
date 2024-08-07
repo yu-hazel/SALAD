@@ -18,7 +18,7 @@
   position: fixed;
   /* max-width: 480px; */
   width: 100%;
-  height: 98px;
+  height: 90px;
   left: 0;
   bottom: 0;
   border-radius: 16px 16px 0 0;

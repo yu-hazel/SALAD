@@ -350,7 +350,7 @@ onMounted(() => {
   border: 1px solid red;
 }
 
-@media (max-width: 380px) {
+@media (max-height: 780px) {
   .date {
     margin: 28px 0 !important;
   }
