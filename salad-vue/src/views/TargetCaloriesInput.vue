@@ -33,20 +33,23 @@
           </label>
         </div>
       </div>
-      <div>
-        <input type="number" v-model="store.age" @input="validateAge" placeholder="나이를 입력해주세요"
-          :class="{ 'inputBox': true, 'input-error': ageError }" required>
+      <div class="input-wrapper">
+        <input type="text" :value="store.age" @input="onInputAge" @compositionupdate="onInputAge"
+          placeholder="나이를 입력해주세요" :class="{ 'inputBox': true, 'input-error': ageError }" required>
         <span v-if="ageError" class="error-message">{{ ageError }}</span>
+        <span v-if="!ageError && store.age !== ''" class="unit">세</span>
       </div>
-      <div>
-        <input type="number" v-model="store.height" @input="validateHeight" placeholder="키를 입력해주세요"
-          :class="{ 'inputBox': true, 'input-error': heightError }" required>
+      <div class="input-wrapper">
+        <input type="text" :value="store.height" @input="onInputHeight" @compositionupdate="onInputHeight"
+          placeholder="키를 입력해주세요" :class="{ 'inputBox': true, 'input-error': heightError }" required>
         <span v-if="heightError" class="error-message">{{ heightError }}</span>
+        <span v-if="!heightError && store.height !== ''" class="unit">cm</span>
       </div>
-      <div>
-        <input type="number" v-model="store.currentWeight" @input="validateWeight" placeholder="현재 체중을 입력해주세요"
-          :class="{ 'inputBox': true, 'input-error': weightError }" required>
+      <div class="input-wrapper">
+        <input type="text" :value="store.currentWeight" @input="onInputWeight" @compositionupdate="onInputWeight"
+          placeholder="현재 체중을 입력해주세요" :class="{ 'inputBox': true, 'input-error': weightError }" required>
         <span v-if="weightError" class="error-message">{{ weightError }}</span>
+        <span v-if="!weightError && store.currentWeight !== ''" class="unit">kg</span>
       </div>
       <div style="display: flex; gap: 6px;">
         <v-bottom-sheet v-model="target">
@@ -90,7 +93,7 @@
           <template v-slot:activator="{ props }">
             <div class="text-center" style="flex: 1 1 0;">
               <v-btn v-bind="props" class="inputBox">{{ store.mealCount ? `${store.mealCount}끼` : '식사량을 선택하세요'
-              }}</v-btn>
+                }}</v-btn>
             </div>
           </template>
           <div class="modal">
@@ -130,99 +133,138 @@
       <h5>회원님의 1일 권장 칼로리는 {{ store.recommendedCalories }} kcal</h5>
       <h5>한 끼 목표 칼로리는 {{ store.perMealCalories }}kcal</h5>
     </div>
-    <RouterLink to="/targetCalories" class="btn" @click.native="calculateAndSaveCalories">
+    <!-- <RouterLink to="/targetCalories" class="btn">
       <h3 style="color: #eee;">저장하기</h3>
     </RouterLink>
+    <span v-if="!isFormValid" class="error-message">모든 값을 입력해주세요!</span> -->
+    <button @click="handleSave" class="btn">
+      <h3 style="color: #eee;">저장하기</h3>
+    </button>
+    <span v-if="showValidationError" class="error-message">모든 값을 입력해주세요!</span>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, watch, computed } from 'vue';
 import { useCaloriesStore } from '@/stores/caloriesStore';
+import { useRouter } from 'vue-router';
 
+const router = useRouter()
 const store = useCaloriesStore();
-
 const target = ref(false);
 const amount = ref(false);
-const tempGoal = ref(store.goal);  // 임시 목표 값
-const tempAmount = ref(store.mealCount.toString());  // 임시 식사량 값
-
-const selectTarget = (value) => {
-  tempGoal.value = value;  // 선택한 값을 임시로 저장
-};
-
-const confirmTarget = () => {
-  store.goal = tempGoal.value;  // 임시 값을 최종 값으로 반영
-  store.calculateCalories(store.goal);  // 목표에 따른 칼로리 계산
-  target.value = false;  // 모달 닫기
-};
-
-const closeTargetModal = () => {
-  tempGoal.value = store.goal;  // 모달을 닫을 때 임시 값을 초기화
-  target.value = false;
-};
-
-const selectAmount = (value) => {
-  tempAmount.value = value;  // 선택한 값을 임시로 저장
-};
-
-const confirmAmount = () => {
-  store.mealCount = parseInt(tempAmount.value);  // 임시 값을 최종 값으로 반영
-  store.calculateCalories(store.goal);  // 끼니 수에 따른 칼로리 계산
-  amount.value = false;  // 모달 닫기
-};
-
-const closeAmountModal = () => {
-  tempAmount.value = store.mealCount.toString();  // 모달을 닫을 때 임시 값을 초기화
-  amount.value = false;
-};
-
-// 유효성 검사 (나이, 키, 체중)
-const validateNumberInput = (value) => {
-  return !isNaN(value) && value > 0;
-};
-
-// 모든 input이 다 입력되었는지 체크
-const isFormValid = computed(() => {
-  return validateNumberInput(store.age) && validateNumberInput(store.height) && validateNumberInput(store.currentWeight);
-});
+const tempGoal = ref(store.goal);
+const tempAmount = ref(store.mealCount.toString());
+const showValidationError = ref(false);
 
 const ageError = ref('');
 const heightError = ref('');
 const weightError = ref('');
 
+const selectTarget = (value) => {
+  tempGoal.value = value;
+};
+
+const confirmTarget = () => {
+  store.goal = tempGoal.value; 
+  store.calculateCalories(store.goal); 
+  target.value = false;
+};
+
+const closeTargetModal = () => {
+  tempGoal.value = store.goal;
+  target.value = false;
+};
+
+const selectAmount = (value) => {
+  tempAmount.value = value;
+};
+
+const confirmAmount = () => {
+  store.mealCount = parseInt(tempAmount.value);
+  store.calculateCalories(store.goal);
+  amount.value = false;
+};
+
+const closeAmountModal = () => {
+  tempAmount.value = store.mealCount.toString();
+  amount.value = false;
+};
+
+const validateNumberInput = (value) => {
+  // console.log(`Validating input: ${value}`);
+  if (isNaN(value) || value === '' || value === null || value <= 0) {
+    // console.log(`Invalid input: ${value}`);
+    return false;
+  }
+  return true;
+};
+
+const isFormValid = computed(() => {
+  return validateNumberInput(store.age) && validateNumberInput(store.height) && validateNumberInput(store.currentWeight);
+});
+
 const validateAge = () => {
-  if (!validateNumberInput(store.age)) {
+  if (store.age === '' || store.age === null) {
+    ageError.value = '';
+  } else if (!validateNumberInput(store.age)) {
     ageError.value = '숫자만 입력 가능합니다';
   } else {
     ageError.value = '';
-    store.calculateCalories();
   }
+  store.calculateCalories();
 };
 
 const validateHeight = () => {
-  if (!validateNumberInput(store.height)) {
+  if (store.height === '' || store.height === null) {
+    heightError.value = '';
+  } else if (!validateNumberInput(store.height)) {
     heightError.value = '숫자만 입력 가능합니다';
   } else {
     heightError.value = '';
-    store.calculateCalories();
   }
+  store.calculateCalories();
 };
 
 const validateWeight = () => {
-  if (!validateNumberInput(store.currentWeight)) {
+  if (store.currentWeight === '' || store.currentWeight === null) {
+    weightError.value = '';
+  } else if (!validateNumberInput(store.currentWeight)) {
     weightError.value = '숫자만 입력 가능합니다';
   } else {
     weightError.value = '';
-    store.calculateCalories();
+  }
+  store.calculateCalories();
+};
+
+const onInputAge = (event) => {
+  store.age = event.target.value;
+  validateAge();
+};
+
+const onInputHeight = (event) => {
+  store.height = event.target.value;
+  validateHeight();
+};
+
+const onInputWeight = (event) => {
+  store.currentWeight = event.target.value;
+  validateWeight();
+};
+
+const handleSave = () => {
+  if (!isFormValid.value) {
+    showValidationError.value = true;
+  } else {
+    showValidationError.value = false;
+    router.push('/targetCalories');
   }
 };
 
-// 사용자 입력 데이터 반영
 watch(
   () => [store.gender, store.age, store.height, store.currentWeight],
   () => {
-    store.calculateCalories(); // 성별, 나이, 키, 체중 입력 시 유지 기준으로 권장 칼로리 계산
+    store.calculateCalories();
   }
 );
 
@@ -337,6 +379,19 @@ onMounted(() => {
 
 .modalselect {
   height: 78px !important;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.input-wrapper .unit {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #999;
 }
 
 .error-message {

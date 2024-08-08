@@ -8,20 +8,20 @@
     </div>
 
   </div>
-  <RouterLink to='/targetCaloriesInput' class="btn">
+  <RouterLink v-if="!hasCalories" to='/targetCaloriesInput' class="btn">
     <h5>칼로리 계산하기</h5>
   </RouterLink>
   <div v-if="bowlimg" style="display: flex; align-items: center; justify-content: center; margin-top: 18px;">
     <img src="../assets/salad.png" alt="salad" style="width: 150px; height: 150px;">
   </div>
-  <div v-if="showTxtBox" class="txtBox">
+  <div v-if="hasCalories && showTxtBox" class="txtBox">
     <h1>{{ cartStore.totalCalories }} kcal</h1>
     <span style="margin-top: 12px; display: flex; align-items: center;">
       <h4>/ {{ caloriesStore.perMealCalories }}kcal</h4>
       <v-icon @click="toggleDetails">{{ showDetails ? 'mdi-menu-up' : 'mdi-menu-down' }}</v-icon>
     </span>
   </div>
-  <div v-if="showTxtBox"
+  <div v-if="hasCalories && showTxtBox"
     style="display: flex; flex-direction: column; align-items: center; margin-bottom: 24px; padding: 0 32px;">
     <v-progress-linear :model-value="progressValue" color="green" class="progress"></v-progress-linear>
     <div v-if="cartStore.totalCalories >= caloriesStore.perMealCalories"
@@ -71,6 +71,9 @@ const router = useRouter();
 const route = useRoute();
 const showDetails = ref(false);
 const navigationStore = useNavigationStore();
+const store = useCaloriesStore();
+
+const hasCalories = computed(() => !!store.perMealCalories);
 
 const steps = {
   '/orderSelect': 'STEP.1',

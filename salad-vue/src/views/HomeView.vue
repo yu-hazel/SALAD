@@ -6,7 +6,7 @@
     </RouterLink>
   </div>
   <div class="inner">
-    <div class="title">
+    <div v-if="hasCalories" class="title">
       <div>
         <h1>박선정님의 </h1>
         <h1>하루 한 끼 목표 칼로리는 </h1>
@@ -17,16 +17,16 @@
         <v-icon>mdi-chevron-right</v-icon>
       </RouterLink>
     </div>
-    <!-- <div class="title">
+    <div v-else class="title">
       <div>
         <h1>내 몸에 맞는 샐러드를</h1>
         <h1>SALAD와 함께 알아보세요 !</h1>
       </div>
-      <RouterLink to="/targetCalories" style="display: flex; align-items: center;">
+      <RouterLink to="/targetCaloriesInput" style="display: flex; align-items: center;">
         <h5>칼로리 계산하기</h5>
         <v-icon>mdi-chevron-right</v-icon>
       </RouterLink>
-    </div> -->
+    </div>
 
 
     <img src="../assets/salad.png" alt="salad" class="mainImg">
@@ -47,10 +47,11 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, computed } from 'vue';
 import { useCaloriesStore } from '@/stores/caloriesStore';
 
 const store = useCaloriesStore();
+const hasCalories = computed(() => !!store.perMealCalories);
 
 onMounted(() => {
   store.loadFromLocalStorage();

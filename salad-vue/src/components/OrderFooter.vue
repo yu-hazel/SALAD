@@ -9,7 +9,7 @@
         <h4>이전으로</h4>
       </div>
       <div class="btn" style="background-color: #52CA19;" @click="handleNext">
-        <h4>다음으로</h4>
+        <h4>{{ route.path === '/orderSheet' ? '결제하기' : '다음으로' }}</h4>
       </div>
     </div>
   </div>

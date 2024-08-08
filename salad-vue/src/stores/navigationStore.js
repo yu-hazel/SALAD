@@ -3,6 +3,7 @@ export const useNavigationStore = defineStore('navigation', {
   state: () => ({
     pages: [
       // '/orderSize',
+      '/',
       '/orderSelect',
       '/orderSelectSub',
       '/orderDressing',
