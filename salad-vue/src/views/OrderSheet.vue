@@ -91,17 +91,12 @@
       </div>
     </div>
 
-
-
-
-
     <div>
       <h5 style="padding-left: 8px; margin-bottom: 12px;">주문상품</h5>
       <div class="text-center">
         <v-btn size="x-large" text="Click Me" @click="sheet = !sheet" class="inputBox">
           <h5>커스텀 샐러드 (1)</h5>
         </v-btn>
-
         <v-bottom-sheet v-model="sheet">
           <div class="text-center">
             <div class="modal">
@@ -110,9 +105,9 @@
                   <div style="display: flex; flex-direction: column; gap: 12px;">
                     <h5 style="text-align: left;">커스텀 샐러드 (2주)</h5>
                     <div style="display: flex; flex-direction: column; gap: 4px;">
-                      <h5 style="text-align: left;">야채 : 양상추(2), 토마토(3), 적양파</h5>
-                      <h5 style="text-align: left;">치즈/ 육류/ 곡물 : 체다치즈, 훈제오리, 로스트치킨, 병아리콩(2)</h5>
-                      <h5 style="text-align: left;">드레싱 : 오리엔탈드레싱(2)</h5>
+                      <h5 style="text-align: left;">야채 : {{ formattedIngredients.vege }}</h5>
+                      <h5 style="text-align: left;">치즈/ 육류/ 곡물 : {{ formattedIngredients.sub }}</h5>
+                      <h5 style="text-align: left;">드레싱 : {{ formattedIngredients.dressing }}</h5>
                     </div>
                     <div
                       style="display: flex; justify-content: end; box-shadow: 0 -2px 0 0 #eee; padding-top: 12px; margin-top: 6px;">
@@ -199,25 +194,54 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed, onMounted } from 'vue';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Pagination } from 'swiper/modules';
+import { useCartStore } from '@/stores/cartStore';
+
 import orderHeader from '@/components/OrderHeader.vue';
 import orderFooter from '@/components/OrderFooter.vue';
-// Import Swiper Vue.js components
-import { Swiper, SwiperSlide } from 'swiper/vue';
-
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-// Import required modules
-import { Pagination } from 'swiper/modules';
-
-// Expose the modules to the Swiper component
 const modules = [Pagination];
-
 const sheet = ref(false);
 const memo = ref(false);
 const address = ref(false);
+
+const cartStore = useCartStore();
+
+const formattedIngredients = computed(() => {
+  const ingredients = {
+    vege: [],
+    sub: [],
+    dressing: []
+  };
+
+  // console.log('Selected Ingredients:', cartStore.selectedIngredients);
+
+  cartStore.selectedIngredients.forEach(ingredient => {
+    if (ingredients[ingredient.category]) {
+      const existingIngredient = ingredients[ingredient.category].find(item => item.name === ingredient.name);
+      if (existingIngredient) {
+        existingIngredient.quantity += ingredient.quantity;
+      } else {
+        ingredients[ingredient.category].push({ name: ingredient.name, quantity: ingredient.quantity });
+      }
+    }
+  });
+
+  return {
+    vege: ingredients.vege.map(i => i.quantity > 1 ? `${i.name}(${i.quantity})` : i.name).join(', '),
+    sub: ingredients.sub.map(i => i.quantity > 1 ? `${i.name}(${i.quantity})` : i.name).join(', '),
+    dressing: ingredients.dressing.map(i => i.quantity > 1 ? `${i.name}(${i.quantity})` : i.name).join(', ')
+  };
+});
+
+onMounted(() => {
+  cartStore.loadFromLocalStorage();
+  console.log('Loaded Ingredients:', cartStore.selectedIngredients);
+});
 </script>
 
 <style scoped>

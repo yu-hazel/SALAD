@@ -14,6 +14,7 @@ export const useCheeseStore = defineStore('cheeseStore', () => {
             fat: 5.1,
             quantity: ref(0),
             more: ref(false),
+            category: 'sub'
         }, {
             name: '리코타 치즈',
             image: 'menu17.png',
@@ -24,6 +25,7 @@ export const useCheeseStore = defineStore('cheeseStore', () => {
             fat: 3.9,
             quantity: ref(0),
             more: ref(false),
+            category: 'sub'
         }, {
             name: '그릭요거트',
             image: 'menu18.png',
@@ -34,6 +36,7 @@ export const useCheeseStore = defineStore('cheeseStore', () => {
             fat: 0.12,
             quantity: ref(0),
             more: ref(false),
+            category: 'sub'
         }, {
             name: '체다 치즈',
             image: 'menu19.png',
@@ -44,6 +47,7 @@ export const useCheeseStore = defineStore('cheeseStore', () => {
             fat: 9.9,
             quantity: ref(0),
             more: ref(false),
+            category: 'sub'
         },
     ]);
 

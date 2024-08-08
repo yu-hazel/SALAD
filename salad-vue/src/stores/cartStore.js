@@ -64,7 +64,9 @@ export const useCartStore = defineStore('cartStore', () => {
             quantity: ingredient.quantity,
             carbs: ingredient.carbs,
             protein: ingredient.protein,
-            fat: ingredient.fat
+            fat: ingredient.fat,
+            calories: ingredient.calories,
+            category: ingredient.category,
         }))));
     };
 

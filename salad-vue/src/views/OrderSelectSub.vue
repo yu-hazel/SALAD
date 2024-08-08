@@ -1,59 +1,177 @@
 <template>
   <div style="padding: 56px 0 110px 0;">
     <orderHeader />
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 6px; width: 100%;">
-      <div v-for="(ingredient, index) in combinedIngredients" :key="index" class="menuBox"
-        :class="{ active: isSelected(ingredient) }" @click="toggleIngredient(ingredient)">
-        <v-bottom-sheet v-model="ingredient.more">
-          <template v-slot:activator="{ props }">
-            <div class="text-center" style="flex: 1 1 0;">
-              <div style="display: flex; justify-content: flex-end;">
-                <div v-bind="props" style="display: flex;">
-                  <h5>더보기</h5>
-                  <v-icon>mdi-arrow-right</v-icon>
+    <div style="padding-bottom: 20px;">
+      <h3>Cheese</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 6px; width: 100%;">
+        <div v-for="(ingredient, index) in cheeseStore.ingredients" :key="index" class="menuBox"
+          :class="{ active: isSelected(ingredient) }" @click="toggleIngredient(ingredient)">
+          <v-bottom-sheet v-model="ingredient.more">
+            <template v-slot:activator="{ props }">
+              <div class="text-center" style="flex: 1 1 0;">
+                <div style="display: flex; justify-content: flex-end;">
+                  <div v-bind="props" style="display: flex;">
+                    <h5>더보기</h5>
+                    <v-icon>mdi-arrow-right</v-icon>
+                  </div>
+                </div>
+                <img :src="getImagePath(ingredient.image)" alt="menu" style="width: 60px; height: 60px;" />
+                <h4>{{ ingredient.name }}</h4>
+                <h5>{{ ingredient.calories }}kcal</h5>
+              </div>
+            </template>
+            <div class="modal">
+              <div class="btn" @click="ingredient.more = !ingredient.more">
+                <div style="display: flex; width: 100%;">
+                  <div style="flex: 1 1 0; display: flex; justify-content: center;">
+                    <img :src="getImagePath(ingredient.image)" alt="menu" style="width: 116px; height: 116px;" />
+                  </div>
+                  <div class="dateTxt">
+                    <h1>{{ ingredient.name }}</h1>
+                    <h2>{{ ingredient.weight }}g / {{ ingredient.calories }}kcal</h2>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 6px; width: 100%;">
+                  <div class="dateBox">
+                    <h5 class="dateBoxTitle">탄수화물</h5>
+                    <div class="date">
+                      <h3>{{ ingredient.carbs }}g</h3>
+                    </div>
+                  </div>
+                  <div class="dateBox">
+                    <h5 class="dateBoxTitle">단백질</h5>
+                    <div class="date">
+                      <h3>{{ ingredient.protein }}g</h3>
+                    </div>
+                  </div>
+                  <div class="dateBox">
+                    <h5 class="dateBoxTitle">지방</h5>
+                    <div class="date">
+                      <h3>{{ ingredient.fat }}g</h3>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <img :src="getImagePath(ingredient.image)" alt="menu" style="width: 60px; height: 60px;" />
-              <h4>{{ ingredient.name }}</h4>
-              <h5>{{ ingredient.calories }}kcal</h5>
             </div>
-          </template>
-          <div class="modal">
-            <div class="btn" @click="ingredient.more = !ingredient.more">
-              <div style="display: flex; width: 100%;">
-                <div style="flex: 1 1 0; display: flex; justify-content: center;">
-                  <img :src="getImagePath(ingredient.image)" alt="menu" style="width: 116px; height: 116px;" />
-                </div>
-                <div class="dateTxt">
-                  <h1>{{ ingredient.name }}</h1>
-                  <h2>{{ ingredient.weight }}g / {{ ingredient.calories }}kcal</h2>
-                </div>
-              </div>
-              <div style="display: flex; gap: 6px; width: 100%;">
-                <div class="dateBox">
-                  <h5 class="dateBoxTitle">탄수화물</h5>
-                  <div class="date">
-                    <h3>{{ ingredient.carbs }}g</h3>
-                  </div>
-                </div>
-                <div class="dateBox">
-                  <h5 class="dateBoxTitle">단백질</h5>
-                  <div class="date">
-                    <h3>{{ ingredient.protein }}g</h3>
-                  </div>
-                </div>
-                <div class="dateBox">
-                  <h5 class="dateBoxTitle">지방</h5>
-                  <div class="date">
-                    <h3>{{ ingredient.fat }}g</h3>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </v-bottom-sheet>
+          </v-bottom-sheet>
+        </div>
       </div>
     </div>
+
+    <div style="padding-bottom: 20px;">
+      <h3>Grain</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 6px; width: 100%;">
+        <div v-for="(ingredient, index) in grainStore.ingredients" :key="index" class="menuBox"
+          :class="{ active: isSelected(ingredient) }" @click="toggleIngredient(ingredient)">
+          <v-bottom-sheet v-model="ingredient.more">
+            <template v-slot:activator="{ props }">
+              <div class="text-center" style="flex: 1 1 0;">
+                <div style="display: flex; justify-content: flex-end;">
+                  <div v-bind="props" style="display: flex;">
+                    <h5>더보기</h5>
+                    <v-icon>mdi-arrow-right</v-icon>
+                  </div>
+                </div>
+                <img :src="getImagePath(ingredient.image)" alt="menu" style="width: 60px; height: 60px;" />
+                <h4>{{ ingredient.name }}</h4>
+                <h5>{{ ingredient.calories }}kcal</h5>
+              </div>
+            </template>
+            <div class="modal">
+              <div class="btn" @click="ingredient.more = !ingredient.more">
+                <div style="display: flex; width: 100%;">
+                  <div style="flex: 1 1 0; display: flex; justify-content: center;">
+                    <img :src="getImagePath(ingredient.image)" alt="menu" style="width: 116px; height: 116px;" />
+                  </div>
+                  <div class="dateTxt">
+                    <h1>{{ ingredient.name }}</h1>
+                    <h2>{{ ingredient.weight }}g / {{ ingredient.calories }}kcal</h2>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 6px; width: 100%;">
+                  <div class="dateBox">
+                    <h5 class="dateBoxTitle">탄수화물</h5>
+                    <div class="date">
+                      <h3>{{ ingredient.carbs }}g</h3>
+                    </div>
+                  </div>
+                  <div class="dateBox">
+                    <h5 class="dateBoxTitle">단백질</h5>
+                    <div class="date">
+                      <h3>{{ ingredient.protein }}g</h3>
+                    </div>
+                  </div>
+                  <div class="dateBox">
+                    <h5 class="dateBoxTitle">지방</h5>
+                    <div class="date">
+                      <h3>{{ ingredient.fat }}g</h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </v-bottom-sheet>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding-bottom: 20px;">
+      <h3>Meat</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 6px; width: 100%;">
+        <div v-for="(ingredient, index) in meatStore.ingredients" :key="index" class="menuBox"
+          :class="{ active: isSelected(ingredient) }" @click="toggleIngredient(ingredient)">
+          <v-bottom-sheet v-model="ingredient.more">
+            <template v-slot:activator="{ props }">
+              <div class="text-center" style="flex: 1 1 0;">
+                <div style="display: flex; justify-content: flex-end;">
+                  <div v-bind="props" style="display: flex;">
+                    <h5>더보기</h5>
+                    <v-icon>mdi-arrow-right</v-icon>
+                  </div>
+                </div>
+                <img :src="getImagePath(ingredient.image)" alt="menu" style="width: 60px; height: 60px;" />
+                <h4>{{ ingredient.name }}</h4>
+                <h5>{{ ingredient.calories }}kcal</h5>
+              </div>
+            </template>
+            <div class="modal">
+              <div class="btn" @click="ingredient.more = !ingredient.more">
+                <div style="display: flex; width: 100%;">
+                  <div style="flex: 1 1 0; display: flex; justify-content: center;">
+                    <img :src="getImagePath(ingredient.image)" alt="menu" style="width: 116px; height: 116px;" />
+                  </div>
+                  <div class="dateTxt">
+                    <h1>{{ ingredient.name }}</h1>
+                    <h2>{{ ingredient.weight }}g / {{ ingredient.calories }}kcal</h2>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 6px; width: 100%;">
+                  <div class="dateBox">
+                    <h5 class="dateBoxTitle">탄수화물</h5>
+                    <div class="date">
+                      <h3>{{ ingredient.carbs }}g</h3>
+                    </div>
+                  </div>
+                  <div class="dateBox">
+                    <h5 class="dateBoxTitle">단백질</h5>
+                    <div class="date">
+                      <h3>{{ ingredient.protein }}g</h3>
+                    </div>
+                  </div>
+                  <div class="dateBox">
+                    <h5 class="dateBoxTitle">지방</h5>
+                    <div class="date">
+                      <h3>{{ ingredient.fat }}g</h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </v-bottom-sheet>
+        </div>
+      </div>
+    </div>
+
     <orderFooter style="position: fixed; bottom: 0; left: 0;" />
   </div>
 </template>
@@ -64,15 +182,13 @@ import orderFooter from '@/components/OrderFooter.vue';
 import { ref, computed } from 'vue';
 import { useCheeseStore } from '@/stores/ingredientsStoreCheese';
 import { useGrainStore } from '@/stores/ingredientsStoreGrain';
+import { useMeatStore } from '@/stores/ingredientsStoreMeat';
 import { useCartStore } from '@/stores/cartStore';
 
 const cheeseStore = useCheeseStore();
 const grainStore = useGrainStore();
+const meatStore = useMeatStore();
 const cartStore = useCartStore();
-
-const combinedIngredients = computed(() => {
-  return [...cheeseStore.ingredients, ...grainStore.ingredients];
-});
 
 const more = ref(false);
 
