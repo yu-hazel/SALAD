@@ -6,7 +6,7 @@ export const useDressingStore = defineStore('dressingStore', () => {
     const ingredients = ref([
         {
             name: '참깨드레싱',
-            image: 'sauce.png',
+            image: 'sauce1.png',
             weight: 30,
             calories: 42,
             carbs: 1.5,
@@ -16,7 +16,7 @@ export const useDressingStore = defineStore('dressingStore', () => {
             more: ref(false),
         }, {
             name: '오리엔탈드레싱',
-            image: 'sauce.png',
+            image: 'sauce2.png',
             weight: 30,
             calories: 18,
             carbs: 1.5,
@@ -26,7 +26,7 @@ export const useDressingStore = defineStore('dressingStore', () => {
             more: ref(false),
         }, {
             name: '발사믹드레싱',
-            image: 'sauce.png',
+            image: 'sauce3.png',
             weight: 30,
             calories: 27,
             carbs: 3,
@@ -36,7 +36,7 @@ export const useDressingStore = defineStore('dressingStore', () => {
             more: ref(false),
         }, {
             name: '홀스래디쉬드레싱',
-            image: 'sauce.png',
+            image: 'sauce4.png',
             weight: 30,
             calories: 24,
             carbs: 2.5,
@@ -46,7 +46,7 @@ export const useDressingStore = defineStore('dressingStore', () => {
             more: ref(false),
         }, {
             name: '치폴레드레싱',
-            image: 'sauce.png',
+            image: 'sauce5.png',
             weight: 30,
             calories: 39,
             carbs: 3.5,
@@ -56,7 +56,7 @@ export const useDressingStore = defineStore('dressingStore', () => {
             more: ref(false),
         }, {
             name: '허니머스타드드레싱',
-            image: 'sauce.png',
+            image: 'sauce6.png',
             weight: 30,
             calories: 33,
             carbs: 4.5,
@@ -66,7 +66,7 @@ export const useDressingStore = defineStore('dressingStore', () => {
             more: ref(false),
         }, {
             name: '스위트어니언드레싱',
-            image: 'sauce.png',
+            image: 'sauce7.png',
             weight: 30,
             calories: 36,
             carbs: 4.2,

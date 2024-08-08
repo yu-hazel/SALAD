@@ -6,7 +6,7 @@ export const useCheeseStore = defineStore('cheeseStore', () => {
     const ingredients = ref([
         {
             name: '모짜렐라 치즈',
-            image: 'menu1.png',
+            image: 'menu16.png',
             weight: 30,
             calories: 84,
             carbs: 0.93,
@@ -16,7 +16,7 @@ export const useCheeseStore = defineStore('cheeseStore', () => {
             more: ref(false),
         }, {
             name: '리코타 치즈',
-            image: 'menu1.png',
+            image: 'menu17.png',
             weight: 30,
             calories: 52.2,
             carbs: 1,
@@ -26,7 +26,7 @@ export const useCheeseStore = defineStore('cheeseStore', () => {
             more: ref(false),
         }, {
             name: '그릭요거트',
-            image: 'menu1.png',
+            image: 'menu18.png',
             weight: 30,
             calories: 17.7,
             carbs: 1.08,
@@ -36,7 +36,7 @@ export const useCheeseStore = defineStore('cheeseStore', () => {
             more: ref(false),
         }, {
             name: '체다 치즈',
-            image: 'menu1.png',
+            image: 'menu19.png',
             weight: 30,
             calories: 120.6,
             carbs: 0.39,

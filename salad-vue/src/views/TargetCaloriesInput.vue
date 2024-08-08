@@ -357,5 +357,9 @@ onMounted(() => {
   .btn {
     margin-top: 28px !important;
   }
+  .title {
+    margin-top: 18px !important;
+    gap: 6px !important;
+  }
 }
 </style>

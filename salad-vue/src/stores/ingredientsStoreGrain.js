@@ -6,7 +6,7 @@ export const useGrainStore = defineStore('grainStore', () => {
     const ingredients = ref([
         {
             name: '병아리콩',
-            image: 'menu1.png',
+            image: 'menu20.png',
             weight: 30,
             calories: 49,
             carbs: 8.1,
@@ -15,18 +15,8 @@ export const useGrainStore = defineStore('grainStore', () => {
             quantity: ref(0),
             more: ref(false),
         }, {
-            name: '아몬드',
-            image: 'menu1.png',
-            weight: 30,
-            calories: 173,
-            carbs: 6.6,
-            protein: 6.3,
-            fat: 14.7,
-            quantity: ref(0),
-            more: ref(false),
-        }, {
             name: '치아시드',
-            image: 'menu1.png',
+            image: 'menu21.png',
             weight: 30,
             calories: 146,
             carbs: 12.6,
@@ -36,7 +26,7 @@ export const useGrainStore = defineStore('grainStore', () => {
             more: ref(false),
         }, {
             name: '믹스넛',
-            image: 'menu1.png',
+            image: 'menu22.png',
             weight: 30,
             calories: 171,
             carbs: 9,
@@ -46,7 +36,7 @@ export const useGrainStore = defineStore('grainStore', () => {
             more: ref(false),
         }, {
             name: '현미',
-            image: 'menu1.png',
+            image: 'menu23.png',
             weight: 30,
             calories: 37,
             carbs: 7.5,
@@ -55,8 +45,8 @@ export const useGrainStore = defineStore('grainStore', () => {
             quantity: ref(0),
             more: ref(false),
         }, {
-            name: '크랜베리',
-            image: 'menu1.png',
+            name: '피스타치오',
+            image: 'menu24.png',
             weight: 30,
             calories: 97.5,
             carbs: 24,

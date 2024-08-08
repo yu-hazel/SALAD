@@ -6,7 +6,11 @@
       <h2 class="title">{{ step }}</h2>
       <v-icon @click="goHome">mdi-close</v-icon>
     </div>
+
   </div>
+  <RouterLink to='/targetCaloriesInput' class="btn">
+    <h5>칼로리 계산하기</h5>
+  </RouterLink>
   <div v-if="bowlimg" style="display: flex; align-items: center; justify-content: center; margin-top: 18px;">
     <img src="../assets/salad.png" alt="salad" style="width: 150px; height: 150px;">
   </div>
@@ -168,5 +172,15 @@ const handlePrevious = () => {
 }
 .dateBoxTitle {
   padding-left: 8px;
+}
+.btn {
+  border: 1px solid #999;
+  border-radius: 50px;
+  height: 44px;
+  width: 126px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin-top: 18px;
 }
 </style>

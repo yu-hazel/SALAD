@@ -17,7 +17,7 @@ export const useIngredientsStore = defineStore('ingredients', () => {
         },
         {
             name: '토마토',
-            image: 'menu2.png',
+            image: 'menu2-1.png',
             weight: 50,
             calories: 9,
             carbs: 2.7,
@@ -28,7 +28,7 @@ export const useIngredientsStore = defineStore('ingredients', () => {
         },
         {
             name: '양상추',
-            image: '../assets/menu3.png',
+            image: 'menu3.png',
             weight: 50,
             calories: 7.5,
             carbs: 1.45,
@@ -38,8 +38,8 @@ export const useIngredientsStore = defineStore('ingredients', () => {
             more: ref(false),
         },
         {
-            name: '오이',
-            image: '../assets/menu4.png',
+            name: '샐러리',
+            image: 'menu4.png',
             weight: 50,
             calories: 8,
             carbs: 1.8,
@@ -50,7 +50,7 @@ export const useIngredientsStore = defineStore('ingredients', () => {
         },
         {
             name: '당근',
-            image: '../assets/menu5.png',
+            image: 'menu5.png',
             weight: 50,
             calories: 20.5,
             carbs: 5,
@@ -60,8 +60,8 @@ export const useIngredientsStore = defineStore('ingredients', () => {
             more: ref(false),
         },
         {
-            name: '적양배추',
-            image: '../assets/menu6.png',
+            name: '할라피뇨',
+            image: 'menu6.png',
             weight: 50,
             calories: 15.5,
             carbs: 3.7,
@@ -106,7 +106,7 @@ export const useIngredientsStore = defineStore('ingredients', () => {
         },
         {
             name: '스위트 콘',
-            image: '../assets/menu10.png',
+            image: 'menu11.png',
             weight: 50,
             calories: 43,
             carbs: 9.5,
@@ -145,8 +145,8 @@ export const useIngredientsStore = defineStore('ingredients', () => {
             quantity: ref(0),
             more: ref(false),
         }, {
-            name: '블루베리',
-            image: '../assets/menu10.png',
+            name: '망고',
+            image: 'menu15.png',
             weight: 50,
             calories: 29,
             carbs: 7.2,

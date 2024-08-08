@@ -10,15 +10,27 @@
       <div>
         <h1>박선정님의 </h1>
         <h1>하루 한 끼 목표 칼로리는 </h1>
-        <h1 style="font-size: 32px;">{{ store.perMealCalories }}kcal</h1>
+        <h1 class="calories" style="font-size: 32px;">{{ store.perMealCalories }}kcal</h1>
       </div>
       <RouterLink to="/targetCalories" style="display: flex; align-items: center;">
         <h5>자세히보기</h5>
         <v-icon>mdi-chevron-right</v-icon>
       </RouterLink>
     </div>
+    <!-- <div class="title">
+      <div>
+        <h1>내 몸에 맞는 샐러드를</h1>
+        <h1>SALAD와 함께 알아보세요 !</h1>
+      </div>
+      <RouterLink to="/targetCalories" style="display: flex; align-items: center;">
+        <h5>칼로리 계산하기</h5>
+        <v-icon>mdi-chevron-right</v-icon>
+      </RouterLink>
+    </div> -->
+
+
     <img src="../assets/salad.png" alt="salad" class="mainImg">
-    <div class="btnBox">
+    <!-- <div class="btnBox">
       <RouterLink to="" class="btn">
         <h2 class="btnTitle">추천조합</h2>
         <h5 class="btnSubTitle">나에게 맞는 조합</h5>
@@ -27,7 +39,10 @@
         <h2 class="btnTitle">주문하기</h2>
         <h5 class="btnSubTitle">나의 맞춤 샐러드</h5>
       </RouterLink>
-    </div>
+    </div> -->
+    <RouterLink to="/orderSelect" class="btn">
+      <h3 style="color: #eee;">샐러드 주문하기</h3>
+    </RouterLink>
   </div>
 </template>
 
@@ -63,8 +78,6 @@ h5 {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  height: calc(100% - 160px);
-  justify-content: space-between;
 }
 .title {
   display: flex;
@@ -78,38 +91,53 @@ h5 {
   display: flex;
   gap: 6px;
 }
+
 .btn {
   display: flex;
-  flex-direction: column;
-  flex: 1 1 0;
-  height: 114px;
-  align-items: start;
+  width: 260px;
+  /* width: 100%; */
+  height: 60px;
+  align-items: center;
   justify-content: center;
+  background-color: #52CA19;
   border-radius: 16px;
-  background-color: #333;
-  padding: 0 20px;
-  gap: 10px;
+  /* margin-top: 40px; */
+  position: absolute;
+  bottom: 140px;
 }
-
 .mainImg {
-  width: 74%;
-  max-width: 300px;
-  margin-bottom: 16px;
+  height: 100%;
+  max-height: 300px;
+  /* margin-top: 16px; */
+  position: absolute;
+  top: 51%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 @media (max-height: 780px) {
+  .calories {
+    font-size: 28px !important;
+  }
   .mainImg {
-    width: 60%;
+    height: 35%;
+  }
+  .title {
+    margin-top: 18px !important;
+    gap: 6px !important;
   }
   .btn {
-    height: 60px;
-    align-items: center;
+    bottom: 120px;
   }
-  .btnSubTitle {
-    display: none;
+}
+@media (max-height: 650px) {
+
+  .mainImg {
+    height: 28%;
+    top: 53%;
   }
-  .btnTitle {
-    font-size: 18px;
+  .btn {
+    bottom: 110px;
   }
 }
 </style>
