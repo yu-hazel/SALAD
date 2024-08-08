@@ -7,10 +7,10 @@
         <v-bottom-sheet v-model="ingredient.more">
           <template v-slot:activator="{ props }">
             <div class="text-center" style="flex: 1 1 0;">
-              <div style="display: flex; justify-content: flex-end;">
-                <div v-bind="props" style="display: flex;">
+              <div style="display: flex; justify-content: flex-end; ">
+                <div v-bind="props" style="display: flex; margin-right: -6px; align-items: center;">
                   <h5>더보기</h5>
-                  <v-icon>mdi-arrow-right</v-icon>
+                  <v-icon style="color: #999;">mdi-chevron-right</v-icon>
                 </div>
               </div>
               <img :src="getImagePath(ingredient.image)" alt="menu" style="width: 60px; height: 60px;" />

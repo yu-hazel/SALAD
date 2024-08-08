@@ -7,14 +7,14 @@
         <v-bottom-sheet v-model="ingredient.more">
           <template v-slot:activator="{ props }">
             <div class="text-center" style="flex: 1 1 0;">
-              <div style="display: flex; justify-content: flex-end;">
-                <div v-bind="props" style="display: flex;">
+              <div style="display: flex; justify-content: flex-end; ">
+                <div v-bind="props" style="display: flex; margin-right: -6px; align-items: center;">
                   <h5>더보기</h5>
-                  <v-icon>mdi-arrow-right</v-icon>
+                  <v-icon style="color: #999;">mdi-chevron-right</v-icon>
                 </div>
               </div>
               <img :src="getImagePath(ingredient.image)" alt="menu" style="width: 60px; height: 60px;" />
-              <h4>{{ ingredient.name }}</h4>
+              <h4 style="word-break: keep-all;">{{ ingredient.name }}</h4>
               <h5>{{ ingredient.calories }}kcal</h5>
             </div>
           </template>
@@ -25,7 +25,7 @@
                   <img :src="getImagePath(ingredient.image)" alt="menu" style="width: 116px; height: 116px;" />
                 </div>
                 <div class="dateTxt">
-                  <h1>{{ ingredient.name }}</h1>
+                  <h1 style="word-break: keep-all;">{{ ingredient.name }}</h1>
                   <h2>{{ ingredient.weight }}g / {{ ingredient.calories }}kcal</h2>
                 </div>
               </div>
@@ -161,6 +161,7 @@ const getImagePath = (imageName) => {
   flex: 1 1 0;
   justify-content: center;
   padding-top: 18px;
+  padding-right: 12px;
 }
 .dateBox {
   display: flex;

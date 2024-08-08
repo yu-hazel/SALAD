@@ -8,12 +8,13 @@
     </div>
 
   </div>
-  <RouterLink v-if="!hasCalories" to='/targetCaloriesInput' class="btn">
-    <h5>칼로리 계산하기</h5>
-  </RouterLink>
+
   <div v-if="bowlimg" style="display: flex; align-items: center; justify-content: center; margin-top: 18px;">
     <img src="../assets/salad.png" alt="salad" style="width: 150px; height: 150px;">
   </div>
+  <RouterLink v-if="!hasCalories" to='/targetCaloriesInput' class="btn">
+    <h5>칼로리 계산하기</h5>
+  </RouterLink>
   <div v-if="hasCalories && showTxtBox" class="txtBox">
     <h1>{{ cartStore.totalCalories }} kcal</h1>
     <span style="margin-top: 12px; display: flex; align-items: center;">

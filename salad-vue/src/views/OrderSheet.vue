@@ -10,7 +10,8 @@
 
         </div>
         <div class="text-center">
-          <v-btn size="x-large" text="Click Me" @click="address = !address" class="inputBox" style="height: 78px;">
+          <v-btn size="x-large" text="Click Me" @click="address = !address" class="inputBox"
+            style="height: auto; padding: 20px;">
             <h5>충북 청주시 상당구 125번길 355-0 66아파트 101동 309호 [12345]</h5>
           </v-btn>
           <v-bottom-sheet v-model="address">
@@ -22,13 +23,13 @@
                 <div class="selectBox">
                   <div class="inputBox select modalselect" style="height: 78px;">
                     <input type="radio" name="address" id="address01">
-                    <label for="address01" class="label">
+                    <label for="address01" class="label" style="padding: 20px;">
                       <h5 style="text-align: left;">충북 청주시 상당구 125번길 355-0 66아파트 101동 309호 [12345]</h5>
                     </label>
                   </div>
                   <div class="inputBox select modalselect" style="height: 78px;">
                     <input type="radio" name="address" id="address02">
-                    <label for="address02" class="label">
+                    <label for="address01" class="label" style="padding: 20px;">
                       <h5 style="text-align: left;">충북 청주시 청원구 88번길 123 66아파트 205동 1120호 (율량동) [12345]</h5>
                     </label>
                   </div>
@@ -102,7 +103,7 @@
             <div class="modal">
               <div class="selectBox">
                 <div class="inputBox select modalselect" style="height: auto; padding: 20px 20px;">
-                  <div style="display: flex; flex-direction: column; gap: 12px;">
+                  <div style="display: flex; flex-direction: column; gap: 12px; width: 100%;">
                     <h5 style="text-align: left;">커스텀 샐러드 (2주)</h5>
                     <div style="display: flex; flex-direction: column; gap: 4px;">
                       <h5 style="text-align: left;">야채 : {{ formattedIngredients.vege }}</h5>

@@ -60,7 +60,7 @@ export const useDressingStore = defineStore('dressingStore', () => {
             more: ref(false),
             category: 'dressing'
         }, {
-            name: '허니머스타드드레싱',
+            name: '머스타드드레싱',
             image: 'sauce6.png',
             weight: 30,
             calories: 33,
@@ -71,7 +71,7 @@ export const useDressingStore = defineStore('dressingStore', () => {
             more: ref(false),
             category: 'dressing'
         }, {
-            name: '스위트어니언드레싱',
+            name: '어니언드레싱',
             image: 'sauce7.png',
             weight: 30,
             calories: 36,
