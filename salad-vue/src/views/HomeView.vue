@@ -8,7 +8,7 @@
   <div class="inner">
     <div v-if="hasCalories" class="title">
       <div>
-        <h1>박선정님의 </h1>
+        <h1>회원님의 </h1>
         <h1>하루 한 끼 목표 칼로리는 </h1>
         <h1 class="calories" style="font-size: 32px;">{{ store.perMealCalories }}kcal</h1>
       </div>

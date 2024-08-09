@@ -13,7 +13,7 @@
   <div class="inner" style="padding: 56px 0 50px 0;">
     <div class="title">
       <div>
-        <h1>박선정님에게 맞는 </h1>
+        <h1>회원님에게 맞는 </h1>
         <h1>한 끼 칼로리 계산하기</h1>
       </div>
       <h5>칼로리를 계산하기 위한 나의 목표를 설정해주세요</h5>
