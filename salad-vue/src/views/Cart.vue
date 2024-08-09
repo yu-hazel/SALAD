@@ -15,7 +15,8 @@
 
   <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 6px; width: 100%;">
     <div class="menuBox" :class="{ active: isActive }" @click="toggleClass">
-      <v-bottom-sheet><template v-slot:activator="{ props }">
+      <v-bottom-sheet>
+        <template v-slot:activator="{ props }">
           <div class="text-center" style="flex: 1 1 0;">
             <div style="display: flex; justify-content: flex-end;">
               <div v-bind="props" style="display: flex; margin-right: -6px;">
@@ -34,29 +35,27 @@
 
         <div class="text-center">
           <div class="modal">
-            <h4>
-              커스텀 샐러드 (2주)
-            </h4>
+            <h4>커스텀 샐러드 (2주)</h4>
             <div class="selectBox">
-              <div class=" select modalselect" style="height: auto; padding: 20px 0px;">
+              <div class="select modalselect" style="height: auto; padding: 20px 0px;">
                 <div style="display: flex; flex-direction: column; gap: 60px; width: 100%;">
                   <div style="display: flex; flex-direction: column; gap: 20px;">
                     <div>
                       <h5 style="padding-left: 8px; margin-bottom: 12px; display: flex;">야채</h5>
                       <div class="inputBox">
-                        <h5>양상추(2), 토마토(3), 적양파</h5>
+                        <h5>{{ categorizedIngredients.vege }}</h5>
                       </div>
                     </div>
                     <div>
                       <h5 style="padding-left: 8px; margin-bottom: 12px; display: flex;">치즈/ 육류/ 곡물</h5>
                       <div class="inputBox">
-                        <h5>체다치즈, 훈제오리, 로스트치킨, 병아리콩(2)</h5>
+                        <h5>{{ categorizedIngredients.sub }}</h5>
                       </div>
                     </div>
                     <div>
                       <h5 style="padding-left: 8px; margin-bottom: 12px; display: flex;">드레싱</h5>
                       <div class="inputBox">
-                        <h5>오리엔탈드레싱(2)</h5>
+                        <h5>{{ categorizedIngredients.dressing }}</h5>
                       </div>
                     </div>
                   </div>
@@ -64,10 +63,6 @@
                     <h5>총 결제금액</h5>
                     <h4>₩ 20,900</h4>
                   </div>
-                  <!-- <div
-                      style="display: flex; justify-content: end; box-shadow: 0 -2px 0 0 #eee; padding-top: 28px; margin-top: 6px;">
-                      <h4 style="color: #111; font-weight: 600;">₩ 20,900</h4>
-                    </div> -->
                 </div>
               </div>
             </div>
@@ -80,12 +75,47 @@
 
 <script setup>
 import { VNumberInput } from 'vuetify/labs/VNumberInput';
-import { ref } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 
 const isActive = ref(false);
 function toggleClass() {
   isActive.value = !isActive.value;
 }
+
+const selectedIngredients = ref([]);
+
+onMounted(() => {
+  const storedIngredients = localStorage.getItem('selectedIngredients');
+  if (storedIngredients) {
+    selectedIngredients.value = JSON.parse(storedIngredients);
+  }
+});
+
+const categorizedIngredients = computed(() => {
+  const categories = {
+    vege: [],
+    sub: [],
+    dressing: [],
+  };
+
+  selectedIngredients.value.forEach((ingredient) => {
+    if (categories[ingredient.category]) {
+      const existing = categories[ingredient.category].find(i => i.name === ingredient.name);
+      if (existing) {
+        existing.quantity += ingredient.quantity;
+      } else {
+        categories[ingredient.category].push({ name: ingredient.name, quantity: ingredient.quantity });
+      }
+    }
+  });
+
+  return {
+    vege: categories.vege.map(i => i.quantity > 1 ? `${i.name}(${i.quantity})` : i.name).join(', '),
+    sub: categories.sub.map(i => i.quantity > 1 ? `${i.name}(${i.quantity})` : i.name).join(', '),
+    dressing: categories.dressing.map(i => i.quantity > 1 ? `${i.name}(${i.quantity})` : i.name).join(', '),
+  };
+});
+
 </script>
 
 <style scoped>

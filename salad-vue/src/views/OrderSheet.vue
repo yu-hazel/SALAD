@@ -5,14 +5,14 @@
       <h5 style="padding-left: 8px; margin-bottom: 12px;">배송정보</h5>
       <div style="display: flex; flex-direction: column; gap: 8px;">
         <div style="display: flex; gap: 8px;">
-          <input class="inputBox" style="flex: 1 1 0;" placeholder="박선정">
+          <input class="inputBox" style="flex: 1 1 0;" placeholder="회원명">
           <input type="number" class="inputBox" style="flex: 2 1 0;" placeholder="010-1234-5678">
 
         </div>
         <div class="text-center">
           <v-btn size="x-large" text="Click Me" @click="address = !address" class="inputBox"
             style="height: auto; padding: 20px;">
-            <h5>충북 청주시 상당구 125번길 355-0 66아파트 101동 309호 [12345]</h5>
+            <h5>{{ selectedAddress || '배송지를 선택하세요' }}</h5>
           </v-btn>
           <v-bottom-sheet v-model="address">
             <div class="text-center">
@@ -21,24 +21,23 @@
                   배송지 목록
                 </h4>
                 <div class="selectBox">
-                  <div class="inputBox select modalselect" style="height: 78px;">
-                    <input type="radio" name="address" id="address01">
-                    <label for="address01" class="label" style="padding: 20px;">
-                      <h5 style="text-align: left;">충북 청주시 상당구 125번길 355-0 66아파트 101동 309호 [12345]</h5>
+                  <!-- 기존 저장된 주소들 -->
+                  <div v-for="(addr, index) in addressList" :key="index" class="inputBox select modalselect"
+                    style="height: 78px;">
+                    <input type="radio" :id="'address' + index" v-model="tempAddress" :value="addr" />
+                    <label :for="'address' + index" class="label" style="padding: 20px;">
+                      <h5 style="text-align: left;">{{ addr }}</h5>
+                      <v-icon @click.stop="deleteAddress(index)" style="cursor: pointer;">mdi-delete</v-icon>
                     </label>
                   </div>
-                  <div class="inputBox select modalselect" style="height: 78px;">
-                    <input type="radio" name="address" id="address02">
-                    <label for="address01" class="label" style="padding: 20px;">
-                      <h5 style="text-align: left;">충북 청주시 청원구 88번길 123 66아파트 205동 1120호 (율량동) [12345]</h5>
-                    </label>
-                  </div>
+                  <!-- 새로운 주소 추가 필드 -->
                   <div class="inputBox select modalselect"
                     style="background-color: transparent; border: 1px solid #ddd; justify-content: center;">
-                    <h5>새로운 배송지 추가</h5>
+                    <input v-model="newAddress" type="text" placeholder="새로운 배송지 입력" class="inputBox" />
+                    <v-btn size="small" @click="addNewAddress">추가</v-btn>
                   </div>
                 </div>
-                <div class="btn" @click="address = !address">
+                <div class="btn" @click="confirmAddress">
                   <h3 style="color: #eee;">선택완료</h3>
                 </div>
               </div>
@@ -47,42 +46,22 @@
         </div>
         <div class="text-center">
           <v-btn size="x-large" text="Click Me" @click="memo = !memo" class="inputBox">
-            <h5>배송메모를 선택하세요</h5>
+            <h5>{{ selectedMemo || '배송메모를 선택하세요' }}</h5>
             <v-icon style="color: #999;">mdi-menu-down</v-icon>
           </v-btn>
           <v-bottom-sheet v-model="memo">
             <div class="text-center">
               <div class="modal">
-                <!-- <h4>
-                  배송메모를 선택하세요
-                </h4> -->
                 <div class="selectBox">
-                  <div class="inputBox select modalselect">
-                    <input type="radio" name="memo" id="memo01">
-                    <label for="memo01" class="label">
-                      <h5>배송 전 미리 연락바랍니다</h5>
+                  <div v-for="option in memoOptions" :key="option.id" class="inputBox select modalselect">
+                    <input type="radio" :name="option.id" :id="option.id" :checked="selectedMemo === option.text"
+                      @change="setMemo(option.text)" />
+                    <label :for="option.id" class="label">
+                      <h5>{{ option.text }}</h5>
                     </label>
                   </div>
-                  <div class="inputBox select modalselect">
-                    <input type="radio" name="memo" id="memo02">
-                    <label for="memo02" class="label">
-                      <h5>문 앞에 놔주세요</h5>
-                    </label>
-                  </div>
-                  <div class="inputBox select modalselect">
-                    <input type="radio" name="memo" id="memo03">
-                    <label for="memo03" class="label">
-                      <h5>부재시 경비실에 맡겨주세요</h5>
-                    </label>
-                  </div>
-                  <!-- <div class="inputBox select modalselect">
-                      <input type="radio" name="memo" id="memo04">
-                      <label for="memo04" class="label">
-                        <h5>직접입력</h5>
-                      </label>
-                    </div> -->
                 </div>
-                <div class="btn" @click="memo = !memo">
+                <div class="btn" @click="confirmMemo">
                   <h3 style="color: #eee;">선택완료</h3>
                 </div>
               </div>
@@ -195,7 +174,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Pagination } from 'swiper/modules';
 import { useCartStore } from '@/stores/cartStore';
@@ -207,19 +186,77 @@ import 'swiper/css/pagination';
 
 const modules = [Pagination];
 const sheet = ref(false);
+
+// 배송 메모 관련 코드
 const memo = ref(false);
+const selectedMemo = ref(localStorage.getItem('selectedMemo') || '');
+const memoOptions = ref([
+  { id: 'memo01', text: '배송 전 미리 연락바랍니다' },
+  { id: 'memo02', text: '문 앞에 놔주세요' },
+  { id: 'memo03', text: '부재시 경비실에 맡겨주세요' },
+]);
+
+const setMemo = (memoText) => {
+  selectedMemo.value = memoText;
+  localStorage.setItem('selectedMemo', memoText);
+};
+
+const confirmMemo = () => {
+  memo.value = false;
+};
+
+// 배송지 관련 코드
 const address = ref(false);
-
 const cartStore = useCartStore();
+const selectedAddress = ref(localStorage.getItem('selectedAddress') || '');
+const tempAddress = ref(selectedAddress.value);
+const newAddress = ref('');
+const addressList = ref(JSON.parse(localStorage.getItem('addressList')) || [
+  '충북 청주시 상당구 125번길 355-0 66아파트 101동 309호 [12345]',
+  '충북 청주시 청원구 88번길 123 66아파트 205동 1120호 (율량동) [12345]',
+]);
 
+watch(selectedAddress, (newAddress) => {
+  localStorage.setItem('selectedAddress', newAddress);
+});
+
+watch(addressList, (newList) => {
+  localStorage.setItem('addressList', JSON.stringify(newList));
+}, { deep: true });
+
+const setTempAddress = (addr) => {
+  tempAddress.value = addr;
+};
+
+const confirmAddress = () => {
+  selectedAddress.value = tempAddress.value;
+  address.value = false;
+};
+
+const addNewAddress = () => {
+  if (newAddress.value.trim() !== '') {
+    addressList.value.push(newAddress.value.trim());
+    newAddress.value = ''; // 입력 필드 초기화
+  }
+};
+
+const deleteAddress = (index) => {
+  addressList.value.splice(index, 1);
+  if (tempAddress.value === addressList.value[index]) {
+    tempAddress.value = '';
+  }
+  if (selectedAddress.value === addressList.value[index]) {
+    selectedAddress.value = '';
+  }
+};
+
+// 재료 목록 관련 코드
 const formattedIngredients = computed(() => {
   const ingredients = {
     vege: [],
     sub: [],
     dressing: []
   };
-
-  // console.log('Selected Ingredients:', cartStore.selectedIngredients);
 
   cartStore.selectedIngredients.forEach(ingredient => {
     if (ingredients[ingredient.category]) {
@@ -241,7 +278,6 @@ const formattedIngredients = computed(() => {
 
 onMounted(() => {
   cartStore.loadFromLocalStorage();
-  console.log('Loaded Ingredients:', cartStore.selectedIngredients);
 });
 </script>
 
