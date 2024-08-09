@@ -1,7 +1,18 @@
-# SALAD
+# 🥗 SALAD
+### 사용자의 목표에 맞는 커스텀 샐러드 주문 앱
+
+<br>
+
+---
+
 
 확인용 배포 주소 (vercel)
 https://salad-vert.vercel.app/
+
+
+---
+
+<br>
 
 ## 사용 기술
 
