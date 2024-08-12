@@ -1,7 +1,7 @@
 <template>
   <div
     style=" padding: 12px 20px  38px 20px; width: 100%; background-color: #fff; z-index: 100; display: flex; flex-direction: column; gap: 18px;">
-    <div v-if="route.path === '/orderFinal'" class="inputBox">
+    <div v-if="route.path === '/orderFinal', '/cart'" class="inputBox">
       <h5>총 결제금액</h5>
     </div>
     <div class="btnBox">

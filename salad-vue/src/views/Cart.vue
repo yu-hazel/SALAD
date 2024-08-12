@@ -1,79 +1,91 @@
 <template>
-  <div class="GNB">
+  <!-- <div class="GNB">
     <RouterLink to="/">
       <v-icon>mdi-arrow-left</v-icon>
     </RouterLink>
     <h2 class="title">장바구니</h2>
-  </div>
-  <h5>최근 14일 이내 담은 상품만 확인 가능합니다</h5>
-  <v-checkbox>
-    <div class="consent">
-      <h5>전체 선택</h5>
-      <h5>선택 삭제</h5>
+  </div> -->
+  <div class="inner" style="padding: 56px 0 110px 0;">
+    <orderHeader></orderHeader>
+    <div style="display: flex; flex-direction: column; gap: 36px; margin-top: 18px;">
+      <div style="display: flex; justify-content: center; align-items: center; gap: 4px;">
+        <v-icon style="font-size: 20px; margin-bottom: 4px; color: #999;">mdi-check</v-icon>
+        <h5>최근 14일 이내 담은 상품만 확인 가능합니다</h5>
+      </div>
+      <v-checkbox>
+        <div class="consent">
+          <h5>전체 선택</h5>
+          <h5>선택 삭제</h5>
+        </div>
+      </v-checkbox>
     </div>
-  </v-checkbox>
 
-  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 6px; width: 100%;">
-    <div class="menuBox" :class="{ active: isActive }" @click="toggleClass">
-      <v-bottom-sheet>
-        <template v-slot:activator="{ props }">
-          <div class="text-center" style="flex: 1 1 0;">
-            <div style="display: flex; justify-content: flex-end;">
-              <div v-bind="props" style="display: flex; margin-right: -6px;">
-                <h5>더보기</h5>
-                <v-icon>mdi-chevron-right</v-icon>
+    <div
+      style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 6px; width: 100%; margin-top: 18px;">
+      <div class="menuBox" :class="{ active: isActive }" @click="toggleClass">
+        <v-bottom-sheet>
+          <template v-slot:activator="{ props }">
+            <div class="text-center" style="flex: 1 1 0;">
+              <div style="display: flex; justify-content: flex-end;">
+                <div v-bind="props" style="display: flex; margin-right: -6px;">
+                  <h5>더보기</h5>
+                  <v-icon>mdi-chevron-right</v-icon>
+                </div>
               </div>
+              <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 12px; margin-bottom: 24px;">
+                <h4>커스텀 샐러드 (2주)</h4>
+                <h5>₩ 20,900</h5>
+              </div>
+              <v-number-input :reverse="false" controlVariant="split" label="" :hideInput="false" :inset="false"
+                variant="outlined"></v-number-input>
             </div>
-            <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 12px; margin-bottom: 24px;">
-              <h4>커스텀 샐러드 (2주)</h4>
-              <h5>₩ 20,900</h5>
-            </div>
-            <v-number-input :reverse="false" controlVariant="split" label="" :hideInput="false" :inset="false"
-              variant="outlined"></v-number-input>
-          </div>
-        </template>
+          </template>
 
-        <div class="text-center">
-          <div class="modal">
-            <h4>커스텀 샐러드 (2주)</h4>
-            <div class="selectBox">
-              <div class="select modalselect" style="height: auto; padding: 20px 0px;">
-                <div style="display: flex; flex-direction: column; gap: 60px; width: 100%;">
-                  <div style="display: flex; flex-direction: column; gap: 20px;">
-                    <div>
-                      <h5 style="padding-left: 8px; margin-bottom: 12px; display: flex;">야채</h5>
-                      <div class="inputBox">
-                        <h5>{{ categorizedIngredients.vege }}</h5>
+          <div class="text-center">
+            <div class="modal">
+              <h4>커스텀 샐러드 (2주)</h4>
+              <div class="selectBox">
+                <div class="select modalselect" style="height: auto; padding: 20px 0px;">
+                  <div style="display: flex; flex-direction: column; gap: 60px; width: 100%;">
+                    <div style="display: flex; flex-direction: column; gap: 20px;">
+                      <div>
+                        <h5 style="padding-left: 8px; margin-bottom: 12px; display: flex;">야채</h5>
+                        <div class="inputBox">
+                          <h5>{{ categorizedIngredients.vege }}</h5>
+                        </div>
+                      </div>
+                      <div>
+                        <h5 style="padding-left: 8px; margin-bottom: 12px; display: flex;">치즈/ 육류/ 곡물</h5>
+                        <div class="inputBox">
+                          <h5>{{ categorizedIngredients.sub }}</h5>
+                        </div>
+                      </div>
+                      <div>
+                        <h5 style="padding-left: 8px; margin-bottom: 12px; display: flex;">드레싱</h5>
+                        <div class="inputBox">
+                          <h5>{{ categorizedIngredients.dressing }}</h5>
+                        </div>
                       </div>
                     </div>
-                    <div>
-                      <h5 style="padding-left: 8px; margin-bottom: 12px; display: flex;">치즈/ 육류/ 곡물</h5>
-                      <div class="inputBox">
-                        <h5>{{ categorizedIngredients.sub }}</h5>
-                      </div>
+                    <div class="inputBox">
+                      <h5>총 결제금액</h5>
+                      <h4>₩ 20,900</h4>
                     </div>
-                    <div>
-                      <h5 style="padding-left: 8px; margin-bottom: 12px; display: flex;">드레싱</h5>
-                      <div class="inputBox">
-                        <h5>{{ categorizedIngredients.dressing }}</h5>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="inputBox">
-                    <h5>총 결제금액</h5>
-                    <h4>₩ 20,900</h4>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </v-bottom-sheet>
+        </v-bottom-sheet>
+      </div>
     </div>
+    <orderFooter style="position: absolute; bottom: 0; left: 0;" />
   </div>
 </template>
 
 <script setup>
+import orderHeader from '@/components/OrderHeader.vue';
+import orderFooter from '@/components/OrderFooter.vue';
 import { VNumberInput } from 'vuetify/labs/VNumberInput';
 import { ref, computed, onMounted } from 'vue';
 

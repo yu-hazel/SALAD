@@ -7,12 +7,12 @@
   </div>
   <div class="inner">
     <div v-if="hasCalories" class="title">
-      <div>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
         <div>
           <h1>회원님의 </h1>
           <h1>하루 한 끼 목표 칼로리는</h1>
         </div>
-        <h1 class="calories" style="font-size: 32px; margin-top: 6px;">{{ store.perMealCalories }}kcal</h1>
+        <h1 class="calories" style="font-size: 32px;">{{ store.perMealCalories }}kcal</h1>
       </div>
       <RouterLink to="/targetCalories" style="display: flex; align-items: center;">
         <h5>자세히보기</h5>
@@ -32,6 +32,7 @@
 
 
     <img src="../assets/salad.png" alt="salad" class="mainImg">
+    <img src="../assets/salad2.png" alt="salad" class="mainImg2">
     <!-- <div class="btnBox">
       <RouterLink to="" class="btn">
         <h2 class="btnTitle">추천조합</h2>
@@ -117,6 +118,14 @@ h5 {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+.mainImg2 {
+  height: 100%;
+  max-height: 500px;
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
 @media (max-height: 780px) {
   .calories {
@@ -132,6 +141,9 @@ h5 {
   .btn {
     bottom: 120px;
   }
+  .mainImg2 {
+    display: none;
+  }
 }
 @media (max-height: 650px) {
 
@@ -141,6 +153,24 @@ h5 {
   }
   .btn {
     bottom: 110px;
+  }
+}
+
+@media (max-height:950px) {
+  .mainImg {
+    display: block;
+  }
+  .mainImg2 {
+    display: none;
+  }
+}
+
+@media (min-height:950px) {
+  .mainImg {
+    display: none;
+  }
+  .mainImg2 {
+    display: block;
   }
 }
 </style>

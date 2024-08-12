@@ -10,7 +10,7 @@
       style="display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; margin-top: 28px;">
       <img src="../assets/mypage.png" alt="" style="margin-bottom: 12px; height: 160px;">
       <h1>안녕하세요 박선정님</h1>
-      <RouterLink to="/profile" class="btn">
+      <RouterLink class="btn">
         <h5>프로필 수정하기</h5>
       </RouterLink>
     </div>
@@ -92,6 +92,11 @@
   }
   .inputBox {
     height: 86px !important;
+  }
+}
+@media (min-width: 900px) {
+  img {
+    height: 210px !important;
   }
 }
 </style>

@@ -85,6 +85,7 @@ const steps = {
   '/orderPeriod': 'STEP.5',
   '/orderSheet': '주문서',
   '/payment': '결제완료',
+  '/cart': '장바구니',
 };
 
 const step = computed(() => steps[route.path] || 1);
@@ -98,12 +99,12 @@ const goHome = () => {
 };
 
 const showTxtBox = computed(() => {
-  return !['/orderSheet', '/payment'].includes(route.path);
+  return !['/orderSheet', '/payment', '/cart'].includes(route.path);
 });
 
 const bowlimg = computed(() => {
   return !['/orderSelect', '/orderSelectSub', '/orderDressing',
-    '/orderPeriod', '/orderSheet', '/payment'].includes(route.path);
+    '/orderPeriod', '/orderSheet', '/payment', '/cart'].includes(route.path);
 });
 
 const progressValue = computed(() => {
