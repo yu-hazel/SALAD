@@ -10,8 +10,7 @@
 
         </div>
         <div class="text-center">
-          <v-btn size="x-large" text="Click Me" @click="address = !address" class="inputBox"
-            style="height: auto; padding: 20px;">
+          <v-btn size="x-large" text="Click Me" @click="address = !address" class="inputBox autoInput">
             <h5>{{ selectedAddress || '배송지를 선택하세요' }}</h5>
           </v-btn>
           <v-bottom-sheet v-model="address">
@@ -22,19 +21,21 @@
                 </h4>
                 <div class="selectBox">
                   <!-- 기존 저장된 주소들 -->
-                  <div v-for="(addr, index) in addressList" :key="index" class="inputBox select modalselect"
-                    style="height: 78px;">
+                  <div v-for="(addr, index) in addressList" :key="index" class=" select modalselect" style="gap: 6px;">
                     <input type="radio" :id="'address' + index" v-model="tempAddress" :value="addr" />
-                    <label :for="'address' + index" class="label" style="padding: 20px;">
+                    <label :for="'address' + index" class="label inputBox  autoInput">
                       <h5 style="text-align: left;">{{ addr }}</h5>
-                      <v-icon @click.stop="deleteAddress(index)" style="cursor: pointer;">mdi-delete</v-icon>
+
                     </label>
+                    <div class="inputBox delete  autoInput" @click.stop="deleteAddress(index)"
+                      style="width: 60px; font-size: 18px; justify-content: center; color: #333;">
+                      <v-icon style="cursor: pointer;">mdi-delete</v-icon>
+                    </div>
                   </div>
                   <!-- 새로운 주소 추가 필드 -->
-                  <div class="inputBox select modalselect"
-                    style="background-color: transparent; border: 1px solid #ddd; justify-content: center;">
-                    <input v-model="newAddress" type="text" placeholder="새로운 배송지 입력" class="inputBox" />
-                    <v-btn size="small" @click="addNewAddress">추가</v-btn>
+                  <div class="inputBox modalselect" style="background-color: transparent; border: 1px solid #ddd;">
+                    <input v-model="newAddress" type="text" placeholder="새로운 배송지 입력" style="width: 100%;" />
+                    <v-icon @click="addNewAddress">mdi-plus</v-icon>
                   </div>
                 </div>
                 <div class="btn" @click="confirmAddress">
@@ -81,7 +82,7 @@
           <div class="text-center">
             <div class="modal">
               <div class="selectBox">
-                <div class="inputBox select modalselect" style="height: auto; padding: 20px 20px;">
+                <div class="inputBox select modalselect autoInput">
                   <div style="display: flex; flex-direction: column; gap: 12px; width: 100%;">
                     <h5 style="text-align: left;">커스텀 샐러드 (2주)</h5>
                     <div style="display: flex; flex-direction: column; gap: 4px;">
@@ -417,5 +418,12 @@ onMounted(() => {
   justify-content: space-between;
   width: 100%;
   padding-right: 8px;
+}
+.autoInput {
+  height: auto;
+  padding: 20px 20px;
+}
+input:focus {
+  outline: none;
 }
 </style>

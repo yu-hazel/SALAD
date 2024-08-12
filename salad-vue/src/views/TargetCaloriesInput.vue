@@ -34,8 +34,8 @@
         </div>
       </div>
       <div class="input-wrapper">
-        <input type="text" :value="store.age" @input="onInputAge" @compositionupdate="onInputAge"
-          placeholder="나이를 입력해주세요" :class="{ 'inputBox': true, 'input-error': ageError }" required>
+        <input type="text" :value="store.age" @input="onInputAge" @compositionupdate="onInputAge" placeholder="나이를 입력해주세요"
+          :class="{ 'inputBox': true, 'input-error': ageError }" required>
         <span v-if="ageError" class="error-message">{{ ageError }}</span>
         <span v-if="!ageError && store.age !== ''" class="unit">세</span>
       </div>
@@ -66,17 +66,23 @@
               <div class="inputBox select modalselect">
                 <input type="radio" name="target" id="decrement" value="감량" @change="selectTarget('감량')"
                   :checked="tempGoal === '감량'">
-                <label for="decrement" class="label">감량</label>
+                <label for="decrement" class="label">
+                  <h4>감량</h4>
+                </label>
               </div>
               <div class="inputBox select modalselect">
                 <input type="radio" name="target" id="keep" value="유지" @change="selectTarget('유지')"
                   :checked="tempGoal === '유지'">
-                <label for="keep" class="label">유지</label>
+                <label for="keep" class="label">
+                  <h4>유지</h4>
+                </label>
               </div>
               <div class="inputBox select modalselect">
                 <input type="radio" name="target" id="increase" value="증량" @change="selectTarget('증량')"
                   :checked="tempGoal === '증량'">
-                <label for="increase" class="label">증량</label>
+                <label for="increase" class="label">
+                  <h4>증량</h4>
+                </label>
               </div>
             </div>
             <div style="display: flex; flex-direction: column; align-items: center;">
@@ -93,7 +99,7 @@
           <template v-slot:activator="{ props }">
             <div class="text-center" style="flex: 1 1 0;">
               <v-btn v-bind="props" class="inputBox">{{ store.mealCount ? `${store.mealCount}끼` : '식사량을 선택하세요'
-                }}</v-btn>
+              }}</v-btn>
             </div>
           </template>
           <div class="modal">
@@ -104,17 +110,23 @@
               <div style="display: flex; flex: 1 1 0;" class="inputBox select modalselect">
                 <input type="radio" name="amount" id="one" value="1" @change="selectAmount('1')"
                   :checked="tempAmount === '1'">
-                <label for="one" class="label">1끼</label>
+                <label for="one" class="label">
+                  <h4>1끼</h4>
+                </label>
               </div>
               <div style="display: flex; flex: 1 1 0;" class="inputBox select modalselect">
                 <input type="radio" name="amount" id="two" value="2" @change="selectAmount('2')"
                   :checked="tempAmount === '2'">
-                <label for="two" class="label">2끼</label>
+                <label for="two" class="label">
+                  <h4>2끼</h4>
+                </label>
               </div>
               <div style="display: flex; flex: 1 1 0;" class="inputBox select modalselect">
                 <input type="radio" name="amount" id="three" value="3" @change="selectAmount('3')"
                   :checked="tempAmount === '3'">
-                <label for="three" class="label">3끼</label>
+                <label for="three" class="label">
+                  <h4>3끼</h4>
+                </label>
               </div>
             </div>
             <div style="display: flex; flex-direction: column; align-items: center;">
@@ -149,7 +161,7 @@ import { ref, onMounted, watch, computed } from 'vue';
 import { useCaloriesStore } from '@/stores/caloriesStore';
 import { useRouter } from 'vue-router';
 
-const router = useRouter()
+const router = useRouter();
 const store = useCaloriesStore();
 const target = ref(false);
 const amount = ref(false);
@@ -166,8 +178,8 @@ const selectTarget = (value) => {
 };
 
 const confirmTarget = () => {
-  store.goal = tempGoal.value; 
-  store.calculateCalories(store.goal); 
+  store.goal = tempGoal.value;
+  store.calculateCalories(store.goal);
   target.value = false;
 };
 
@@ -416,5 +428,4 @@ onMounted(() => {
     margin-top: 18px !important;
     gap: 6px !important;
   }
-}
-</style>
+}</style>

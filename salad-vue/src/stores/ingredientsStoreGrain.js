@@ -14,7 +14,8 @@ export const useGrainStore = defineStore('grainStore', () => {
             fat: 0.8,
             quantity: ref(0),
             more: ref(false),
-            category: 'sub'
+            category: 'sub',
+            price: 1200
         }, {
             name: '치아시드',
             image: 'menu21.png',
@@ -25,7 +26,8 @@ export const useGrainStore = defineStore('grainStore', () => {
             fat: 9.3,
             quantity: ref(0),
             more: ref(false),
-            category: 'sub'
+            category: 'sub',
+            price: 1200
         }, {
             name: '믹스넛',
             image: 'menu22.png',
@@ -36,7 +38,8 @@ export const useGrainStore = defineStore('grainStore', () => {
             fat: 14.7,
             quantity: ref(0),
             more: ref(false),
-            category: 'sub'
+            category: 'sub',
+            price: 1200
         }, {
             name: '현미',
             image: 'menu23.png',
@@ -47,7 +50,8 @@ export const useGrainStore = defineStore('grainStore', () => {
             fat: 0.3,
             quantity: ref(0),
             more: ref(false),
-            category: 'sub'
+            category: 'sub',
+            price: 1200
         }, {
             name: '피스타치오',
             image: 'menu24.png',
@@ -58,7 +62,8 @@ export const useGrainStore = defineStore('grainStore', () => {
             fat: 0.15,
             quantity: ref(0),
             more: ref(false),
-            category: 'sub'
+            category: 'sub',
+            price: 1200
         },
     ]);
 

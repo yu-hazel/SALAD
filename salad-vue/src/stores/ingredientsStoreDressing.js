@@ -14,7 +14,8 @@ export const useDressingStore = defineStore('dressingStore', () => {
             fat: 3.6,
             quantity: ref(0),
             more: ref(false),
-            category: 'dressing'
+            category: 'dressing',
+            price: 1200
         }, {
             name: '오리엔탈드레싱',
             image: 'sauce2.png',
@@ -25,7 +26,8 @@ export const useDressingStore = defineStore('dressingStore', () => {
             fat: 0.9,
             quantity: ref(0),
             more: ref(false),
-            category: 'dressing'
+            category: 'dressing',
+            price: 1200
         }, {
             name: '발사믹드레싱',
             image: 'sauce3.png',
@@ -36,7 +38,8 @@ export const useDressingStore = defineStore('dressingStore', () => {
             fat: 1.2,
             quantity: ref(0),
             more: ref(false),
-            category: 'dressing'
+            category: 'dressing',
+            price: 1200
         }, {
             name: '홀스래디쉬드레싱',
             image: 'sauce4.png',
@@ -47,7 +50,8 @@ export const useDressingStore = defineStore('dressingStore', () => {
             fat: 1.5,
             quantity: ref(0),
             more: ref(false),
-            category: 'dressing'
+            category: 'dressing',
+            price: 1200
         }, {
             name: '치폴레드레싱',
             image: 'sauce5.png',
@@ -58,7 +62,8 @@ export const useDressingStore = defineStore('dressingStore', () => {
             fat: 3,
             quantity: ref(0),
             more: ref(false),
-            category: 'dressing'
+            category: 'dressing',
+            price: 1200
         }, {
             name: '머스타드드레싱',
             image: 'sauce6.png',
@@ -69,7 +74,8 @@ export const useDressingStore = defineStore('dressingStore', () => {
             fat: 1.5,
             quantity: ref(0),
             more: ref(false),
-            category: 'dressing'
+            category: 'dressing',
+            price: 1200
         }, {
             name: '어니언드레싱',
             image: 'sauce7.png',
@@ -80,7 +86,8 @@ export const useDressingStore = defineStore('dressingStore', () => {
             fat: 1.8,
             quantity: ref(0),
             more: ref(false),
-            category: 'dressing'
+            category: 'dressing',
+            price: 1200
         },
     ]);
 

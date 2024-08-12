@@ -6,8 +6,9 @@
     <v-icon>mdi-cog</v-icon>
   </div>
   <div class="inner">
-    <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; margin-top: 28px;">
-      <img src="../assets/mypage.png" alt="" style="margin-bottom: 12px; width: 179px; height: 161px;">
+    <div class="innerBox"
+      style="display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; margin-top: 28px;">
+      <img src="../assets/mypage.png" alt="" style="margin-bottom: 12px; height: 160px;">
       <h1>안녕하세요 박선정님</h1>
       <RouterLink to="/profile" class="btn">
         <h5>프로필 수정하기</h5>
@@ -73,6 +74,25 @@
   border-radius: 16px;
   padding: 0 20px;
   gap: 10px;
+}
+
+@media (max-height: 780px) {
+  .v-icon {
+    font-size: 24px !important;
+  }
+  img {
+    height: 130px !important;
+  }
+  .innerBox {
+    margin-top: 6px !important;
+    margin-bottom: 24px !important;
+  }
+  .btn {
+    margin-top: 12px;
+  }
+  .inputBox {
+    height: 86px !important;
+  }
 }
 </style>
 

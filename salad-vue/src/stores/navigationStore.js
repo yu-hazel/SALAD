@@ -8,6 +8,7 @@ export const useNavigationStore = defineStore('navigation', {
       '/orderSelectSub',
       '/orderDressing',
       '/orderFinal',
+      // '/orderPeriod',
       '/orderSheet',
       '/payment',
     ],  // 페이지 순서

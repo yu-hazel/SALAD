@@ -1,6 +1,5 @@
 <template>
-  <div
-    style="position: fixed; width: 100%; top: 0; left: 0; padding: 0 20px; background-color: #fff; z-index: 200; max-width: 480px;">
+  <div style="position: fixed; width: 100%; top: 0; left: 0; padding: 0 20px; background-color: #fff; z-index: 200;">
     <div class="GNB">
       <v-icon @click="handlePrevious">mdi-arrow-left</v-icon>
       <h2 class="title">{{ step }}</h2>
@@ -12,9 +11,11 @@
   <div v-if="bowlimg" style="display: flex; align-items: center; justify-content: center; margin-top: 18px;">
     <img src="../assets/salad.png" alt="salad" style="width: 150px; height: 150px;">
   </div>
-  <RouterLink v-if="!hasCalories" to='/targetCaloriesInput' class="btn">
-    <h5>칼로리 계산하기</h5>
-  </RouterLink>
+  <div style="display: flex;  width: 100%; justify-content: center;">
+    <RouterLink v-if="!hasCalories" to='/targetCaloriesInput' class="btn">
+      <h5>칼로리 계산하기</h5>
+    </RouterLink>
+  </div>
   <div v-if="hasCalories && showTxtBox" class="txtBox">
     <h1>{{ cartStore.totalCalories }} kcal</h1>
     <span style="margin-top: 12px; display: flex; align-items: center;">
@@ -81,6 +82,7 @@ const steps = {
   '/orderSelectSub': 'STEP.2',
   '/orderDressing': 'STEP.3',
   '/orderFinal': 'STEP.4',
+  '/orderPeriod': 'STEP.5',
   '/orderSheet': '주문서',
   '/payment': '결제완료',
 };
@@ -100,7 +102,8 @@ const showTxtBox = computed(() => {
 });
 
 const bowlimg = computed(() => {
-  return !['/orderSelect', '/orderSelectSub', '/orderDressing', '/orderSheet', '/payment'].includes(route.path);
+  return !['/orderSelect', '/orderSelectSub', '/orderDressing',
+    '/orderPeriod', '/orderSheet', '/payment'].includes(route.path);
 });
 
 const progressValue = computed(() => {
@@ -185,6 +188,7 @@ const handlePrevious = () => {
   align-items: center;
   justify-content: center;
   display: flex;
-  margin-top: 18px;
+  margin-top: 24px;
+  margin-bottom: 32px;
 }
 </style>

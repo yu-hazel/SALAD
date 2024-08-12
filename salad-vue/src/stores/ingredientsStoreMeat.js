@@ -6,7 +6,7 @@ export const useMeatStore = defineStore('meatStore', () => {
     const ingredients = ref([
         {
             name: '훈제연어',
-            image: 'menu1.png',
+            image: 'meat1.png',
             weight: 100,
             calories: 117,
             carbs: 0,
@@ -14,10 +14,11 @@ export const useMeatStore = defineStore('meatStore', () => {
             fat: 4,
             quantity: ref(0),
             more: ref(false),
-            category: 'sub'
+            category: 'sub',
+            price: 2500
         }, {
             name: '닭가슴살',
-            image: 'menu1.png',
+            image: 'meat2.png',
             weight: 100,
             calories: 165,
             carbs: 0,
@@ -25,21 +26,11 @@ export const useMeatStore = defineStore('meatStore', () => {
             fat: 3.6,
             quantity: ref(0),
             more: ref(false),
-            category: 'sub'
-        }, {
-            name: '닭가슴살',
-            image: 'menu1.png',
-            weight: 100,
-            calories: 165,
-            carbs: 0,
-            protein: 31,
-            fat: 3.6,
-            quantity: ref(0),
-            more: ref(false),
-            category: 'sub'
+            category: 'sub',
+            price: 2500
         }, {
             name: '훈제오리',
-            image: 'menu1.png',
+            image: 'meat3.png',
             weight: 100,
             calories: 280,
             carbs: 0,
@@ -47,10 +38,11 @@ export const useMeatStore = defineStore('meatStore', () => {
             fat: 23,
             quantity: ref(0),
             more: ref(false),
-            category: 'sub'
+            category: 'sub',
+            price: 2500
         }, {
             name: '베이컨',
-            image: 'menu1.png',
+            image: 'meat4.png',
             weight: 100,
             calories: 541,
             carbs: 1.4,
@@ -58,11 +50,12 @@ export const useMeatStore = defineStore('meatStore', () => {
             fat: 42,
             quantity: ref(0),
             more: ref(false),
-            category: 'sub'
+            category: 'sub',
+            price: 2500
         },
         {
             name: '로스트 치킨',
-            image: 'menu1.png',
+            image: 'meat5.png',
             weight: 100,
             calories: 190,
             carbs: 0,
@@ -70,10 +63,11 @@ export const useMeatStore = defineStore('meatStore', () => {
             fat: 7,
             quantity: ref(0),
             more: ref(false),
-            category: 'sub'
+            category: 'sub',
+            price: 2500
         }, {
             name: '쉬림프',
-            image: 'menu1.png',
+            image: 'meat6.png',
             weight: 100,
             calories: 99,
             carbs: 0.2,
@@ -81,7 +75,8 @@ export const useMeatStore = defineStore('meatStore', () => {
             fat: 0.3,
             quantity: ref(0),
             more: ref(false),
-            category: 'sub'
+            category: 'sub',
+            price: 2500
         },
     ]);
 

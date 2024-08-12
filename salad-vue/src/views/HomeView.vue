@@ -8,9 +8,11 @@
   <div class="inner">
     <div v-if="hasCalories" class="title">
       <div>
-        <h1>회원님의 </h1>
-        <h1>하루 한 끼 목표 칼로리는 </h1>
-        <h1 class="calories" style="font-size: 32px;">{{ store.perMealCalories }}kcal</h1>
+        <div>
+          <h1>회원님의 </h1>
+          <h1>하루 한 끼 목표 칼로리는</h1>
+        </div>
+        <h1 class="calories" style="font-size: 32px; margin-top: 6px;">{{ store.perMealCalories }}kcal</h1>
       </div>
       <RouterLink to="/targetCalories" style="display: flex; align-items: center;">
         <h5>자세히보기</h5>
@@ -20,7 +22,7 @@
     <div v-else class="title">
       <div>
         <h1>내 몸에 맞는 샐러드를</h1>
-        <h1>SALAD와 함께 알아보세요 !</h1>
+        <h1>직접 만들어보세요</h1>
       </div>
       <RouterLink to="/targetCaloriesInput" style="display: flex; align-items: center;">
         <h5>칼로리 계산하기</h5>

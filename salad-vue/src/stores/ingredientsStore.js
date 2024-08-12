@@ -14,7 +14,8 @@ export const useIngredientsStore = defineStore('ingredients', () => {
             fat: 0.1,
             quantity: ref(0),
             more: ref(false),
-            category: 'vege'
+            category: 'vege',
+            price: 1500
         },
         {
             name: '토마토',
@@ -26,7 +27,8 @@ export const useIngredientsStore = defineStore('ingredients', () => {
             fat: 0.1,
             quantity: ref(0),
             more: ref(false),
-            category: 'vege'
+            category: 'vege',
+            price: 1500
         },
         {
             name: '양상추',
@@ -38,7 +40,8 @@ export const useIngredientsStore = defineStore('ingredients', () => {
             fat: 0.1,
             quantity: ref(0),
             more: ref(false),
-            category: 'vege'
+            category: 'vege',
+            price: 1500
         },
         {
             name: '샐러리',
@@ -50,7 +53,8 @@ export const useIngredientsStore = defineStore('ingredients', () => {
             fat: 0.05,
             quantity: ref(0),
             more: ref(false),
-            category: 'vege'
+            category: 'vege',
+            price: 1500
         },
         {
             name: '당근',
@@ -62,7 +66,8 @@ export const useIngredientsStore = defineStore('ingredients', () => {
             fat: 0.1,
             quantity: ref(0),
             more: ref(false),
-            category: 'vege'
+            category: 'vege',
+            price: 1500
         },
         {
             name: '할라피뇨',
@@ -74,7 +79,8 @@ export const useIngredientsStore = defineStore('ingredients', () => {
             fat: 0.1,
             quantity: ref(0),
             more: ref(false),
-            category: 'vege'
+            category: 'vege',
+            price: 1500
         },
 
         {
@@ -87,7 +93,8 @@ export const useIngredientsStore = defineStore('ingredients', () => {
             fat: 7,
             quantity: ref(0),
             more: ref(false),
-            category: 'vege'
+            category: 'vege',
+            price: 1500
         },
         {
             name: '단호박',
@@ -99,7 +106,8 @@ export const useIngredientsStore = defineStore('ingredients', () => {
             fat: 0.05,
             quantity: ref(0),
             more: ref(false),
-            category: 'vege'
+            category: 'vege',
+            price: 1500
         },
         {
             name: '브로콜리',
@@ -111,7 +119,8 @@ export const useIngredientsStore = defineStore('ingredients', () => {
             fat: 0.2,
             quantity: ref(0),
             more: ref(false),
-            category: 'vege'
+            category: 'vege',
+            price: 1500
         },
         {
             name: '스위트 콘',
@@ -123,7 +132,8 @@ export const useIngredientsStore = defineStore('ingredients', () => {
             fat: 0.6,
             quantity: ref(0),
             more: ref(false),
-            category: 'vege'
+            category: 'vege',
+            price: 1500
         }, {
             name: '적양파',
             image: 'menu7.png',
@@ -134,7 +144,8 @@ export const useIngredientsStore = defineStore('ingredients', () => {
             fat: 0.05,
             quantity: ref(0),
             more: ref(false),
-            category: 'vege'
+            category: 'vege',
+            price: 1500
         }, {
             name: '바나나',
             image: 'menu13.png',
@@ -145,7 +156,8 @@ export const useIngredientsStore = defineStore('ingredients', () => {
             fat: 0.15,
             quantity: ref(0),
             more: ref(false),
-            category: 'vege'
+            category: 'vege',
+            price: 1500
         }, {
             name: '사과',
             image: 'menu14.png',
@@ -156,7 +168,8 @@ export const useIngredientsStore = defineStore('ingredients', () => {
             fat: 0.1,
             quantity: ref(0),
             more: ref(false),
-            category: 'vege'
+            category: 'vege',
+            price: 1500
         }, {
             name: '망고',
             image: 'menu15.png',
@@ -167,7 +180,8 @@ export const useIngredientsStore = defineStore('ingredients', () => {
             fat: 0.15,
             quantity: ref(0),
             more: ref(false),
-            category: 'vege'
+            category: 'vege',
+            price: 1500
         },
     ]);
 

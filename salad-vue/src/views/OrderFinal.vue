@@ -15,6 +15,29 @@
         </div>
       </div>
     </div>
+    <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 32px;">
+      <h5 style="padding-left: 8px; color: #999; font-weight: 400;"> 정기배송 기간 선택</h5>
+      <div class="selectBox">
+        <div class="inputBox select modalselect">
+          <input type="radio" name="period" id="one" value="1주">
+          <label for="one" class="label">
+            <h4>1주</h4>
+          </label>
+        </div>
+        <div class="inputBox select modalselect">
+          <input type="radio" name="period" id="two" value="2주">
+          <label for="two" class="label">
+            <h4>2주</h4>
+          </label>
+        </div>
+        <div class="inputBox select modalselect">
+          <input type="radio" name="period" id="three" value="3주">
+          <label for="three" class="label">
+            <h4>3주</h4>
+          </label>
+        </div>
+      </div>
+    </div>
     <orderFooter style="position: fixed; bottom: 0; left: 0;" />
   </div>
 </template>
@@ -54,6 +77,11 @@ const removeIngredient = (ingredient) => {
   border-radius: 16px;
   padding: 0 20px;
 }
+.inputBox:focus {
+  background-color: #E6F2E0;
+  outline: 1px solid #52CA19;
+}
+
 :deep(.v-input) {
   width: 120px;
   flex: none
@@ -96,5 +124,46 @@ const removeIngredient = (ingredient) => {
 
 :deep(.mdi-plus) {
   color: #eee !important;
+}
+
+.selectBox {
+  display: flex;
+  width: 100%;
+  gap: 8px;
+}
+.selectBox input[type=radio] {
+  display: none;
+}
+.selectBox input[type=radio] + label {
+  display: inline-block;
+  cursor: pointer;
+  height: 24px;
+  width: 90px;
+  line-height: 24px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 13px;
+}
+.selectBox input[type=radio] + label {
+  color: #333;
+}
+.selectBox input[type=radio]:checked + label {
+  background-color: #E6F2E0;
+  border-radius: 16px;
+  border: 1px solid #52CA19;
+  color: #333 !important;
+}
+.select {
+  padding: 0;
+  display: flex;
+  flex: 1 1 0;
+}
+.label {
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  color: #999 !important;
 }
 </style>

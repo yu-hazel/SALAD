@@ -1,8 +1,8 @@
 <template>
   <div style="padding: 56px 0 110px 0;">
     <orderHeader />
-    <div style="padding-bottom: 20px;">
-      <h3>Cheese</h3>
+    <div style="padding-bottom: 28px;">
+      <h5 style="padding-left: 8px; padding-bottom: 12px; color: #999; font-weight: 400;">치즈 선택</h5>
       <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 6px; width: 100%;">
         <div v-for="(ingredient, index) in cheeseStore.ingredients" :key="index" class="menuBox"
           :class="{ active: isSelected(ingredient) }" @click="toggleIngredient(ingredient)">
@@ -58,8 +58,8 @@
       </div>
     </div>
 
-    <div style="padding-bottom: 20px;">
-      <h3>Grain</h3>
+    <div style="padding-bottom: 28px;">
+      <h5 style="padding-left: 8px; padding-bottom: 12px; color: #999; font-weight: 400;">곡물 선택</h5>
       <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 6px; width: 100%;">
         <div v-for="(ingredient, index) in grainStore.ingredients" :key="index" class="menuBox"
           :class="{ active: isSelected(ingredient) }" @click="toggleIngredient(ingredient)">
@@ -115,8 +115,8 @@
       </div>
     </div>
 
-    <div style="padding-bottom: 20px;">
-      <h3>Meat</h3>
+    <div style="padding-bottom: 28px;">
+      <h5 style="padding-left: 8px; padding-bottom: 12px; color: #999; font-weight: 400;">고기 선택</h5>
       <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 6px; width: 100%;">
         <div v-for="(ingredient, index) in meatStore.ingredients" :key="index" class="menuBox"
           :class="{ active: isSelected(ingredient) }" @click="toggleIngredient(ingredient)">
