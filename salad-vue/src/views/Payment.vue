@@ -53,18 +53,32 @@ import orderFooter from '@/components/OrderFooter.vue';
   object-fit: cover;
   object-position: top;
   position: absolute;
-  bottom: 18%;
+  bottom: 50%;
+  right: 50%;
+  transform: translate(50%, 50%);
 }
-@media (max-height: 780px) {
+@media (max-height: 800px) {
   .mainImg {
     width: 70%;
     height: 320px;
   }
 }
-@media (max-height: 650px) {
+@media (max-height: 710px) {
   .mainImg {
     width: 60%;
     height: 230px;
+  }
+}
+@media (max-height: 630px) {
+  .mainImg {
+    width: 55%;
+    height: 150px;
+  }
+}
+@media (min-height: 900px) {
+  .mainImg {
+    width: 60%;
+    height: 500px;
   }
 }
 </style>

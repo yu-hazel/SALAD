@@ -12,7 +12,7 @@
     <img src="../assets/salad.png" alt="salad" style="width: 150px; height: 150px;">
   </div>
   <div style="display: flex;  width: 100%; justify-content: center;">
-    <RouterLink v-if="!hasCalories" to='/targetCaloriesInput' class="btn">
+    <RouterLink v-if="!hasCalories && CaloriseBtn" to='/targetCaloriesInput' class="btn">
       <h5>칼로리 계산하기</h5>
     </RouterLink>
   </div>
@@ -76,6 +76,9 @@ const navigationStore = useNavigationStore();
 const store = useCaloriesStore();
 
 const hasCalories = computed(() => !!store.perMealCalories);
+const CaloriseBtn = computed(() => {
+  return !['/orderSheet', '/payment', '/cart'].includes(route.path);
+});
 
 const steps = {
   '/orderSelect': 'STEP.1',

@@ -1,7 +1,7 @@
 <template>
   <div style="padding: 56px 0 90px 0; display: flex; flex-direction: column; gap: 24px;">
     <orderHeader />
-    <div class="inner" style="margin-top: 24px;">
+    <div class="inner">
       <h5 style="padding-left: 8px; margin-bottom: 12px;">배송정보</h5>
       <div style="display: flex; flex-direction: column; gap: 8px;">
         <div style="display: flex; gap: 8px;">

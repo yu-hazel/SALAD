@@ -94,9 +94,13 @@
     height: 86px !important;
   }
 }
-@media (min-width: 900px) {
+
+@media (min-height: 900px) {
   img {
-    height: 210px !important;
+    height: 200px !important;
+  }
+  .inputBox {
+    height: 130px;
   }
 }
 </style>
