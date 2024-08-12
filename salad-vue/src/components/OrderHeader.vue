@@ -1,5 +1,5 @@
 <template>
-  <div style="position: fixed; width: 100%; top: 0; left: 0; padding: 0 20px; background-color: #fff; z-index: 200;">
+  <div style="position: absolute; width: 100%; top: 0; left: 0; padding: 0 20px; background-color: #fff; z-index: 200;">
     <div class="GNB">
       <v-icon @click="handlePrevious">mdi-arrow-left</v-icon>
       <h2 class="title">{{ step }}</h2>
@@ -125,7 +125,7 @@ const handlePrevious = () => {
 <style scoped>
 .GNB {
   display: flex;
-  position: relative;
+  top: 0;
   height: 56px;
   align-items: center;
   justify-content: space-between;

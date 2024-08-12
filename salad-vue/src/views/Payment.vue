@@ -12,7 +12,7 @@
       </div>
       <img src="../assets/person.png" alt="box" class="mainImg">
     </div>
-    <orderFooter style="position: fixed; bottom: 0; left: 0;" />
+    <orderFooter style="position: absolute; bottom: 0; left: 0;" />
   </div>
 </template>
 

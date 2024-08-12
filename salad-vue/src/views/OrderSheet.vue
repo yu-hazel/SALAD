@@ -150,7 +150,7 @@
         <h5>총 결제금액</h5>
       </div>
     </div>
-    <orderFooter style="position: fixed; bottom: 0; left: 0;" />
+
     <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 40px;">
       <v-checkbox>
         <div class="consent">
@@ -171,6 +171,7 @@
         </div>
       </v-checkbox>
     </div>
+    <orderFooter style="position: absolute; bottom: 0; left: 0;" />
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <div
-    style="position: fixed; width: 100%; top: 0; left: 0; padding: 0 20px; background-color: #fff; z-index: 200; max-width: 480px;">
+    style="position: absolute; top: 0; width: 100%; left: 0; padding: 0 20px; background-color: #fff; z-index: 200; max-width: 480px;">
     <div class="GNB">
       <RouterLink to="/targetCalories">
         <v-icon>mdi-arrow-left</v-icon>
@@ -428,4 +428,5 @@ onMounted(() => {
     margin-top: 18px !important;
     gap: 6px !important;
   }
-}</style>
+}
+</style>

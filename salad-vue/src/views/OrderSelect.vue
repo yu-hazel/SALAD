@@ -54,7 +54,7 @@
         </v-bottom-sheet>
       </div>
     </div>
-    <orderFooter style="position: fixed; bottom: 0; left: 0;" />
+    <orderFooter style="position: absolute; bottom: 0; left: 0;" />
   </div>
 </template>
 

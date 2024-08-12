@@ -1,4 +1,5 @@
 <template>
+  <!-- <div style="position: relative;"> -->
   <div class="nav">
     <div class="menu">
       <RouterLink to="/targetCalories">
@@ -16,6 +17,7 @@
       </RouterLink>
     </div>
   </div>
+  <!-- </div> -->
 </template>
 
 <script setup>
