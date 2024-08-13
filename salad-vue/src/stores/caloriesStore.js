@@ -18,6 +18,17 @@ export const useCaloriesStore = defineStore('calories', {
         calculateCalories(basedOnGoal = '유지') {
             let BMR = 0;
 
+            // 키, 나이, 체중 중 하나라도 비어있으면 perMealCalories를 0으로 설정
+            if (!this.height || !this.currentWeight || !this.age) {
+                this.perMealCalories = 0;
+                this.recommendedCalories = 0;
+                this.carbs = 0;
+                this.protein = 0;
+                this.fat = 0;
+                this.saveUserData();
+                return;
+            }
+
             if (this.gender === 'male') {
                 BMR = 66 + (13.7 * this.currentWeight) + (5 * this.height) - (6.8 * this.age);
             } else {

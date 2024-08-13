@@ -33,16 +33,6 @@
 
     <img src="../assets/salad.png" alt="salad" class="mainImg">
     <img src="../assets/salad2.png" alt="salad" class="mainImg2">
-    <!-- <div class="btnBox">
-      <RouterLink to="" class="btn">
-        <h2 class="btnTitle">추천조합</h2>
-        <h5 class="btnSubTitle">나에게 맞는 조합</h5>
-      </RouterLink>
-      <RouterLink to="/orderSelect" class="btn">
-        <h2 class="btnTitle">주문하기</h2>
-        <h5 class="btnSubTitle">나의 맞춤 샐러드</h5>
-      </RouterLink>
-    </div> -->
     <RouterLink to="/orderSelect" class="btn">
       <h3 style="color: #eee;">샐러드 주문하기</h3>
     </RouterLink>

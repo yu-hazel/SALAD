@@ -5,7 +5,6 @@
       <h2 class="title">{{ step }}</h2>
       <v-icon @click="goHome">mdi-close</v-icon>
     </div>
-
   </div>
 
   <div v-if="bowlimg" style="display: flex; align-items: center; justify-content: center; margin-top: 18px;">
@@ -65,6 +64,8 @@ import { useCaloriesStore } from '@/stores/caloriesStore';
 import { useIngredientsStore } from '@/stores/ingredientsStore';
 import { useCartStore } from '@/stores/cartStore';
 import { useNavigationStore } from '@/stores/navigationStore';
+import { useAuthStore } from '@/stores/authStore';
+import { onBeforeRouteLeave } from 'vue-router';
 
 const caloriesStore = useCaloriesStore();
 const ingredientsStore = useIngredientsStore();
@@ -74,6 +75,8 @@ const route = useRoute();
 const showDetails = ref(false);
 const navigationStore = useNavigationStore();
 const store = useCaloriesStore();
+const authStore = useAuthStore();
+let confirmTriggered = false; // 한 번만 확인을 트리거하기 위한 변수
 
 const hasCalories = computed(() => !!store.perMealCalories);
 const CaloriseBtn = computed(() => {
@@ -98,7 +101,13 @@ const toggleDetails = () => {
 };
 
 const goHome = () => {
-  router.push('/');
+  console.log('로그인 상태:', authStore.isLoggedIn); // 로그인 상태 확인
+  if (!authStore.isLoggedIn) {
+    // console.log('로그인이 필요합니다.'); // 로그인 필요 시 메시지 출력
+    router.push('/');
+  } else {
+    router.push('/');
+  }
 };
 
 const showTxtBox = computed(() => {
@@ -123,6 +132,24 @@ const handlePrevious = () => {
   navigationStore.goToPreviousPage();
   router.push(navigationStore.getCurrentPage());
 };
+
+onBeforeRouteLeave((to, from, next) => {
+  // 특정 경로에서만 동작하게 하기 위해 조건 추가
+  const allowedPaths = ['/orderSelect', '/orderSelectSub', '/orderDressing', '/orderFinal'];
+
+  if (allowedPaths.includes(from.path) && !cartStore.hasAddedToCart && to.path === '/' && !confirmTriggered) {
+    confirmTriggered = true; // 확인 트리거 설정
+    const answer = window.confirm('현재 주문이 초기화됩니다. 계속하시겠습니까?');
+    if (answer) {
+      cartStore.resetSelection(); // 주문 초기화
+      router.push('/'); // 홈 화면으로 이동
+    } else {
+      next(false); // 이동을 취소
+    }
+  } else {
+    next(); // 다른 모든 경우 이동 허용
+  }
+});
 </script>
 
 

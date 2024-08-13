@@ -6,7 +6,7 @@
         class="MenuBox">
         <div class="inputBox selectMenu">
           <h5>{{ ingredient.name }}</h5>
-          <v-number-input v-model="ingredient.quantity" :min="0" controlVariant="split" label="" :hideInput="false"
+          <v-number-input v-model="ingredient.quantity" :min="1" controlVariant="split" label="" :hideInput="false"
             :inset="false" variant="outlined" @input="updateQuantity(ingredient, $event)" />
         </div>
         <div class="inputBox delete" @click="removeIngredient(ingredient)"
@@ -19,26 +19,26 @@
       <h5 style="padding-left: 8px; color: #999; font-weight: 400;"> 정기배송 기간 선택</h5>
       <div class="selectBox">
         <div class="inputBox select modalselect">
-          <input type="radio" name="period" id="one" value="1주">
+          <input type="radio" name="period" id="one" value="1" v-model="selectedPeriod" @change="updatePeriod">
           <label for="one" class="label">
             <h4>1주</h4>
           </label>
         </div>
         <div class="inputBox select modalselect">
-          <input type="radio" name="period" id="two" value="2주">
+          <input type="radio" name="period" id="two" value="2" v-model="selectedPeriod" @change="updatePeriod">
           <label for="two" class="label">
             <h4>2주</h4>
           </label>
         </div>
         <div class="inputBox select modalselect">
-          <input type="radio" name="period" id="three" value="3주">
+          <input type="radio" name="period" id="three" value="3" v-model="selectedPeriod" @change="updatePeriod">
           <label for="three" class="label">
             <h4>3주</h4>
           </label>
         </div>
       </div>
     </div>
-    <orderFooter style="position: absolute; bottom: 0; left: 0;" />
+    <orderFooter :selectedPeriod="selectedPeriod" style="position: absolute; bottom: 0; left: 0;" />
   </div>
 </template>
 
@@ -46,23 +46,27 @@
 import orderHeader from '@/components/OrderHeader.vue';
 import orderFooter from '@/components/OrderFooter.vue';
 import { VNumberInput } from 'vuetify/labs/VNumberInput';
+import { ref } from 'vue';
 import { useCartStore } from '@/stores/cartStore';
-import { useCaloriesStore } from '@/stores/caloriesStore';
 
 const cartStore = useCartStore();
-const caloriesStore = useCaloriesStore();
+const selectedPeriod = ref(1); // 기본값 1주
 
 const updateQuantity = (ingredient, newQuantity) => {
-  console.log('updateQuantity 함수 호출');
   const index = cartStore.selectedIngredients.findIndex(i => i.name === ingredient.name);
   if (index !== -1) {
     cartStore.selectedIngredients[index].quantity = newQuantity;
-    cartStore.saveToLocalStorage(); // 변경 사항 로컬 스토리지에 저장
+    cartStore.saveToLocalStorage();
   }
 };
 
 const removeIngredient = (ingredient) => {
   cartStore.removeIngredient(ingredient);
+};
+
+// 사용자가 선택한 정기배송 기간을 cartStore에 저장
+const updatePeriod = (event) => {
+  selectedPeriod.value = parseInt(event.target.value);
 };
 </script>
 

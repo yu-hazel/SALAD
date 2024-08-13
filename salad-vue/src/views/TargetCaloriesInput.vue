@@ -137,7 +137,6 @@
               <h3 style="color: #eee;">선택완료</h3>
             </div>
           </div>
-
         </v-bottom-sheet>
       </div>
     </form>
@@ -145,10 +144,6 @@
       <h5>회원님의 1일 권장 칼로리는 {{ store.recommendedCalories }} kcal</h5>
       <h5>한 끼 목표 칼로리는 {{ store.perMealCalories }}kcal</h5>
     </div>
-    <!-- <RouterLink to="/targetCalories" class="btn">
-      <h3 style="color: #eee;">저장하기</h3>
-    </RouterLink>
-    <span v-if="!isFormValid" class="error-message">모든 값을 입력해주세요!</span> -->
     <button @click="handleSave" class="btn">
       <h3 style="color: #eee;">저장하기</h3>
     </button>
@@ -267,6 +262,7 @@ const onInputWeight = (event) => {
 const handleSave = () => {
   if (!isFormValid.value) {
     showValidationError.value = true;
+    store.perMealCalories = 0;
   } else {
     showValidationError.value = false;
     router.push('/targetCalories');

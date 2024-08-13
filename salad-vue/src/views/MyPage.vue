@@ -10,9 +10,9 @@
       style="display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; margin-top: 28px;">
       <img src="../assets/mypage.png" alt="" style="margin-bottom: 12px; height: 160px;">
       <h1>안녕하세요 박선정님</h1>
-      <RouterLink class="btn">
+      <div class="btn">
         <h5>프로필 수정하기</h5>
-      </RouterLink>
+      </div>
     </div>
     <div style="display: flex; flex-direction: column; gap: 6px; width: 100%; margin-bottom: 30px;">
       <div style="display: flex; gap: 6px;">
@@ -36,9 +36,22 @@
         </div>
       </div>
     </div>
-    <h5>로그아웃</h5>
+    <h5 @click="logout">로그아웃</h5>
   </div>
 </template>
+
+<script setup>
+import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/stores/authStore';
+
+const router = useRouter();
+const authStore = useAuthStore();
+
+const logout = () => {
+  authStore.logout();
+  router.push('/');
+};
+</script>
 
 <style scoped>
 .GNB {

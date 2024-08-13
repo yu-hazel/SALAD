@@ -27,6 +27,7 @@
                 <div class="dateTxt">
                   <h1>{{ ingredient.name }}</h1>
                   <h2>{{ ingredient.weight }}g / {{ ingredient.calories }}kcal</h2>
+                  <p>{{ formatCurrency(ingredient.price) }}</p>
                 </div>
               </div>
               <div style="display: flex; gap: 6px; width: 100%;">
@@ -61,21 +62,24 @@
 <script setup>
 import orderHeader from '@/components/OrderHeader.vue';
 import orderFooter from '@/components/OrderFooter.vue';
-import { onBeforeRouteUpdate } from 'vue-router';
 import { VNumberInput } from 'vuetify/labs/VNumberInput';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useIngredientsStore } from '@/stores/ingredientsStore';
 import { useCartStore } from '@/stores/cartStore';
+import { useRouter } from 'vue-router';
+import { onBeforeRouteLeave } from 'vue-router';
 
 const cartStore = useCartStore();
 const store = useIngredientsStore();
-
-onBeforeRouteUpdate((to, from, next) => {
-  store.resetSelection(); // 필요에 따라 상태 초기화
-  next();
-});
+const router = useRouter();
+let confirmTriggered = false; // 한 번만 확인을 트리거하기 위한 변수
 
 const more = ref(false);
+
+// 통화 포맷 함수
+function formatCurrency(amount) {
+  return `${amount.toLocaleString('ko-KR')}원`;
+}
 
 const isSelected = (ingredient) => {
   return cartStore.selectedIngredients.some(i => i.name === ingredient.name);
@@ -93,6 +97,25 @@ function toggleClass() {
 const getImagePath = (imageName) => {
   return new URL(`../assets/${imageName}`, import.meta.url).href;
 };
+
+onBeforeRouteLeave((to, from, next) => {
+  // 특정 경로에서만 동작하게 하기 위해 조건 추가
+  const allowedPaths = ['/orderSelect', '/orderSelectSub', '/orderDressing', '/orderFinal'];
+
+  if (allowedPaths.includes(from.path) && !cartStore.hasAddedToCart && to.path === '/' && !confirmTriggered) {
+    confirmTriggered = true; // 확인 트리거 설정
+    const answer = window.confirm('현재 주문이 초기화됩니다. 계속하시겠습니까?');
+    if (answer) {
+      cartStore.resetSelection(); // 주문 초기화
+      next(); // 홈 화면으로 이동
+    } else {
+      next(false); // 이동을 취소
+    }
+  } else {
+    next(); // 다른 모든 경우 이동 허용
+  }
+});
+
 </script>
 
 <style scoped>

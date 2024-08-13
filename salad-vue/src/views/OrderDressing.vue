@@ -27,6 +27,7 @@
                 <div class="dateTxt">
                   <h1 style="word-break: keep-all;">{{ ingredient.name }}</h1>
                   <h2>{{ ingredient.weight }}g / {{ ingredient.calories }}kcal</h2>
+                  <p>{{ formatCurrency(ingredient.price) }}</p>
                 </div>
               </div>
               <div style="display: flex; gap: 6px; width: 100%;">
@@ -69,6 +70,11 @@ const store = useDressingStore();
 const cartStore = useCartStore();
 
 const more = ref(false);
+
+// 통화 포맷 함수
+function formatCurrency(amount) {
+  return `${amount.toLocaleString('ko-KR')}원`;
+}
 
 const isActive = ref(false);
 function toggleClass() {

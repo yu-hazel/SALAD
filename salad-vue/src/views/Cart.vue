@@ -1,10 +1,4 @@
 <template>
-  <!-- <div class="GNB">
-    <RouterLink to="/">
-      <v-icon>mdi-arrow-left</v-icon>
-    </RouterLink>
-    <h2 class="title">장바구니</h2>
-  </div> -->
   <div class="inner" style="padding: 56px 0 110px 0;">
     <orderHeader></orderHeader>
     <div style="display: flex; flex-direction: column; gap: 36px; margin-top: 18px;">
@@ -12,17 +6,19 @@
         <v-icon style="font-size: 20px; margin-bottom: 4px; color: #999;">mdi-check</v-icon>
         <h5>최근 14일 이내 담은 상품만 확인 가능합니다</h5>
       </div>
-      <v-checkbox>
+      <v-checkbox @click="toggleSelectAll">
         <div class="consent">
           <h5>전체 선택</h5>
-          <h5>선택 삭제</h5>
+          <h5 @click.stop="deleteSelectedOrders">선택 삭제</h5>
         </div>
       </v-checkbox>
     </div>
 
     <div
       style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 6px; width: 100%; margin-top: 18px;">
-      <div class="menuBox" :class="{ active: isActive }" @click="toggleClass">
+      <!-- 주문 목록을 반복하여 렌더링 -->
+      <div v-for="(order, index) in selectedOrders" :key="index" class="menuBox" :class="{ active: order.isActive }"
+        @click="toggleClass(index)">
         <v-bottom-sheet>
           <template v-slot:activator="{ props }">
             <div class="text-center" style="flex: 1 1 0;">
@@ -33,43 +29,44 @@
                 </div>
               </div>
               <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 12px; margin-bottom: 24px;">
-                <h4>커스텀 샐러드 (2주)</h4>
-                <h5>₩ 20,900</h5>
+                <h4>{{ order.name }}</h4>
+                <h5>{{ formatCurrency(order.totalPrice) }}</h5>
               </div>
-              <v-number-input :reverse="false" controlVariant="split" label="" :hideInput="false" :inset="false"
-                variant="outlined"></v-number-input>
+              <v-number-input v-model="order.quantity" :min="1" :reverse="false" controlVariant="split" label=""
+                :hideInput="false" :inset="false" variant="outlined" />
             </div>
           </template>
 
           <div class="text-center">
             <div class="modal">
-              <h4>커스텀 샐러드 (2주)</h4>
+              <h4>{{ order.name }}</h4>
               <div class="selectBox">
                 <div class="select modalselect" style="height: auto; padding: 20px 0px;">
                   <div style="display: flex; flex-direction: column; gap: 60px; width: 100%;">
                     <div style="display: flex; flex-direction: column; gap: 20px;">
+                      <!-- 미리 계산된 값 사용 -->
                       <div>
                         <h5 style="padding-left: 8px; margin-bottom: 12px; display: flex;">야채</h5>
                         <div class="inputBox">
-                          <h5>{{ categorizedIngredients.vege }}</h5>
+                          <h5>{{ order.categorizedIngredients.vege }}</h5>
                         </div>
                       </div>
                       <div>
                         <h5 style="padding-left: 8px; margin-bottom: 12px; display: flex;">치즈/ 육류/ 곡물</h5>
                         <div class="inputBox">
-                          <h5>{{ categorizedIngredients.sub }}</h5>
+                          <h5>{{ order.categorizedIngredients.sub }}</h5>
                         </div>
                       </div>
                       <div>
                         <h5 style="padding-left: 8px; margin-bottom: 12px; display: flex;">드레싱</h5>
                         <div class="inputBox">
-                          <h5>{{ categorizedIngredients.dressing }}</h5>
+                          <h5>{{ order.categorizedIngredients.dressing }}</h5>
                         </div>
                       </div>
                     </div>
                     <div class="inputBox">
                       <h5>총 결제금액</h5>
-                      <h4>₩ 20,900</h4>
+                      <h4>{{ formatCurrency(order.totalPrice) }}</h4>
                     </div>
                   </div>
                 </div>
@@ -87,30 +84,50 @@
 import orderHeader from '@/components/OrderHeader.vue';
 import orderFooter from '@/components/OrderFooter.vue';
 import { VNumberInput } from 'vuetify/labs/VNumberInput';
-import { ref, computed, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
+import { useCartStore } from '@/stores/cartStore';
 
-const isActive = ref(false);
-function toggleClass() {
-  isActive.value = !isActive.value;
-}
-
-const selectedIngredients = ref([]);
+const selectedOrders = ref([]);
+const cartStore = useCartStore();
 
 onMounted(() => {
-  const storedIngredients = localStorage.getItem('selectedIngredients');
-  if (storedIngredients) {
-    selectedIngredients.value = JSON.parse(storedIngredients);
+  const storedOrders = localStorage.getItem('orderInCart');
+  if (storedOrders) {
+    selectedOrders.value = JSON.parse(storedOrders).map(order => ({
+      ...order,
+      isActive: false,
+      categorizedIngredients: getCategorizedIngredients(order) // 카테고리별 재료를 미리 계산하여 추가
+    }));
   }
 });
 
-const categorizedIngredients = computed(() => {
+function formatCurrency(amount) {
+  return `${amount.toLocaleString('ko-KR')}원`;
+}
+
+// 개별 주문의 선택 상태를 토글하는 함수
+const toggleClass = (index) => {
+  if (index >= 0 && index < selectedOrders.value.length) {
+    selectedOrders.value[index].isActive = !selectedOrders.value[index].isActive;
+
+    // 선택된 주문을 selectedOrders에 추가 또는 제거
+    if (selectedOrders.value[index].isActive) {
+      cartStore.addOrderToSelection(selectedOrders.value[index]);
+    } else {
+      cartStore.removeOrderFromSelection(selectedOrders.value[index]);
+    }
+  }
+};
+
+// 주어진 주문을 카테고리별로 분류
+const getCategorizedIngredients = (order) => {
   const categories = {
     vege: [],
     sub: [],
     dressing: [],
   };
 
-  selectedIngredients.value.forEach((ingredient) => {
+  order.ingredients.forEach((ingredient) => {
     if (categories[ingredient.category]) {
       const existing = categories[ingredient.category].find(i => i.name === ingredient.name);
       if (existing) {
@@ -126,8 +143,22 @@ const categorizedIngredients = computed(() => {
     sub: categories.sub.map(i => i.quantity > 1 ? `${i.name}(${i.quantity})` : i.name).join(', '),
     dressing: categories.dressing.map(i => i.quantity > 1 ? `${i.name}(${i.quantity})` : i.name).join(', '),
   };
-});
+};
 
+// 선택된 주문들을 삭제하는 함수
+const deleteSelectedOrders = () => {
+  selectedOrders.value = selectedOrders.value.filter(order => !order.isActive);
+  // 로컬 스토리지 업데이트
+  localStorage.setItem('orderInCart', JSON.stringify(selectedOrders.value));
+};
+
+// 전체 주문을 선택하는 함수
+const toggleSelectAll = () => {
+  const allSelected = selectedOrders.value.every(order => order.isActive);
+  selectedOrders.value.forEach(order => {
+    order.isActive = !allSelected;
+  });
+};
 </script>
 
 <style scoped>
