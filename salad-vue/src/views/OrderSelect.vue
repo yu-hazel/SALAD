@@ -72,7 +72,7 @@ import { onBeforeRouteLeave } from 'vue-router';
 const cartStore = useCartStore();
 const store = useIngredientsStore();
 const router = useRouter();
-let confirmTriggered = false; // 한 번만 확인을 트리거하기 위한 변수
+let confirmTriggered = false;
 
 const more = ref(false);
 
