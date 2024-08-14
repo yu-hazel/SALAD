@@ -10,7 +10,8 @@
         <h5>회원님의 커스텀 샐러드 배송은</h5>
         <h5>익일 0시부터 오전 7시에 완료됩니다</h5>
       </div>
-      <img src="../assets/person.png" alt="box" class="mainImg">
+      <!-- <img src="../assets/person.png" alt="box" class="mainImg"> -->
+      <img src="../assets/box02.png" alt="box" class="mainImg">
     </div>
     <orderFooter style="position: absolute; bottom: 0; left: 0;" />
   </div>

@@ -170,4 +170,7 @@ const updatePeriod = (event) => {
   justify-content: center;
   color: #999 !important;
 }
+:deep(.v-btn__overlay) {
+  background-color: transparent;
+}
 </style>

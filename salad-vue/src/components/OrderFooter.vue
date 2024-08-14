@@ -1,10 +1,13 @@
 <template>
   <div
     style=" padding: 12px 20px  38px 20px; width: 100%; background-color: #fff; z-index: 100; display: flex; flex-direction: column; gap: 18px;">
-    <div v-if="route.path === '/orderFinal', '/cart'" class="inputBox">
-      <h5>총 결제금액 : {{ formatCurrency(totalCalculatedPrice) }}</h5>
+    <div v-if="['/orderFinal', '/cart'].includes(route.path)"
+class="inputBox">
+      <h5>총 결제금액 : </h5>
+      <h3>{{ formatCurrency(totalCalculatedPrice) }}</h3>
     </div>
-    <div class="btnBox">
+    <div v-if="['/orderSelect', '/orderSelectSub', '/orderDressing', '/orderFinal', '/orderSheet'].includes(route.path)"
+  class="btnBox">
       <div class="btn" @click="handlePrevious">
         <h4>{{ route.path === '/orderFinal' ? '장바구니 담기' : '이전으로' }}</h4>
       </div>
@@ -12,6 +15,7 @@
         <h4>{{ route.path === '/orderSheet' ? '결제하기' : '다음으로' }}</h4>
       </div>
     </div>
+    <RouterLink to="/" v-if="route.path === '/payment'" class="btnBox" style="width: 100%; justify-content: center;"><h4 class="btn02">홈으로</h4></RouterLink>
   </div>
 </template>
 
@@ -106,6 +110,17 @@ h4 {
   border-radius: 16px;
   background-color: #333;
   padding: 0 20px;
+}
+.btn02 {
+  display: flex;
+  width: 260px;
+  /* width: 100%; */
+  height: 60px;
+  align-items: center;
+  justify-content: center;
+  background-color: #333;
+  border-radius: 16px;
+  margin-top: 40px;
 }
 .inputBox {
   display: flex;
