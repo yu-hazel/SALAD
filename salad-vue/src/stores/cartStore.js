@@ -54,6 +54,7 @@ export const useCartStore = defineStore('cartStore', () => {
 
     // 총 가격 계산
     const totalPrice = computed(() => {
+        // console.log('cartStore 계산중');
         return selectedIngredients.value.reduce((sum, ingredient) => {
             return sum + ingredient.quantity * ingredient.price;
         }, 0);

@@ -23,7 +23,7 @@ class="inputBox">
 import { useNavigationStore } from '@/stores/navigationStore';
 import { useRouter, useRoute } from 'vue-router';
 import { useCartStore } from '@/stores/cartStore';
-import { computed, toRefs } from 'vue';
+import { computed, toRefs, onMounted } from 'vue';
 
 const navigationStore = useNavigationStore();
 const router = useRouter();
@@ -31,7 +31,7 @@ const route = useRoute();
 const cartStore = useCartStore();
 
 // props로 받은 selectedPeriod를 구조 분해하여 사용
-const props = defineProps(['selectedPeriod']);
+const props = defineProps(['selectedPeriod', 'saveOrderDetails']);
 const { selectedPeriod } = toRefs(props);
 
 // 총 결제 금액을 계산하는 함수
@@ -39,12 +39,12 @@ const totalCalculatedPrice = computed(() => {
 
   // 카트 페이지에서는 선택된 주문의 총 금액 표시
   if (route.path === '/cart') {
-    return cartStore.selectedTotalPrice; 
+    return cartStore.selectedTotalPrice || 0;
   }
 
   // selectedPeriod가 설정되지 않은 경우, multiplier를 적용하지 않음
   if (!selectedPeriod.value) {
-    return cartStore.totalPrice;
+    return cartStore.totalPrice || 0;
   }
 
   let multiplier = 7; // 기본값: 1주
@@ -53,8 +53,25 @@ const totalCalculatedPrice = computed(() => {
   } else if (selectedPeriod.value === 3) {
     multiplier = 21; // 3주
   }
-  return cartStore.totalPrice * multiplier;
+  return cartStore.totalPrice * multiplier || 0;
 });
+
+onMounted(() => {
+  if (route.path === '/cart') {
+    cartStore.$patch({ selectedTotalPrice: 0 }); // 초기화
+  }
+});
+
+const saveOrderDetails = () => {
+  const orderDetails = {
+    name: `커스텀 샐러드 (${props.selectedPeriod}주)`,
+    totalPrice: totalCalculatedPrice.value,
+    ingredients: cartStore.selectedIngredients,
+  };
+  localStorage.setItem('tempOrderDetails', JSON.stringify(orderDetails));
+
+  router.push({ name: 'OrderSheet' });
+};
 
 // 통화 포맷 함수
 function formatCurrency(amount) {
@@ -86,8 +103,13 @@ const handlePrevious = () => {
 };
 
 const handleNext = () => {
-  navigationStore.goToNextPage();
-  router.push(navigationStore.getCurrentPage());
+  if (route.path === '/orderFinal') {
+    saveOrderDetails(); // 주문 세부 정보를 저장
+    router.push({ name: 'OrderSheet' });
+  } else {
+    navigationStore.goToNextPage();
+    router.push(navigationStore.getCurrentPage());
+  }
 };
 </script>
 

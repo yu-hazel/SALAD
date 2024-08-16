@@ -76,7 +76,7 @@
       <h5 style="padding-left: 8px; margin-bottom: 12px;">주문상품</h5>
       <div class="text-center">
         <v-btn size="x-large" text="Click Me" @click="sheet = !sheet" class="inputBox">
-          <h5>커스텀 샐러드 (1)</h5>
+          <h5>{{ orderDetails.name }}</h5>
         </v-btn>
         <v-bottom-sheet v-model="sheet">
           <div class="text-center">
@@ -84,7 +84,7 @@
               <div class="selectBox">
                 <div class="inputBox select modalselect autoInput">
                   <div style="display: flex; flex-direction: column; gap: 12px; width: 100%;">
-                    <h5 style="text-align: left;">커스텀 샐러드 (2주)</h5>
+                    <h5 style="text-align: left;">{{ orderDetails.name }}</h5>
                     <div style="display: flex; flex-direction: column; gap: 4px;">
                       <h5 style="text-align: left;">야채 : {{ formattedIngredients.vege }}</h5>
                       <h5 style="text-align: left;">치즈/ 육류/ 곡물 : {{ formattedIngredients.sub }}</h5>
@@ -92,7 +92,7 @@
                     </div>
                     <div
                       style="display: flex; justify-content: end; box-shadow: 0 -2px 0 0 #eee; padding-top: 12px; margin-top: 6px;">
-                      <h5 style="color: #111; font-weight: 600;">₩ 20,900</h5>
+                      <h5 style="color: #111; font-weight: 600;">{{ orderDetails.totalPrice.toLocaleString('ko-KR') }}원</h5>
                     </div>
                   </div>
                 </div>
@@ -148,6 +148,7 @@
       <!-- <h5 style="padding-left: 8px; margin-bottom: 8px;">결제금액</h5> -->
       <div class="inputBox">
         <h5>총 결제금액</h5>
+        <p>{{ orderDetails.totalPrice.toLocaleString('ko-KR') }}원</p>
       </div>
     </div>
 
@@ -188,6 +189,20 @@ import 'swiper/css/pagination';
 
 const modules = [Pagination];
 const sheet = ref(false);
+
+const orderDetails = ref({
+  name: '',
+  totalPrice: 0,
+  ingredients: []
+});
+
+onMounted(() => {
+  const storedOrderDetails = localStorage.getItem('tempOrderDetails');
+  if (storedOrderDetails) {
+    orderDetails.value = JSON.parse(storedOrderDetails);
+    // console.log(orderDetails)
+  }
+});
 
 // 배송 메모 관련 코드
 const memo = ref(false);

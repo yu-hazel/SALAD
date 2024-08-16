@@ -46,11 +46,13 @@
 import orderHeader from '@/components/OrderHeader.vue';
 import orderFooter from '@/components/OrderFooter.vue';
 import { VNumberInput } from 'vuetify/labs/VNumberInput';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useCartStore } from '@/stores/cartStore';
+import { useRouter } from 'vue-router';
 
 const cartStore = useCartStore();
 const selectedPeriod = ref(1); // 기본값 1주
+const router = useRouter();
 
 const updateQuantity = (ingredient, newQuantity) => {
   const index = cartStore.selectedIngredients.findIndex(i => i.name === ingredient.name);
@@ -68,6 +70,7 @@ const removeIngredient = (ingredient) => {
 const updatePeriod = (event) => {
   selectedPeriod.value = parseInt(event.target.value);
 };
+
 </script>
 
 <style scoped>
