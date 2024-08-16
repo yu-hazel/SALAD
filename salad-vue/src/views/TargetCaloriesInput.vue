@@ -13,7 +13,7 @@
   <div class="inner" style="padding: 56px 0 50px 0;">
     <div class="title">
       <div>
-        <h1>회원님에게 맞는 </h1>
+        <h1>{{username}}님에게 맞는</h1>
         <h1>한 끼 칼로리 계산하기</h1>
       </div>
       <h5>칼로리를 계산하기 위한 나의 목표를 설정해주세요</h5>
@@ -141,7 +141,7 @@
       </div>
     </form>
     <div v-if="isFormValid">
-      <h5>회원님의 1일 권장 칼로리는 {{ store.recommendedCalories }} kcal</h5>
+      <h5>{{username}}님의 1일 권장 칼로리는 {{ store.recommendedCalories }} kcal</h5>
       <h5>한 끼 목표 칼로리는 {{ store.perMealCalories }}kcal</h5>
     </div>
     <button @click="handleSave" class="btn">
@@ -154,8 +154,10 @@
 <script setup>
 import { ref, onMounted, watch, computed } from 'vue';
 import { useCaloriesStore } from '@/stores/caloriesStore';
+import { useAuthStore } from '@/stores/authStore';
 import { useRouter } from 'vue-router';
 
+const authStore = useAuthStore();
 const router = useRouter();
 const store = useCaloriesStore();
 const target = ref(false);
@@ -167,6 +169,14 @@ const showValidationError = ref(false);
 const ageError = ref('');
 const heightError = ref('');
 const weightError = ref('');
+
+const username = computed(() => {
+  if (authStore.isLoggedIn) {
+    return `이지혜`;
+  } else {
+    return `회원`;
+  }
+})
 
 const selectTarget = (value) => {
   tempGoal.value = value;

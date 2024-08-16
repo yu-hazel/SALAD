@@ -21,7 +21,7 @@
     </div>
     <div v-else class="title">
       <div>
-        <h1>내 몸에 맞는 샐러드를</h1>
+        <h1>{{ username }}<br>몸에 맞는 샐러드를</h1>
         <h1>직접 만들어보세요</h1>
       </div>
       <RouterLink to="/targetCaloriesInput" style="display: flex; align-items: center;">
@@ -47,6 +47,14 @@ import { useCaloriesStore } from '@/stores/caloriesStore';
 const authStore = useAuthStore();
 const store = useCaloriesStore();
 const hasCalories = computed(() => !!store.perMealCalories);
+
+const username = computed(() => {
+  if (authStore.isLoggedIn) {
+    return `이지혜님의`;
+  } else {
+    return `회원님의`;
+  }
+})
 
 onMounted(() => {
   store.loadFromLocalStorage();

@@ -10,7 +10,7 @@
   <div class="inner" style="padding: 56px 0 110px 0;">
     <div class="title">
       <div>
-        <h1>회원님의</h1>
+        <h1>{{username}}</h1>
         <h1>한 끼 목표 칼로리는?</h1>
       </div>
       <h1 class="subtitle" style="font-size: 32px;">{{ store.perMealCalories }}kcal</h1>
@@ -38,10 +38,19 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, computed } from 'vue';
+import { useAuthStore } from '@/stores/authStore';
 import { useCaloriesStore } from '@/stores/caloriesStore';
 
+const authStore = useAuthStore();
 const store = useCaloriesStore();
+const username = computed(() => {
+  if (authStore.isLoggedIn) {
+    return `이지혜님의`;
+  } else {
+    return `회원님의`;
+  }
+})
 
 onMounted(() => {
   store.loadFromLocalStorage();
