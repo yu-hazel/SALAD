@@ -16,11 +16,13 @@
           </div>
         </div>
       </div>
-      <div v-else>
-        선택한 재료가 없습니다! 맛있는 커스텀 샐러드를 조합해보세요🙌
+      <div v-else style="display: flex; flex-direction: column; gap: 4px; align-items: center;">
+        <h5>선택한 재료가 없습니다</h5>
+        <h5>맛있는 커스텀 샐러드를 조합해보세요</h5>
       </div>
     </div>
-    <div v-if="cartStore.selectedIngredients.length > 0" style="display: flex; flex-direction: column; gap: 12px; margin-top: 32px;">
+    <div v-if="cartStore.selectedIngredients.length > 0"
+      style="display: flex; flex-direction: column; gap: 12px; margin-top: 32px;">
       <h5 style="padding-left: 8px; color: #999; font-weight: 400;"> 정기배송 기간 선택</h5>
       <div class="selectBox">
         <div class="inputBox select modalselect">

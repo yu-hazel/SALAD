@@ -1,6 +1,6 @@
 <template>
   <div class="GNB">
-    <a href="#">logo</a>
+    <a href="#" style="margin-top: 18px;"><img src="../assets/logo.png" alt="logo" style="width: 52px;"></a>
     <RouterLink to="/cart">
       <v-icon>mdi-shopping</v-icon>
     </RouterLink>
@@ -9,7 +9,7 @@
     <div v-if="hasCalories" class="title">
       <div style="display: flex; flex-direction: column; gap: 12px;">
         <div>
-          <h1>{{greeting}}</h1>
+          <h1>{{ greeting }}</h1>
           <h1>하루 한 끼 목표 칼로리는</h1>
         </div>
         <h1 class="calories" style="font-size: 32px;">{{ store.perMealCalories }}kcal</h1>
@@ -21,7 +21,7 @@
     </div>
     <div v-else class="title">
       <div>
-        <h1>내 몸에 맞는 샐러드를</h1>
+        <h1>{{ username }}<br>몸에 맞는 샐러드를</h1>
         <h1>직접 만들어보세요</h1>
       </div>
       <RouterLink to="/targetCaloriesInput" style="display: flex; align-items: center;">
@@ -48,6 +48,14 @@ const authStore = useAuthStore();
 const store = useCaloriesStore();
 const hasCalories = computed(() => !!store.perMealCalories);
 
+const username = computed(() => {
+  if (authStore.isLoggedIn) {
+    return `이지혜님의`;
+  } else {
+    return `회원님의`;
+  }
+})
+
 onMounted(() => {
   store.loadFromLocalStorage();
 });
@@ -55,10 +63,10 @@ onMounted(() => {
 const greeting = computed(() => {
   if (authStore.isLoggedIn) {
     return `${authStore.username}님의`;
-  }else {
+  } else {
     return `회원님의`;
   }
-})
+});
 </script>
 
 <style scoped>

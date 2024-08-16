@@ -281,4 +281,7 @@ const toggleSelectAll = () => {
   width: 100%;
   gap: 8px;
 }
+:deep(.v-btn__overlay) {
+  background-color: transparent;
+}
 </style>

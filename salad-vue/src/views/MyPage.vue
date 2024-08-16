@@ -9,7 +9,7 @@
     <div class="innerBox"
       style="display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; margin-top: 28px;">
       <img src="../assets/mypage.png" alt="" style="margin-bottom: 12px; height: 160px;">
-      <h1>안녕하세요 박선정님</h1>
+      <h1>안녕하세요 이지혜님</h1>
       <div class="btn">
         <h5>프로필 수정하기</h5>
       </div>
