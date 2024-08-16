@@ -10,12 +10,18 @@
       <div class="btn" @click="handlePrevious">
         <h4>{{ route.path === '/orderFinal' ? '장바구니 담기' : '이전으로' }}</h4>
       </div>
-      <div class="btn" :style="{ backgroundColor: canAddToCart ? '#52CA19' : '#ccc' }" @click="handleNext">
-        <h4>{{ route.path === '/orderSheet' ? '결제하기' : '다음으로' }}</h4>
+      <div class="btn" :style="{ backgroundColor: canAddToCart ? '#52CA19' : '#EEE' }" @click="handleNext">
+        <h4 :style="{
+          color: canAddToCart ? '#FFF' : '#333', fontWeight: canAddToCart ? '500' : '600'
+        }">{{
+  route.path
+  === '/orderSheet' ? '결제하기' : '다음으로' }}</h4>
       </div>
     </div>
-    <RouterLink to="/" v-if="route.path === '/payment'" class="btnBox" style="width: 100%; justify-content: center;">
-      <h4 class="btn02">홈으로</h4>
+    <RouterLink to="/" v-if="route.path === '/payment'" class="btnBox"
+      style="width: 100%; flex-direction: column; gap: 12px; align-items: center;">
+      <h4 class=" btn02">홈으로</h4>
+      <h4 class="btn02" style="margin: 0; color: #767676; background-color: transparent;">결제내역 보기</h4>
     </RouterLink>
   </div>
 </template>
@@ -110,7 +116,7 @@ const handlePrevious = () => {
 
 const handleNext = () => {
   if (route.path === '/orderFinal' && !canAddToCart.value) {
-    alert('선택한 재료가 없습니다!');
+    alert('선택한 재료가 없습니다');
     return;
   }
   if (route.path === '/orderFinal') {

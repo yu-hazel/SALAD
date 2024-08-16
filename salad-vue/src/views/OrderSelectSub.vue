@@ -29,27 +29,32 @@
                   <div class="dateTxt">
                     <h1>{{ ingredient.name }}</h1>
                     <h2>{{ ingredient.weight }}g / {{ ingredient.calories }}kcal</h2>
-                    <p>{{ formatCurrency(ingredient.price) }}</p>
                   </div>
                 </div>
-                <div style="display: flex; gap: 6px; width: 100%;">
-                  <div class="dateBox">
-                    <h5 class="dateBoxTitle">탄수화물</h5>
-                    <div class="date">
-                      <h3>{{ ingredient.carbs }}g</h3>
+                <div style="display: flex; flex-direction: column; width: 100%; gap: 12px;">
+                  <div style="display: flex; gap: 6px; width: 100%;">
+                    <div class="dateBox">
+                      <h5 class="dateBoxTitle">탄수화물</h5>
+                      <div class="date">
+                        <h3>{{ ingredient.carbs }}g</h3>
+                      </div>
+                    </div>
+                    <div class="dateBox">
+                      <h5 class="dateBoxTitle">단백질</h5>
+                      <div class="date">
+                        <h3>{{ ingredient.protein }}g</h3>
+                      </div>
+                    </div>
+                    <div class="dateBox">
+                      <h5 class="dateBoxTitle">지방</h5>
+                      <div class="date">
+                        <h3>{{ ingredient.fat }}g</h3>
+                      </div>
                     </div>
                   </div>
-                  <div class="dateBox">
-                    <h5 class="dateBoxTitle">단백질</h5>
-                    <div class="date">
-                      <h3>{{ ingredient.protein }}g</h3>
-                    </div>
-                  </div>
-                  <div class="dateBox">
-                    <h5 class="dateBoxTitle">지방</h5>
-                    <div class="date">
-                      <h3>{{ ingredient.fat }}g</h3>
-                    </div>
+                  <div class="inputBox">
+                    <h5>{{ ingredient.weight }}g 당</h5>
+                    <h3> + {{ formatCurrency(ingredient.price) }}</h3>
                   </div>
                 </div>
               </div>
@@ -87,27 +92,32 @@
                   <div class="dateTxt">
                     <h1>{{ ingredient.name }}</h1>
                     <h2>{{ ingredient.weight }}g / {{ ingredient.calories }}kcal</h2>
-                    <p>{{ formatCurrency(ingredient.price) }}</p>
                   </div>
                 </div>
-                <div style="display: flex; gap: 6px; width: 100%;">
-                  <div class="dateBox">
-                    <h5 class="dateBoxTitle">탄수화물</h5>
-                    <div class="date">
-                      <h3>{{ ingredient.carbs }}g</h3>
+                <div style="display: flex; flex-direction: column; width: 100%; gap: 12px;">
+                  <div style="display: flex; gap: 6px; width: 100%;">
+                    <div class="dateBox">
+                      <h5 class="dateBoxTitle">탄수화물</h5>
+                      <div class="date">
+                        <h3>{{ ingredient.carbs }}g</h3>
+                      </div>
+                    </div>
+                    <div class="dateBox">
+                      <h5 class="dateBoxTitle">단백질</h5>
+                      <div class="date">
+                        <h3>{{ ingredient.protein }}g</h3>
+                      </div>
+                    </div>
+                    <div class="dateBox">
+                      <h5 class="dateBoxTitle">지방</h5>
+                      <div class="date">
+                        <h3>{{ ingredient.fat }}g</h3>
+                      </div>
                     </div>
                   </div>
-                  <div class="dateBox">
-                    <h5 class="dateBoxTitle">단백질</h5>
-                    <div class="date">
-                      <h3>{{ ingredient.protein }}g</h3>
-                    </div>
-                  </div>
-                  <div class="dateBox">
-                    <h5 class="dateBoxTitle">지방</h5>
-                    <div class="date">
-                      <h3>{{ ingredient.fat }}g</h3>
-                    </div>
+                  <div class="inputBox">
+                    <h5>{{ ingredient.weight }}g 당</h5>
+                    <h3> + {{ formatCurrency(ingredient.price) }}</h3>
                   </div>
                 </div>
               </div>
@@ -145,27 +155,32 @@
                   <div class="dateTxt">
                     <h1>{{ ingredient.name }}</h1>
                     <h2>{{ ingredient.weight }}g / {{ ingredient.calories }}kcal</h2>
-                    <p>{{ formatCurrency(ingredient.price) }}</p>
                   </div>
                 </div>
-                <div style="display: flex; gap: 6px; width: 100%;">
-                  <div class="dateBox">
-                    <h5 class="dateBoxTitle">탄수화물</h5>
-                    <div class="date">
-                      <h3>{{ ingredient.carbs }}g</h3>
+                <div style="display: flex; flex-direction: column; width: 100%; gap: 12px;">
+                  <div style="display: flex; gap: 6px; width: 100%;">
+                    <div class="dateBox">
+                      <h5 class="dateBoxTitle">탄수화물</h5>
+                      <div class="date">
+                        <h3>{{ ingredient.carbs }}g</h3>
+                      </div>
+                    </div>
+                    <div class="dateBox">
+                      <h5 class="dateBoxTitle">단백질</h5>
+                      <div class="date">
+                        <h3>{{ ingredient.protein }}g</h3>
+                      </div>
+                    </div>
+                    <div class="dateBox">
+                      <h5 class="dateBoxTitle">지방</h5>
+                      <div class="date">
+                        <h3>{{ ingredient.fat }}g</h3>
+                      </div>
                     </div>
                   </div>
-                  <div class="dateBox">
-                    <h5 class="dateBoxTitle">단백질</h5>
-                    <div class="date">
-                      <h3>{{ ingredient.protein }}g</h3>
-                    </div>
-                  </div>
-                  <div class="dateBox">
-                    <h5 class="dateBoxTitle">지방</h5>
-                    <div class="date">
-                      <h3>{{ ingredient.fat }}g</h3>
-                    </div>
+                  <div class="inputBox">
+                    <h5>{{ ingredient.weight }}g 당</h5>
+                    <h3> + {{ formatCurrency(ingredient.price) }}</h3>
                   </div>
                 </div>
               </div>
@@ -309,5 +324,15 @@ const getImagePath = (imageName) => {
 }
 .dateBoxTitle {
   padding-left: 8px;
+}
+.inputBox {
+  display: flex;
+  width: 100%;
+  height: 60px;
+  background-color: #F6F6F6;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 16px;
+  padding: 0 20px;
 }
 </style>
