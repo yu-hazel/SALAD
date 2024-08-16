@@ -2,7 +2,7 @@
   <!-- <div style="position: relative;"> -->
   <div class="nav">
     <div class="menu">
-      <RouterLink to="/targetCalories">
+      <RouterLink :to="caloriesRoute">
         <v-icon :class="{ 'active-icon': isActive('/targetCalories') }">mdi-calculator-variant</v-icon>
       </RouterLink>
     </div>
@@ -22,11 +22,13 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
-import { onMounted } from 'vue';
+import { useCaloriesStore } from '@/stores/caloriesStore';
+import { onMounted, computed } from 'vue';
 
 const authStore = useAuthStore();
 const route = useRoute();
 const router = useRouter();
+const caloriesStore = useCaloriesStore();
 
 const isActive = (path) => {
   return route.path === path;
@@ -45,6 +47,11 @@ const handleRoute = () => {
     }
   }
 };
+
+// perMealCalories가 있는지 확인하여 이동할 경로 설정
+const caloriesRoute = computed(() => {
+  return caloriesStore.perMealCalories ? '/targetCalories' : '/targetCaloriesInput';
+});
 
 // 컴포넌트가 마운트될 때 로그인 상태를 확인하고 라우팅 처리
 onMounted(() => {

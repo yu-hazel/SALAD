@@ -9,7 +9,7 @@
     <div v-if="hasCalories" class="title">
       <div style="display: flex; flex-direction: column; gap: 12px;">
         <div>
-          <h1>회원님의 </h1>
+          <h1>{{greeting}}</h1>
           <h1>하루 한 끼 목표 칼로리는</h1>
         </div>
         <h1 class="calories" style="font-size: 32px;">{{ store.perMealCalories }}kcal</h1>
@@ -41,14 +41,24 @@
 
 <script setup>
 import { onMounted, computed } from 'vue';
+import { useAuthStore } from '@/stores/authStore';
 import { useCaloriesStore } from '@/stores/caloriesStore';
 
+const authStore = useAuthStore();
 const store = useCaloriesStore();
 const hasCalories = computed(() => !!store.perMealCalories);
 
 onMounted(() => {
   store.loadFromLocalStorage();
 });
+
+const greeting = computed(() => {
+  if (authStore.isLoggedIn) {
+    return `${authStore.username}님의`;
+  }else {
+    return `회원님의`;
+  }
+})
 </script>
 
 <style scoped>

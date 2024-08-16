@@ -1,21 +1,22 @@
 <template>
   <div
     style=" padding: 12px 20px  38px 20px; width: 100%; background-color: #fff; z-index: 100; display: flex; flex-direction: column; gap: 18px;">
-    <div v-if="['/orderFinal', '/cart'].includes(route.path)"
-class="inputBox">
+    <div v-if="['/orderFinal', '/cart'].includes(route.path)" class="inputBox">
       <h5>총 결제금액 : </h5>
       <h3>{{ formatCurrency(totalCalculatedPrice) }}</h3>
     </div>
     <div v-if="['/orderSelect', '/orderSelectSub', '/orderDressing', '/orderFinal', '/orderSheet'].includes(route.path)"
-  class="btnBox">
+      class="btnBox">
       <div class="btn" @click="handlePrevious">
         <h4>{{ route.path === '/orderFinal' ? '장바구니 담기' : '이전으로' }}</h4>
       </div>
-      <div class="btn" style="background-color: #52CA19;" @click="handleNext">
+      <div class="btn" :style="{ backgroundColor: canAddToCart ? '#52CA19' : '#ccc' }" @click="handleNext">
         <h4>{{ route.path === '/orderSheet' ? '결제하기' : '다음으로' }}</h4>
       </div>
     </div>
-    <RouterLink to="/" v-if="route.path === '/payment'" class="btnBox" style="width: 100%; justify-content: center;"><h4 class="btn02">홈으로</h4></RouterLink>
+    <RouterLink to="/" v-if="route.path === '/payment'" class="btnBox" style="width: 100%; justify-content: center;">
+      <h4 class="btn02">홈으로</h4>
+    </RouterLink>
   </div>
 </template>
 
@@ -23,12 +24,14 @@ class="inputBox">
 import { useNavigationStore } from '@/stores/navigationStore';
 import { useRouter, useRoute } from 'vue-router';
 import { useCartStore } from '@/stores/cartStore';
-import { computed, toRefs, onMounted } from 'vue';
+import { computed, toRefs, onMounted, watch } from 'vue';
 
 const navigationStore = useNavigationStore();
 const router = useRouter();
 const route = useRoute();
 const cartStore = useCartStore();
+
+const canAddToCart = computed(() => cartStore.selectedIngredients.length > 0);
 
 // props로 받은 selectedPeriod를 구조 분해하여 사용
 const props = defineProps(['selectedPeriod', 'saveOrderDetails']);
@@ -36,29 +39,28 @@ const { selectedPeriod } = toRefs(props);
 
 // 총 결제 금액을 계산하는 함수
 const totalCalculatedPrice = computed(() => {
-
-  // 카트 페이지에서는 선택된 주문의 총 금액 표시
   if (route.path === '/cart') {
     return cartStore.selectedTotalPrice || 0;
   }
 
-  // selectedPeriod가 설정되지 않은 경우, multiplier를 적용하지 않음
   if (!selectedPeriod.value) {
     return cartStore.totalPrice || 0;
   }
 
-  let multiplier = 7; // 기본값: 1주
+  let multiplier = 7;
   if (selectedPeriod.value === 2) {
-    multiplier = 14; // 2주
+    multiplier = 14;
   } else if (selectedPeriod.value === 3) {
-    multiplier = 21; // 3주
+    multiplier = 21;
   }
+
   return cartStore.totalPrice * multiplier || 0;
 });
 
+// 페이지 진입 시 초기화
 onMounted(() => {
   if (route.path === '/cart') {
-    cartStore.$patch({ selectedTotalPrice: 0 }); // 초기화
+    cartStore.resetSelectedTotalPrice(); // 장바구니 진입 시 총 금액 초기화
   }
 });
 
@@ -80,6 +82,10 @@ function formatCurrency(amount) {
 
 const handlePrevious = () => {
   if (route.path === '/orderFinal') {
+    if (!canAddToCart.value) {
+      alert('장바구니에 담을 주문이 없습니다!');
+      return;
+    }
     // 현재 선택된 재료들과 정기배송 기간 정보를 로컬 스토리지에 저장
     const currentOrder = {
       ingredients: cartStore.selectedIngredients,
@@ -103,6 +109,10 @@ const handlePrevious = () => {
 };
 
 const handleNext = () => {
+  if (route.path === '/orderFinal' && !canAddToCart.value) {
+    alert('선택한 재료가 없습니다!');
+    return;
+  }
   if (route.path === '/orderFinal') {
     saveOrderDetails(); // 주문 세부 정보를 저장
     router.push({ name: 'OrderSheet' });

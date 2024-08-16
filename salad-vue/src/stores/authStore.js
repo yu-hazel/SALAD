@@ -2,7 +2,8 @@ import { defineStore } from 'pinia';
 
 export const useAuthStore = defineStore('auth', {
     state: () => ({
-        isLoggedIn: false
+        isLoggedIn: false,
+        username: '박선정',
     }),
     actions: {
         login() {
@@ -15,6 +16,9 @@ export const useAuthStore = defineStore('auth', {
         },
         checkAuthStatus() {
             this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        },
+        setUsername(name){
+            this.username = name;
         }
     }
 });

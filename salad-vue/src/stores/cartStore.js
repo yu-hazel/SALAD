@@ -131,6 +131,11 @@ export const useCartStore = defineStore('cartStore', () => {
         }, 0);
     });
 
+    // selectedTotalPrice를 초기화하는 함수
+    const resetSelectedTotalPrice = () => {
+        selectedOrders.value = []; // 선택된 주문을 초기화하면 자동으로 총 금액도 0이 됨
+    };
+
     // 장바구니에 추가된 주문을 로컬스토리지에 저장
     watch(selectedOrders, () => {
         localStorage.setItem('selectedOrders', JSON.stringify(selectedOrders.value));
@@ -159,5 +164,6 @@ export const useCartStore = defineStore('cartStore', () => {
         selectedTotalPrice,
         addOrderToSelection,
         removeOrderFromSelection,
+        resetSelectedTotalPrice,
     };
 });

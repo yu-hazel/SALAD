@@ -2,20 +2,25 @@
   <div style="padding: 56px 0 200px 0;">
     <orderHeader />
     <div style="display: flex; flex-direction: column; gap: 8px;">
-      <div v-for="(ingredient, index) in cartStore.selectedIngredients" :key="index" style="display: flex; gap: 6px;"
-        class="MenuBox">
-        <div class="inputBox selectMenu">
-          <h5>{{ ingredient.name }}</h5>
-          <v-number-input v-model="ingredient.quantity" :min="1" controlVariant="split" label="" :hideInput="false"
-            :inset="false" variant="outlined" @input="updateQuantity(ingredient, $event)" />
-        </div>
-        <div class="inputBox delete" @click="removeIngredient(ingredient)"
-          style="width: 60px; font-size: 18px; justify-content: center; color: #333;">
-          <v-icon>mdi-delete</v-icon>
+      <div v-if="cartStore.selectedIngredients.length > 0">
+        <div v-for="(ingredient, index) in cartStore.selectedIngredients" :key="index" style="display: flex; gap: 6px;"
+          class="MenuBox">
+          <div class="inputBox selectMenu">
+            <h5>{{ ingredient.name }}</h5>
+            <v-number-input v-model="ingredient.quantity" :min="1" controlVariant="split" label="" :hideInput="false"
+              :inset="false" variant="outlined" @input="updateQuantity(ingredient, $event)" />
+          </div>
+          <div class="inputBox delete" @click="removeIngredient(ingredient)"
+            style="width: 60px; font-size: 18px; justify-content: center; color: #333;">
+            <v-icon>mdi-delete</v-icon>
+          </div>
         </div>
       </div>
+      <div v-else>
+        선택한 재료가 없습니다! 맛있는 커스텀 샐러드를 조합해보세요🙌
+      </div>
     </div>
-    <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 32px;">
+    <div v-if="cartStore.selectedIngredients.length > 0" style="display: flex; flex-direction: column; gap: 12px; margin-top: 32px;">
       <h5 style="padding-left: 8px; color: #999; font-weight: 400;"> 정기배송 기간 선택</h5>
       <div class="selectBox">
         <div class="inputBox select modalselect">
