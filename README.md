@@ -8,7 +8,7 @@ Vite + Vue3 기반의 프로젝트이며 모바일 기기 화면에 최적화된
 ## ✋🏻 개요 
 
 - 프로젝트 이름 : SALAD
-- 진행 기간 : 2024.07.24 ~ 
+- 진행 기간 : 2024.07.24 ~ 2024.08.16
 - [배포 주소](https://salad-vert.vercel.app/)
 
 <br>
@@ -17,7 +17,7 @@ Vite + Vue3 기반의 프로젝트이며 모바일 기기 화면에 최적화된
 
 | <img src="https://github.com/user-attachments/assets/6aec1026-b507-4c78-92eb-21670bf6e4de" width="150" height="150"> | <img src="https://github.com/user-attachments/assets/b5a24df4-177b-4fde-a5a8-a54d04570032" width="150" height="150"> |
 |:---:|:---:|
-| **박선정** | **유혜인(PM)** |
+| **박선정** | **유혜인** |
 | [@adooooore](https://github.com/adooooore) | [@yu-hazel](https://github.com/yu-hazel) |
 | PM, Designer | FE Developer |
 
