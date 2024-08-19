@@ -48,8 +48,8 @@ import orderFooter from '@/components/OrderFooter.vue';
 }
 
 .mainImg {
-  width: 80%;
-  height: 400px;
+  /* width: 80%; */
+  height: 37%;
   margin-top: 15%;
   object-fit: cover;
   object-position: top;
@@ -58,28 +58,29 @@ import orderFooter from '@/components/OrderFooter.vue';
   right: 50%;
   transform: translate(50%, 50%);
 }
-@media (max-height: 800px) {
+@media (max-height: 760px) {
   .mainImg {
-    width: 70%;
-    height: 320px;
+    height: 35%;
+    bottom: 48%;
   }
 }
-@media (max-height: 710px) {
+@media (max-height: 650px) {
   .mainImg {
-    width: 60%;
-    height: 230px;
+    height: 30%;
+    bottom: 47%;
   }
 }
-@media (max-height: 630px) {
+@media (max-height: 620px) {
   .mainImg {
-    width: 55%;
-    height: 150px;
+    height: 25%;
+    bottom: 47%;
   }
 }
-@media (min-height: 900px) {
+@media (max-height: 600px) {
   .mainImg {
-    width: 60%;
-    height: 500px;
+    height: 20%;
+    bottom: 47%;
+    min-height: 150px;
   }
 }
 </style>
