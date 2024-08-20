@@ -40,7 +40,7 @@ const cartStore = useCartStore();
 const canAddToCart = computed(() => cartStore.selectedIngredients.length > 0);
 
 // props로 받은 selectedPeriod를 구조 분해하여 사용
-const props = defineProps(['selectedPeriod', 'saveOrderDetails']);
+const props = defineProps(['selectedPeriod']);
 const { selectedPeriod } = toRefs(props);
 
 // 총 결제 금액을 계산하는 함수
