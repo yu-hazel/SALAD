@@ -126,11 +126,29 @@ export const useCartStore = defineStore('cartStore', () => {
 
     // 장바구니의 선택된 주문들의 총 금액 계산
     const selectedTotalPrice = computed(() => {
+        // selectedOrders가 활성화된 주문을 기준으로 계산되어야 함
         return selectedOrders.value.reduce((sum, order) => {
-            // console.log('selectedTotalPrice함수 실행');
-            return sum + (order.totalPrice * order.quantity || 0);
+            if (order.isActive) {
+                return sum + (order.totalPrice * order.quantity || 0);  // 선택된 주문의 총 금액 계산
+            }
+            return sum;
         }, 0);
     });
+
+    const toggleAllOrdersSelection = (selectAll) => {
+        selectedOrders.value = selectedOrders.value.map(order => ({
+            ...order,
+            isActive: selectAll
+        }));
+    };
+
+    const updateOrdersInLocalStorage = () => {
+        const ordersToStore = selectedOrders.value.map(order => ({
+            ...order,
+            isActive: order.isActive
+        }));
+        localStorage.setItem('selectedOrders', JSON.stringify(ordersToStore));
+    };
 
     // selectedTotalPrice를 초기화하는 함수
     const resetSelectedTotalPrice = () => {
@@ -166,5 +184,7 @@ export const useCartStore = defineStore('cartStore', () => {
         addOrderToSelection,
         removeOrderFromSelection,
         resetSelectedTotalPrice,
+        toggleAllOrdersSelection,
+        updateOrdersInLocalStorage
     };
 });

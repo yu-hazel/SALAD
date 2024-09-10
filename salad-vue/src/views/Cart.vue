@@ -169,7 +169,22 @@ const toggleSelectAll = () => {
   selectedOrders.value.forEach(order => {
     order.isActive = !allSelected;
   });
+
+  cartStore.selectedOrders = selectedOrders.value; // cartStore와 동기화
+
+  updateLocalStorage();
+  console.log('총 선택된 금액', cartStore.selectedTotalPrice.value);
 };
+
+const updateLocalStorage = () => {
+  const selectedOrdersToStore = selectedOrders.value.map(order => ({
+    ...order,
+    isActive: order.isActive
+  }));
+
+  localStorage.setItem('selectedOrders', JSON.stringify(selectedOrdersToStore));
+  // cartStore.selectedTotalPrice;
+}
 </script>
 
 <style scoped>
