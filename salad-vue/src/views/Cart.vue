@@ -33,7 +33,7 @@
                 <h5>{{ formatCurrency(order.totalPrice) }}</h5>
               </div>
               <v-number-input v-model="order.quantity" :min="1" :reverse="false" controlVariant="split" label=""
-                :hideInput="false" :inset="false" variant="outlined" />
+                :hideInput="false" :inset="false" variant="outlined" @input="updateOrderQuantity(order, $event)" />
             </div>
           </template>
 
@@ -105,8 +105,19 @@ function formatCurrency(amount) {
   return `${amount.toLocaleString('ko-KR')}원`;
 }
 
+// 수량 변경 시 호출되는 함수
+const updateOrderQuantity = (order, newQuantity) => {
+  const index = selectedOrders.value.findIndex(o => o.name === order.name);
+  if (index !== -1) {
+    selectedOrders.value[index].quantity = newQuantity;
+    // 로컬 스토리지 업데이트
+    localStorage.setItem('orderInCart', JSON.stringify(selectedOrders.value));
+  }
+};
+
 // 개별 주문의 선택 상태를 토글하는 함수
 const toggleClass = (index) => {
+  // console.log('toggleClass 실행');
   if (index >= 0 && index < selectedOrders.value.length) {
     selectedOrders.value[index].isActive = !selectedOrders.value[index].isActive;
 

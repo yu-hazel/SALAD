@@ -127,7 +127,8 @@ export const useCartStore = defineStore('cartStore', () => {
     // 장바구니의 선택된 주문들의 총 금액 계산
     const selectedTotalPrice = computed(() => {
         return selectedOrders.value.reduce((sum, order) => {
-            return sum + (order.totalPrice || 0);
+            // console.log('selectedTotalPrice함수 실행');
+            return sum + (order.totalPrice * order.quantity || 0);
         }, 0);
     });
 
